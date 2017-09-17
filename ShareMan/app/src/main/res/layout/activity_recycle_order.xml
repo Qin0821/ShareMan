@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_recycle_order_phone_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:text="iPhone 7"
+                android:textColor="@color/apptitle"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_recycle_order_phone_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="¥ 1889"
+                android:textColor="@color/priceColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="此价为预估价，回收价以最终检测为准"
+                android:textColor="@color/apptext"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="收款账号"
+                android:textColor="@color/apptitle"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="请务必确保账号正常使用"
+                android:textColor="@color/apptext"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_payee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:background="@null"
+                android:hint="输入收款人真名"
+                android:textColor="@color/apptitle"
+                android:textColorHint="@color/apptext"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/appview" />
+
+            <EditText
+                android:id="@+id/et_alipay_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:background="@null"
+                android:hint="输入支付宝账号"
+                android:textColor="@color/apptitle"
+                android:textColorHint="@color/apptext"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/appview" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="63dp"
+                android:text="回收方式"
+                android:textColor="@color/apptitle"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="全国快递包邮（包邮标准请看回收条款），回收完成后快递费用随回收金额一同转账。"
+                android:textColor="@color/apptext"
+                android:textSize="12sp" />
+
+            <Button
+                android:text="提交订单"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:id="@+id/btn_submit_order"
+                android:layout_width="250dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_react" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

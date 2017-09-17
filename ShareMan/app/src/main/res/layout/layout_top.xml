@@ -1,0 +1,286 @@
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:paddingBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.youth.banner.Banner
+                android:id="@+id/product_banner"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"/>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:id="@+id/ig_product_detail_share"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="248dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_share"/>
+
+            <ImageView
+                android:id="@+id/ig_product_detail_shouquan"
+                android:layout_toLeftOf="@id/ig_product_detail_share"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="248dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_shouquan"/>
+
+            <TextView
+                android:text="iPhone7"
+                android:textSize="22sp"
+                android:textColor="@color/apptitle"
+                android:id="@+id/tv_product_name"
+                android:layout_below="@id/product_banner"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:text="[价值5999]"
+                android:textSize="14sp"
+                android:textColor="@color/appgray"
+                android:layout_below="@id/tv_product_name"
+                android:id="@+id/tv_product_price"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_toRightOf="@id/tv_product_price"
+                android:text="折旧费12.0元/天"
+                android:textSize="14sp"
+                android:textColor="@color/appgray"
+                android:layout_below="@id/tv_product_name"
+                android:id="@+id/tv_product_depression"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv_product_price"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_centerVertical="true"
+                android:text="芝麻分≥580即可享受租机服务"
+                android:textSize="14sp"
+                android:textColor="@color/appgray"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_product_share_price"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:text="¥2700"
+                    android:textSize="22sp"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@color/priceColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/choose_style"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="13dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="13dp"
+                android:background="@drawable/btn_style"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginLeft="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/line"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/rl_tiaokuan"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="22.5dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_tiaokuan"/>
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="7.5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/image_jiant"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:paddingBottom="15dp"
+                    android:id="@+id/ll_tiaokuan"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_marginTop="11dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/appview"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="13dp"
+                        android:layout_marginLeft="16.5dp"
+                        android:layout_marginRight="16.5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:text="顺丰包邮"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:layout_width="68dp"
+                            android:layout_height="24dp"
+                            android:gravity="center"
+                            android:background="@drawable/tiaokuan_react"/>
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:text="今天寄出一份小小的邮件表达我们心中的感谢与爱意，用顺丰让这份邮件在最短的时间内送到您的手上"
+                            android:lineSpacingMultiplier="1.5"
+                            android:textSize="14sp"
+                            android:textColor="@color/appgray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="16.5dp"
+                        android:layout_marginRight="16.5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:text="售后保障"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:layout_width="68dp"
+                            android:layout_height="24dp"
+                            android:gravity="center"
+                            android:background="@drawable/tiaokuan_react"/>
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:text="当看到问题的所在后，我们会有强大的核心团队来解决您的问题，我们会层层把关，避免给您带来再次麻烦。"
+                            android:lineSpacingMultiplier="1.5"
+                            android:textSize="14sp"
+                            android:textColor="@color/appgray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="13dp"
+                        android:layout_marginLeft="16.5dp"
+                        android:layout_marginRight="16.5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:text="收货须知"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:layout_width="68dp"
+                            android:layout_height="24dp"
+                            android:gravity="center"
+                            android:background="@drawable/tiaokuan_react"/>
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:text="在您收到邮件的同时，需要您提供一张身份证正反面复印件以确认本人收货，并与快递小哥寄回汇享侠存档。"
+                            android:lineSpacingMultiplier="1.5"
+                            android:textSize="14sp"
+                            android:textColor="@color/appgray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="13dp"
+                        android:layout_marginLeft="16.5dp"
+                        android:layout_marginRight="16.5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:text="以旧换新"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:layout_width="68dp"
+                            android:layout_height="24dp"
+                            android:gravity="center"
+                            android:background="@drawable/tiaokuan_react"/>
+
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:text="您可以在共享期后享受旧机换新机活动，可以年年换新款这是我们的新意。"
+                            android:lineSpacingMultiplier="1.5"
+                            android:textSize="14sp"
+                            android:textColor="@color/appgray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_touch_shouqi"
+                        android:gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/image_jiantou" />
+                        <TextView
+                            android:layout_marginTop="7dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="点击收起"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>

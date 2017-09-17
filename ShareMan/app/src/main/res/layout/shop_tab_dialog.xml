@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="85%sh"
+        android:background="@android:color/transparent">
+
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="80%sh"
+        app:layout_marginTopPercent="7%sh">
+
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.mrj.library.RoundImageView
+        android:id="@+id/image"
+        android:layout_width="150dp"
+        android:layout_height="112.5dp"
+        android:layout_marginLeft="12.5dp"
+        app:border_color="@android:color/white"
+        app:radius="5dp"
+        app:border_width="1dp"
+        app:border_alpha="255"
+        app:shadow_color="#807676"
+        android:src="@drawable/product_detail_1" />
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:id="@+id/top_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginLeft="30dp"
+        app:layout_marginRightPercent="2%sw"
+        app:layout_marginTopPercent="7%sh"
+        android:layout_marginTop="18dp">
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥ 2000"
+            android:textSize="18sp"
+            android:textColor="@color/priceColor"
+            android:layout_alignParentTop="true"
+            app:layout_marginTopPercent="1.5%sh"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="库存111111件"
+            android:textSize="11sp"
+            android:textColor="@color/appgray"
+            android:layout_below ="@id/price"
+            android:layout_alignLeft="@id/price"
+            app:layout_marginTopPercent="0.5%sh"/>
+        <TextView
+            android:id="@+id/choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/appgray"
+            android:textSize="14sp"
+            android:text="已选择 iPhone 7"
+            android:layout_below ="@id/amount"
+            android:layout_alignLeft="@id/price"
+            app:layout_marginTopPercent="0.5%sh"/>
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/price"
+            android:layout_marginRight="12.5dp"
+            android:src="@drawable/btn_close"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/sv_color_menmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        app:layout_marginLeftPercent="2%sw"
+        app:layout_marginRightPercent="2%sw"
+        app:layout_marginTopPercent="5%sh">
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/color_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/appgray"
+                    android:text="颜色 /"
+                    android:layout_marginLeft="27.5dp"/>
+
+                <com.youhu.shareman.shareman.ui.widget.tabGround.TagContainerLayout
+                    android:id="@+id/color_tag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/color_label"
+                    app:layout_marginTopPercent="2%sh"
+                    app:container_background_color="#00000000"
+                    app:container_border_color="#00000000"
+                    app:container_border_radius="0dp"
+                    app:horizontal_interval="10dp"
+                    app:tag_corner_radius="10dp"
+                    app:tag_horizontal_padding="15dp"
+                    android:layout_marginLeft="12.5dp"
+                    android:layout_marginRight="12.5dp"
+                    app:tag_max_length="18"
+                    app:tag_clickable="true"
+                    app:tag_text_size="14sp"
+                    app:tag_vertical_padding="10dp"
+                    app:vertical_interval="10dp" />
+                <View
+                    android:layout_marginLeft="12.5dp"
+                    android:layout_marginRight="12.5dp"
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/appview"
+                    android:layout_below="@id/color_tag_container"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/size_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/appgray"
+                    android:layout_below="@id/line"
+                    android:text="内存 /"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="27.5dp"
+                    android:visibility="gone"/>
+
+                <com.youhu.shareman.shareman.ui.widget.tabGround.TagContainerLayout
+                    android:id="@+id/size_tag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/size_label"
+                    app:layout_marginTopPercent="2%sh"
+                    app:container_background_color="#00000000"
+                    app:container_border_color="#00000000"
+                    app:container_border_radius="0dp"
+                    app:horizontal_interval="10dp"
+                    app:tag_corner_radius="10dp"
+                    app:tag_horizontal_padding="15dp"
+                    android:layout_marginLeft="12.5dp"
+                    android:layout_marginRight="12.5dp"
+                    app:tag_max_length="18"
+                    app:tag_clickable="true"
+                    app:tag_text_size="14sp"
+                    app:tag_vertical_padding="10dp"
+                    app:vertical_interval="10dp"
+                    android:visibility="gone"/>
+
+
+
+                <View
+                    android:layout_marginLeft="12.5dp"
+                    android:layout_marginRight="12.5dp"
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/appview"
+                    android:layout_below="@id/size_tag_container"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_zengzhifuwu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/apptext"
+                    android:layout_below="@id/line2"
+                    android:text="增值服务"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="18dp" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_yiwaibaozhang"
+                    android:layout_below="@id/tv_zengzhifuwu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_yiwaibaozhang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/apptext"
+                        android:text="意外保障 ¥ 268.00 （必选）"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="18dp" />
+
+                    <ImageView
+                        android:layout_toRightOf="@id/tv_yiwaibaozhang"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignBottom="@id/tv_yiwaibaozhang"
+                        android:background="@drawable/image_choose"/>
+                    <ImageView
+                        android:id="@+id/img_yiwaibaozhang"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="12.5dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignBottom="@id/tv_yiwaibaozhang"
+                        android:background="@drawable/image_yiwen"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/appview"
+                    android:layout_below="@id/rl_yiwaibaozhang"
+                    android:layout_marginTop="10dp" />
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+    </ScrollView>
+
+        <ImageView
+            android:id="@+id/sure_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_bottom"
+            app:layout_widthPercent="100%sh" />
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentRelativeLayout>

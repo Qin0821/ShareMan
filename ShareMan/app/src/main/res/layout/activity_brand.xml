@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/custom_title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_type_choose"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipChildren="false">
+
+        <com.youhu.shareman.shareman.ui.widget.ClipViewPager
+            android:id="@+id/clip_viewpager"
+            android:layout_marginTop="80dp"
+            android:layout_width="210dp"
+            android:layout_height="157.5dp"
+            android:clipChildren="false"
+            android:overScrollMode="never"
+            android:layout_gravity="center_horizontal"/>
+        <ImageView
+            android:scaleType="fitStart"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/image_detail"
+            android:layout_marginTop="20dp"
+            android:layout_width="200dp"
+            android:layout_height="320dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

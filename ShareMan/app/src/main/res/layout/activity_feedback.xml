@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appback"
+    android:orientation="vertical">
+
+    <include layout="@layout/custom_title" />
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/myrect_8"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:text="意见反馈"
+            android:textColor="@color/apptext"
+            android:textSize="12sp" />
+
+        <!--<EditText-->
+            <!--android:hint="哈哈哈哈或或"-->
+            <!--android:typeface="serif"-->
+            <!--android:minLines="5"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <com.youhu.shareman.shareman.ui.widget.CustomEditText
+            android:id="@+id/et_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000"
+            android:gravity="top"
+            android:hint="将您的心声反馈给我们...（限200字符）"
+            android:textColorHint="@color/apptitle"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:textColor="@color/apptitle"
+            android:padding="18dp"
+            android:textSize="14sp" />
+
+        <!--<RelativeLayout-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<EditText-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:id="@+id/et_feedback"-->
+        <!--android:background="@null"-->
+        <!--android:lineSpacingExtra="20dp"-->
+        <!--android:textSize="14sp"-->
+        <!--android:hint="将您的心声反馈给我们...（限200字符）"-->
+        <!--android:textColor="@color/apptitle"-->
+        <!--android:textColorHint="@color/apptitle"-->
+        <!--android:maxLines="5"-->
+        <!--android:maxLength="100"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+        <!--<View-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:id="@+id/view1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/appview"/>-->
+        <!--<View-->
+        <!--android:id="@+id/view2"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:layout_below="@id/view1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/appview"/>-->
+        <!--<View-->
+        <!--android:id="@+id/view3"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:layout_below="@id/view2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/appview"/>-->
+        <!--<View-->
+        <!--android:id="@+id/view4"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:layout_below="@id/view3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/appview"/>-->
+        <!--<View-->
+        <!--android:id="@+id/view5"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:layout_below="@id/view4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/appview"/>-->
+        <!--</RelativeLayout>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="50dp"
+            android:text="联系方式"
+            android:textColor="@color/apptext"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_contact_way"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:hint="QQ/微信/邮箱"
+            android:maxLines="1"
+            android:textColor="@color/apptitle"
+            android:textColorHint="@color/apptitle"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15sp"
+            android:layout_marginTop="10dp"
+            android:background="@color/appview" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_react"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</LinearLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawere_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--内容-->
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appback">
+
+        <!--center-->
+        <include layout="@layout/custom_center" />
+
+        <!--底部按钮-->
+        <include layout="@layout/custom_radio_group" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_gongxiang" />
+    </RelativeLayout>
+
+
+    <!--菜单-->
+    <LinearLayout
+        android:clickable="true"
+        android:id="@+id/ll_container"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:clickable="true"
+                android:id="@+id/rl_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:background="@drawable/top_bg"/>
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:id="@+id/user_image"
+                    android:layout_centerInParent="true"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/user_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/user_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微微一笑"
+                    android:textSize="14sp"
+                    android:textColor="@color/apptitle"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ListView
+            android:divider="@null"
+            android:layout_marginTop="10dp"
+            android:id="@+id/lv_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true" />
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
+

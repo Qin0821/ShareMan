@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appback">
+
+    <ImageView
+        android:id="@+id/system_image"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/system_head"/>
+
+    <ImageView
+        android:id="@+id/img_bianjiao"
+        android:layout_toRightOf="@id/system_image"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/triangle"/>
+    
+    <LinearLayout
+        android:id="@+id/ll_message"
+        android:layout_toRightOf="@id/img_bianjiao"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="@drawable/myrect_8">
+
+        <TextView
+            android:id="@+id/tv_detail_text"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/appgray"
+            android:lineSpacingMultiplier="1.3"
+            android:text="新来的朋友，A君送你一张新机优惠券，赶紧行动起来吧！"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_message_link"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_link_text"
+               android:layout_gravity="center_vertical"
+                android:text="优惠券传送门"
+                android:textSize="14dp"
+                android:textColor="@color/apptext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/image_jiant"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

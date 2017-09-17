@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.youhu.shareman.shareman">
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.wy.sport.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/MyTheme">
+        <activity android:name=".MainActivity" android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.VoucherActivity"/>
+        <activity android:name=".ui.activity.RecoverActivity"/>
+        <activity android:name=".ui.activity.ShareTypeActivity"/>
+        <activity android:name=".ui.activity.ServiceMobilePhoneTypeActivity"/>
+        <activity android:name=".ui.activity.UserInfoActivity"/>
+        <activity android:name=".ui.activity.AddAddressActivity"/>
+        <activity android:name=".ui.activity.ChangeNumberActivity"/>
+        <activity android:name=".ui.activity.NewPhoneNumberActivity"/>
+        <activity android:name=".ui.activity.AddressMangerActivity"/>
+        <activity android:name=".ui.activity.InfomationActivity"/>
+        <activity android:name=".ui.activity.FeedbackActivity"/>
+        <activity android:name=".ui.activity.ProductDetailActivity"/>
+        <activity android:name=".ui.activity.SignUpAndPaymentActivity"/>
+        <activity android:name=".ui.activity.PaymentWayActivity"/>
+        <activity android:name=".ui.activity.LoginActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible|stateUnchanged"/>
+        <activity android:name=".ui.activity.LoginCodeActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+        <activity android:name=".ui.activity.FeedBackOrderActivity"/>
+        <activity android:name=".ui.activity.BrandActivity"/>
+        <activity android:name=".ui.activity.MessageActivity"/>
+        <activity android:name=".ui.activity.SubmitSuccessfulActivity"/>
+        <activity android:name=".ui.activity.PhoneMemoryActivity"/>
+        <activity android:name=".ui.activity.IsRepairActivity"/>
+        <activity android:name=".ui.activity.ScreenLayoutActivity"/>
+        <activity android:name=".ui.activity.DisassembleRepairActivity"/>
+        <activity android:name=".ui.activity.OtherProblemsActivity"/>
+        <activity android:name=".ui.activity.ShellBordeActivity"/>
+        <activity android:name=".ui.activity.RecoverRightNowActivity"/>
+        <activity android:name=".ui.activity.RecycleOrderActivity"/>
+        <activity android:name=".ui.activity.ServiceOrderActivity"/>
+        <activity android:name=".ui.activity.FeedBackOrderNormalActivity"/>
+        <activity android:name=".ui.activity.ShareOrderActivity"/>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+    </application>
+
+</manifest>

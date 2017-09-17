@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@mipmap/bg_view1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/custom_title"/>
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp"
+        android:layout_marginTop="40dp"
+        android:text="15366765552"
+        android:textColor="@color/apptitle"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/appview" />
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.youhu.shareman.shareman.ui.widget.SecurityCodeView
+            android:id="@+id/scv_edittext"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="33dp" />
+        <TextView
+            android:enabled="false"
+            android:id="@+id/bt_get_securityCode"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:text="获取验证码"
+            android:textColor="@color/appgray"
+            android:textSize="14sp"
+            android:background="@drawable/security_code_react"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/appview" />
+
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="54dp"
+        android:text="验证码错误！"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        android:textColor="@color/priceColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:enabled="false"
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp"
+        android:layout_marginTop="25dp"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@drawable/button_gray_react"/>
+
+</LinearLayout>

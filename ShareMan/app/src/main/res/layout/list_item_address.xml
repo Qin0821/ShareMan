@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    android:paddingBottom="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/myrect_8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="微微"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="25dp"
+            android:id="@+id/receiver"
+            android:textSize="16sp"
+            android:textColor="@color/appgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:text="15355479993"
+            android:textSize="16sp"
+            android:textColor="@color/appgray"
+            android:layout_below="@id/receiver"
+            android:id="@+id/receiver_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/address_edit"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_edit"/>
+        <ImageView
+            android:id="@+id/address_delete"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="25dp"
+            android:layout_toLeftOf="@id/address_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_del"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="228dp"
+        android:layout_height="1px"
+        android:background="@color/appview"/>
+
+    <TextView
+        android:id="@+id/receiver_address"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="浙江省杭州市西湖区文三路文锦大厦B座905"
+        android:textSize="13sp"/>
+
+</LinearLayout>

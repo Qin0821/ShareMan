@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/custom_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_reback_assess"
+            android:gravity="center"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="27dp"
+            android:layout_alignParentRight="true"
+            android:text="重新估价"
+            android:textSize="14sp"
+            android:textColor="@color/appgray"
+            android:layout_width="78dp"
+            android:layout_height="33dp"
+            android:background="@drawable/security_code_react"/>
+
+        <TextView
+            android:id="@+id/tv_recover_phone_name"
+            android:text="iPhone 7"
+            android:textSize="20sp"
+            android:textColor="@color/apptitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/tv_recover_phone_name"
+            android:id="@+id/tv_recover_phone_price"
+            android:text="¥ 1889"
+            android:textSize="14sp"
+            android:textColor="@color/priceColor"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/tv_recover_phone_price"
+            android:id="@+id/tv_recover_price_message"
+            android:text="此价为预估价，回收价以最终检测为准"
+            android:textSize="12sp"
+            android:textColor="@color/apptext"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/viewline"
+            android:layout_below="@id/tv_recover_price_message"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/appview"/>
+
+        <ListView
+            android:layout_below="@id/viewline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_recover_right_now"
+            android:text="立即回收"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/common_orange"/>
+    </RelativeLayout>
+</LinearLayout>

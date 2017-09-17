@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="@drawable/myrect_8">
+
+    <TextView
+        android:layout_marginTop="44dp"
+        android:layout_gravity="center"
+        android:text="已取消"
+        android:textSize="24sp"
+        android:textColor="@color/priceColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_marginTop="68dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="回收机主"
+            android:textSize="14sp"
+            android:textColor="@color/appgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_feedback_name"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="微微"
+            android:textSize="16sp"
+            android:textColor="@color/apptitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/appview"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="回收机型"
+            android:textSize="14sp"
+            android:textColor="@color/appgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_feedback_time"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="iPhone 7"
+            android:textSize="16sp"
+            android:textColor="@color/apptitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/appview"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="取消原因"
+            android:textSize="14sp"
+            android:textColor="@color/appgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="客户取消"
+            android:textSize="16sp"
+            android:textColor="@color/apptitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/appview"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="取消时间"
+            android:textSize="14sp"
+            android:textColor="@color/appgray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_feedback_type"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="2017-10-12"
+            android:textSize="16sp"
+            android:textColor="@color/apptitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/appview"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

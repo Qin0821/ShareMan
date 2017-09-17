@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appback">
+
+    <include layout="@layout/custom_title" />
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新增地址"
+        android:textColor="@color/white"
+        android:background="@color/common_orange"/>
+
+    <ListView
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="7.5dp"
+        android:layout_marginLeft="7.5dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dp"
+        android:id="@+id/address_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_above="@id/btn_add_address" />
+
+
+</RelativeLayout>

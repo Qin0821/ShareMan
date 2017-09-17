@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout
+        android:id="@+id/slidedetails"
+        app:default_panel="front"
+        app:duration="300"
+        app:percent="0.4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/slidedetails_front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--<include layout="@layout/layout_top" />-->
+            <!--<ImageView-->
+                <!--android:id="@+id/back"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_marginTop="35dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/nav_icon_return2"/>-->
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical"
+            android:id="@+id/slidedetails_behind"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/layout_bottom"/>
+        </LinearLayout>
+
+    </com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout>
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bottom"
+        android:elevation="2dp"/>
+
+
+</RelativeLayout>

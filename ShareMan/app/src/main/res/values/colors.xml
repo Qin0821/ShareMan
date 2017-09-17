@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--UI界面颜色-->
+    <color name="appgray">#666666</color>
+    <color name="appback">#F0F0F0</color>
+    <color name="appview">#D8D8D8</color>
+    <color name="apptitle">#333333</color>
+    <color name="apptext">#999999</color>
+    <color name="transparent">#00000000</color>
+    <color name="common_orange">#F8B551</color>
+    <color name="voucher">#437D69</color>
+    <color name="priceColor">#FC5353</color>
+    <color name="tabselect">#F29F7B</color>
+    <color name="backGroundColor">#F5F5F5</color>
+
+
+    <!-- 【系统颜色】 -->
+    <color name="gray">#808080</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#FF0000</color>
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="detail_title_blue">#048d7f</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FF5722</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="grayslate">#708090</color>
+    <color name="lightblue">#0083FF</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="half_transparent">#aa000000</color>
+    <color name="hong">#fd5e34</color>
+    <color name="billboard_green">#18ABA8</color>
+    <color name="billboard_white">#F1F2F6</color>
+    <color name="black">#000000</color>
+</resources>

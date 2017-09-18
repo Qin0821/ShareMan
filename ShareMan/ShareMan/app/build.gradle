@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.youhu.shareman.shareman"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.shareMan
+        }
+    }
+
+    //新加的配置
+//    signingConfigs {
+//        shareMan {
+//            keyAlias 'shareMan'
+//            keyPassword '990808uuu'
+//            storeFile file('E:\\ASWokeSpace/shareMan.jks')
+//            storePassword '990808uuu'
+//        }
+//    }
+
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
+        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+        compile 'com.android.support:appcompat-v7:26.+'
+        testCompile 'junit:junit:4.12'
+        /!--butterknif依赖--/
+        compile 'com.jakewharton:butterknife:8.8.0'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.0'
+        /!--Rxjava依赖--/
+        compile 'io.reactivex:rxjava:1.0.14'
+        compile 'io.reactivex:rxandroid:1.0.1'
+        /!--Retrofit依赖--/
+        compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+        compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+        compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+        compile 'com.squareup.okhttp3:okhttp:3.3.1'
+        /!--banner依赖--/
+        compile 'com.youth.banner:banner:+'
+        /!--Glide依赖--/
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        /!--三级联动地址选择器--/
+        compile 'com.bigkoo:pickerview:2.1.1'
+        /!--设计样式库--/
+        compile 'com.android.support:design:26.0.0-alpha1'
+        /!--选择标签--/
+        compile 'com.zhy:flowlayout-lib:1.0.3'
+        /!--卡片样式依赖--/
+        compile 'com.loopeer.library:cardstack:1.0.2'
+        /--图片裁剪依赖--/
+        // 图像剪切
+        compile('com.kevin:crop:1.0.2') {
+            // 如果已经引入 support:appcompat-v7 可以加上这句话
+            exclude group: 'com.android.support', module: 'appcompat-v7'
+        }
+        /--选择规格依赖--/
+        compile 'com.zhy:percent-support-extends:1.1.1'
+        compile 'com.github.jj3341332:RoundImageView:1.0'
+        /--微信分享依赖--/
+        compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    }
+}

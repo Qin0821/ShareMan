@@ -1,9 +1,7 @@
 package com.youhu.shareman.shareman.ui.activity;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
@@ -26,10 +24,10 @@ public class RecoverActivity extends BaseActivity {
     TextView mTitle;
     @BindView(R.id.back)
     ImageView mBack;
-    @BindView(R.id.lv_first)
-    ListView mFirstListview;
-    @BindView(R.id.lv_second)
-    ListView mSecondListview;
+//    @BindView(R.id.lv_first)
+//    ListView mFirstListview;
+//    @BindView(R.id.lv_second)
+//    ListView mSecondListview;
 
     private RecoverListAdapter adapter;
     private List<String> data;
@@ -39,7 +37,7 @@ public class RecoverActivity extends BaseActivity {
 
     @Override
     protected void initBind() {
-        setContentView(R.layout.activity_recover);
+        setContentView(R.layout.activity_service_type);
         super.initBind();
     }
 
@@ -47,7 +45,7 @@ public class RecoverActivity extends BaseActivity {
     protected void initUI() {
         //上下文，标题
         setContext(this);
-        mTitle.setText("选择机型");
+        mTitle.setText("回收");
 
 
         data=new ArrayList<>();
@@ -58,16 +56,16 @@ public class RecoverActivity extends BaseActivity {
         adapter=new RecoverListAdapter();
         adapter.setDatas(data);
         adapter.setContext(this);
-        mFirstListview.setAdapter(adapter);
-        mFirstListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                adapter.setSelectedPosition(position);
+//        mFirstListview.setAdapter(adapter);
+//        mFirstListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                adapter.setSelectedPosition(position);
 //                mFirstListview.setSelection(position);
-
-            }
-        });
-        adapter.notifyDataSetInvalidated();
+//
+//            }
+//        });
+//        adapter.notifyDataSetInvalidated();
 //        adapter.setmOnItemChangeClickListener(new RecoverListAdapter.onItemChangeListener() {
 //            @Override
 //            public void onChangeClick(int i) {

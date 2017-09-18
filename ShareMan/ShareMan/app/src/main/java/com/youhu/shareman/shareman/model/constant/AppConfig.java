@@ -23,6 +23,16 @@ public class AppConfig {
     /**
      * 共享分类
      */
-    public static final String SHARE_BRAND = "shareman/product/findShowBySeries";
+    public static final String SHARE_BRAND = "shareman/product/findShowByBrand";
+
+    /**
+     * 修改昵称
+     */
+    public static final String CHANGE_NICKNAME = "shareman/user/updateNickname";
+
+    /**
+     * 修改性别
+     */
+    public static final String CHANGE_SEX = "shareman/user/updateGender";
 
 }

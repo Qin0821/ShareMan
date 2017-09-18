@@ -2,9 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/transparent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/myrect_8">
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/myrect_8">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +52,8 @@
     <com.youhu.shareman.shareman.ui.widget.LinePathView
         android:id="@+id/lineview"
         android:layout_width="match_parent"
-        android:layout_height="567dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <View
         android:layout_width="match_parent"
@@ -60,4 +68,5 @@
         android:textColor="@color/apptitle"
         android:layout_width="match_parent"
         android:layout_height="56dp" />
+    </LinearLayout>
 </LinearLayout>

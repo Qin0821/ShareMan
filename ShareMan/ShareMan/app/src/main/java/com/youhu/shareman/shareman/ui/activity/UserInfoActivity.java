@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.kevin.crop.UCrop;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
+import com.youhu.shareman.shareman.ui.view.UserInfoView;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.ToastUtils;
@@ -35,7 +37,7 @@ import static android.R.attr.maxWidth;
  * Created by Touch on 2017/8/10.
  */
 
-public class UserInfoActivity extends BaseActivity implements BaseView {
+public class UserInfoActivity extends BaseActivity {
 
     @BindView(R.id.back)
     ImageView mBack;
@@ -69,6 +71,8 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
     private static final int GALLERY_REQUEST_CODE = 22;
     private String mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
 
+    UserInfoPresenter userInfoPresenter=new UserInfoPresenter();
+
 
 
 
@@ -81,6 +85,9 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
     @Override
     protected void initUI() {
         setContext(this);
+
+        userInfoPresenter.onCreate();
+        userInfoPresenter.attachView(userInfoView);
     }
 
     @Override
@@ -93,11 +100,6 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
 
     }
 
-
-    @Override
-    public void showMessage(String message) {
-
-    }
 
     @OnClick({R.id.back,R.id.user_image_manger,R.id.user_nickname_manger,R.id.user_sex_manger,
             R.id.phone_number_manger,R.id.address_manger,R.id.change_account})
@@ -129,6 +131,23 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
         }
     }
 
+    UserInfoView userInfoView=new UserInfoView() {
+        @Override
+        public void doChangeNickname(NormalData nickNameData) {
+            ToastUtils.show(getContext(),nickNameData.getMessage());
+        }
+
+        @Override
+        public void doChangeSex(NormalData sexData) {
+            ToastUtils.show(getContext(),sexData.getMessage());
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
+
     private void initChangeNicknameDidalog() {
         //初始化弹窗
         selfDialog=new SelfDialog(this);
@@ -151,7 +170,7 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
                 if("".equals(nickname)){
                     ToastUtils.show(getContext(),"输入的昵称为空");
                 }else{
-                    ToastUtils.show(getContext(),nickname);
+                    userInfoPresenter.doChangeNick("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",nickname);
                     selfDialog.dismiss();
                 }
             }
@@ -227,7 +246,7 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
                     @Override
                     public void onClick(View view) {
                         mUserSex.setText("男");
-                        ToastUtils.show(getContext(),"男生");
+                        userInfoPresenter.doChangeSex("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",1);
                         dialog.dismiss();
                     }
                 });
@@ -235,7 +254,7 @@ public class UserInfoActivity extends BaseActivity implements BaseView {
                     @Override
                     public void onClick(View view) {
                         mUserSex.setText("女");
-                        ToastUtils.show(getContext(),"女生");
+                        userInfoPresenter.doChangeSex("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",2);
                         dialog.dismiss();
                     }
                 });

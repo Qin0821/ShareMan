@@ -157,7 +157,7 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                mWebView.loadUrl("http://192.168.11.145:80/project-1.0/order/getAgreement");
+                mWebView.loadUrl("http://123.207.70.168/shareman/order/getAgreement");
 
             }
         });
@@ -166,7 +166,7 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
 
     //设置选择图片弹出框
     public void dialogShow(){
-        dialog = new Dialog(this,R.style.ActionSheetDialogStyle);
+        dialog = new Dialog(this,R.style.ShopTabDialog);
         //填充对话框的布局
         inflate = LayoutInflater.from(this).inflate(R.layout.write_sign_dialog_layout, null);
         //初始化控件

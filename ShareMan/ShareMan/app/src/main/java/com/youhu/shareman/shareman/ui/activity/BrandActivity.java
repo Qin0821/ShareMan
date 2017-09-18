@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.RecyclingPagerAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandData;
 import com.youhu.shareman.shareman.presentercoml.BrandPresenter;
@@ -127,7 +128,12 @@ public class BrandActivity extends BaseActivity {
                 initClipViewPager();
 
 //                mImageDetail.setImageURI(Uri.parse(list.get(0).getBot_show()));
-                Glide.with(getContext()).load(list.get(0).getTop_show()).error(R.drawable.pic_01).crossFade(300).into(mImageDetail);
+                //没有网络或者网络错误判断
+                if(list.size()==0){
+                    Glide.with(getContext()).load(R.drawable.error).error(R.drawable.error).crossFade(300).into(mImageDetail);
+                }else{
+                    Glide.with(getContext()).load(AppConfig.BASE_URL+list.get(0).getTop_show()).error(R.drawable.error).crossFade(300).into(mImageDetail);
+                }
             }else{
                 //如果返回的数据不成功
 
@@ -169,7 +175,7 @@ public class BrandActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 //监听图片的滑动改变下面详情的图片
 //                mImageDetail.setImageURI(Uri.parse(list.get(position).getBot_show()));
-                Glide.with(getContext()).load(list.get(position).getBot_show()).error(R.drawable.pic_01).crossFade(300).into(mImageDetail);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+list.get(position).getBot_show()).error(R.drawable.pic_01).crossFade(300).into(mImageDetail);
             }
 
             @Override
@@ -197,7 +203,7 @@ public class BrandActivity extends BaseActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup container) {
+        public View getView(final int position, View convertView, ViewGroup container) {
             ImageView imageView = null;
             if (convertView == null) {
                 imageView = new ImageView(mContext);
@@ -207,14 +213,18 @@ public class BrandActivity extends BaseActivity {
 
             //圆角图片
 //            imageView.setImageURI(Uri.parse(mList.get(position).getTop_show()));
-            Glide.with(getContext()).load(mList.get(position).getTop_show()).error(R.drawable.pic_01).crossFade(300).into(imageView);
+            Glide.with(getContext()).load(AppConfig.BASE_URL+mList.get(position).getTop_show()).error(R.drawable.pic_01).crossFade(300).into(imageView);
 //            Glide.with(getContext()).load(mList.get(position)).transform(new GlideRoundTransform(getContext(), 5)).into(imageView);
             imageView.setTag(position);
             //条目点击事件
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    JumpUtil.overlay(getContext(),ProductDetailActivity.class);
+                    //把点击条目的version传给详情页面
+                    String version=list.get(position).getVersion();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("version",version);
+                    JumpUtil.overlay(getContext(),ProductDetailActivity.class,bundle);
                 }
             });
             return imageView;

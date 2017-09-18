@@ -41,8 +41,8 @@ import com.youhu.shareman.shareman.ui.activity.FeedbackActivity;
 import com.youhu.shareman.shareman.ui.activity.InfomationActivity;
 import com.youhu.shareman.shareman.ui.activity.LoginActivity;
 import com.youhu.shareman.shareman.ui.activity.MessageActivity;
-import com.youhu.shareman.shareman.ui.activity.PhoneMemoryActivity;
 import com.youhu.shareman.shareman.ui.activity.ProductDetailActivity;
+import com.youhu.shareman.shareman.ui.activity.RecoverActivity;
 import com.youhu.shareman.shareman.ui.activity.ServiceMobilePhoneTypeActivity;
 import com.youhu.shareman.shareman.ui.activity.ServiceOrderActivity;
 import com.youhu.shareman.shareman.ui.activity.ShareOrderActivity;
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity implements BaseView {
         switch (view.getId()) {
             //回收
             case R.id.ll_recover:
-                JumpUtil.overlay(this, PhoneMemoryActivity.class);
+                JumpUtil.overlay(this, RecoverActivity.class);
                 break;
             //共享
             case R.id.ll_share:

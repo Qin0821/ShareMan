@@ -72,7 +72,7 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
     @Override
     protected void initData() {
         //初始化地址选择器
-        //ininPickerView();
+        ininPickerView();
 
     }
 
@@ -93,7 +93,7 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
 
                 break;
             case R.id.tv_choose_address:
-//                pvOptions.show();
+                pvOptions.show();
                 break;
             case R.id.et_detail_address:
 

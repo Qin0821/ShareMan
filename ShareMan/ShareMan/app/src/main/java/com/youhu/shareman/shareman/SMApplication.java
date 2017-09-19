@@ -47,6 +47,14 @@ public class SMApplication extends Application{
     }
 
 
+//    // 初始化，只需要调用一次
+//    AssetsDatabaseManager.initManager(getApplication());
+//    // 获取管理对象，因为数据库需要通过管理对象才能够获取
+//    AssetsDatabaseManager mg = AssetsDatabaseManager.getManager();
+//    // 通过管理对象获取数据库
+//    SQLiteDatabase db1 = mg.getDatabase("db1.db");
+//    // 对数据库进行操作
+//    db1.execSQL("insert into tb([ID],[content]) values(null, 'db1');");
 
 
     @Override

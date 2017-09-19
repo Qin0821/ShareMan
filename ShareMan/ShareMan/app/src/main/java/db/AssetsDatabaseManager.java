@@ -37,7 +37,7 @@ import java.util.Map;
  */  
 public class AssetsDatabaseManager {  
     private static String tag = "AssetsDatabase"; // for LogCat
-    private static String databasepath = "/data/data/%s/databases"; // %s is packageName
+    private static String databasepath = "/data/data/com.youhu.shareman.shareman/databases"; // %s is packageName
       
       
     // A mapping from assets database file to SQLiteDatabase object  

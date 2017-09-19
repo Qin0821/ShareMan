@@ -2,9 +2,9 @@ package com.youhu.shareman.shareman.model.Api;
 
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandData;
+import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
-import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 
 import java.util.List;
 
@@ -32,16 +32,25 @@ public interface RetrofitService {
     //获取验证码
     @FormUrlEncoded
     @POST(AppConfig.SHARE_BRAND)
-    Observable<BaseData<List<BrandData>>> getBrandDatas(@Field("brand") String brand);
+    Observable<BaseData<List<BrandModel>>> getBrandDatas(@Field("brand") String brand);
 
     //修改昵称
     @FormUrlEncoded
     @POST(AppConfig.CHANGE_NICKNAME)
-    Observable<NormalData> changeNickname(@Field("phoneNumber") String phoneNumber,@Field("token") String token,@Field("nickname") String nickName);
+    Observable<NormalModel> changeNickname(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("nickname") String nickName);
 
     //修改性别
     @FormUrlEncoded
     @POST(AppConfig.CHANGE_SEX)
-    Observable<NormalData> changeSex(@Field("phoneNumber") String phoneNumber,@Field("token") String token,@Field("gender") int sex);
+    Observable<NormalModel> changeSex(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("gender") int sex);
 
+    //修改手机号码
+    @FormUrlEncoded
+    @POST(AppConfig.CHANGE_SEX)
+    Observable<NormalModel> changePhoneNumber(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("newPhoneNumber") String newPhoneNumber);
+
+    //修改手机号码
+    @FormUrlEncoded
+    @POST(AppConfig.CHANGE_SEX)
+    Observable<BaseData<LoginCodeModel>> newPhoneNumber(@Field("phoneNumber") String phoneNumber,@Field("token") String token,@Field("newPhoneNumber") String newPhoneNumber,@Field("identifyCode") String code);
 }

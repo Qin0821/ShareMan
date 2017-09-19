@@ -1,7 +1,6 @@
 package com.youhu.shareman.shareman.ui.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.presentercoml.LoginCodePresenter;
 import com.youhu.shareman.shareman.ui.view.LoginCodeView;
+import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 
 import butterknife.BindView;
@@ -38,8 +38,6 @@ public class LoginCodeActivity extends BaseActivity {
     //获取登录状态
     private static String Tag="LoginPresenter";
     LoginCodePresenter presenter=new LoginCodePresenter(this);
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void initBind() {
@@ -51,8 +49,6 @@ public class LoginCodeActivity extends BaseActivity {
     protected void initUI() {
         //上下文，标题
         setContext(this);
-        //存储登录状态
-        sp= getApplication().getSharedPreferences("LoginState",0);
 
         presenter.onCreate();
         presenter.attachView(loginCodeView);
@@ -76,7 +72,6 @@ public class LoginCodeActivity extends BaseActivity {
                 String code=mLoginCode.getText().toString();
                 Intent intent=getIntent();
                 String phoneNumber=intent.getStringExtra("phoneNumber");
-                ToastUtils.show(this,""+phoneNumber+""+code);
 
                 if(TextUtils.isEmpty(code)){
                     ToastUtils.show(this,"验证码不能为空！");
@@ -99,8 +94,8 @@ public class LoginCodeActivity extends BaseActivity {
             //更新UI
             if(data.getCode()==0){
                 //登录成功
-                editor=sp.edit().putBoolean("isLogin",true);
-                editor.commit();
+                //存储登录信息
+                CheckUtils.saveLogin(getContext(),data.getData().getPhoneNumber(),data.getData().getToken());
                 setResult(RESULT_OK);
                 finish();
                 ToastUtils.show(getContext(),"登录成功");

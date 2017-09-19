@@ -17,7 +17,7 @@ import com.youhu.shareman.shareman.adapter.RecyclingPagerAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandData;
+import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.presentercoml.BrandPresenter;
 import com.youhu.shareman.shareman.ui.view.BrandView;
 import com.youhu.shareman.shareman.ui.widget.ClipViewPager;
@@ -51,7 +51,7 @@ public class BrandActivity extends BaseActivity {
     BrandPresenter presenter=new BrandPresenter();
     private TypeChooseAdapter mPagerAdapter=new TypeChooseAdapter(this);
 //    private List<Integer> list = new ArrayList<>();
-    private List<BrandData> list = new ArrayList<>();
+    private List<BrandModel> list = new ArrayList<>();
 //    private List<Integer> list_detail = new ArrayList<>();
 
     @Override
@@ -116,7 +116,7 @@ public class BrandActivity extends BaseActivity {
 
     private BrandView brandView=new BrandView() {
         @Override
-        public void getBrandData(BaseData<List<BrandData>> baseData) {
+        public void getBrandData(BaseData<List<BrandModel>> baseData) {
             //设置数据
             if(baseData.getCode()==0){
                 list=baseData.getData();
@@ -189,7 +189,7 @@ public class BrandActivity extends BaseActivity {
 
     public class TypeChooseAdapter extends RecyclingPagerAdapter {
 
-        private final List<BrandData> mList;
+        private final List<BrandModel> mList;
         private final Context mContext;
 
         public TypeChooseAdapter(Context context) {
@@ -197,7 +197,7 @@ public class BrandActivity extends BaseActivity {
             mContext = context;
         }
 
-        public void addAll(List<BrandData> list) {
+        public void addAll(List<BrandModel> list) {
             mList.addAll(list);
             notifyDataSetChanged();
         }

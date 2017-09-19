@@ -49,6 +49,7 @@ import com.youhu.shareman.shareman.ui.activity.ShareOrderActivity;
 import com.youhu.shareman.shareman.ui.activity.ShareTypeActivity;
 import com.youhu.shareman.shareman.ui.activity.UserInfoActivity;
 import com.youhu.shareman.shareman.ui.activity.VoucherActivity;
+import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.GlideImageLoader;
 import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.JumpUtil;
@@ -226,7 +227,11 @@ public class MainActivity extends BaseActivity implements BaseView {
             //新消息提醒
             case R.id.main_message:
                 //优惠信息提醒
-                JumpUtil.overlay(this,MessageActivity.class);
+                if(CheckUtils.isLogin(getContext())){
+                    JumpUtil.overlay(this,MessageActivity.class);
+                }else{
+                    JumpUtil.overlay(this,LoginActivity.class);
+                }
                 break;
             //手机分类
             case R.id.economy:
@@ -244,8 +249,7 @@ public class MainActivity extends BaseActivity implements BaseView {
             //个人资料设置
             case R.id.user_image:
                 //判断是否已经登录，未登录跳转登录界面，已登录跳转对应用户信息界面
-                boolean isLogin=sp.getBoolean("isLogin",false);
-                if(isLogin){
+                if(CheckUtils.isLogin(getContext())){
                     //已经登录，跳转该用户的信息界面
                     JumpUtil.overlay(this, UserInfoActivity.class);
                 }else{
@@ -287,7 +291,11 @@ public class MainActivity extends BaseActivity implements BaseView {
                 switch (position) {
                     //共享订单
                     case 0:
-                        JumpUtil.overlay(MainActivity.this, ShareOrderActivity.class);
+                        if(CheckUtils.isLogin(getContext())){
+                            JumpUtil.overlay(MainActivity.this, ShareOrderActivity.class);
+                        }else{
+                            JumpUtil.overlay(getContext(),LoginActivity.class);
+                        }
                         break;
                     //回收订单
                     case 1:
@@ -300,7 +308,11 @@ public class MainActivity extends BaseActivity implements BaseView {
                         break;
                     //身份信息
                     case 3:
-                        JumpUtil.overlay(MainActivity.this, InfomationActivity.class);
+                        if(CheckUtils.isLogin(getContext())){
+                            JumpUtil.overlay(MainActivity.this, InfomationActivity.class);
+                        }else{
+                            JumpUtil.overlay(getContext(),LoginActivity.class);
+                        }
                         break;
                     //联系客服
                     case 4:
@@ -308,11 +320,19 @@ public class MainActivity extends BaseActivity implements BaseView {
                         break;
                     //代金券
                     case 5:
-                        JumpUtil.overlay(MainActivity.this, VoucherActivity.class);
+                        if(CheckUtils.isLogin(getContext())){
+                            JumpUtil.overlay(MainActivity.this, VoucherActivity.class);
+                        }else{
+                            JumpUtil.overlay(getContext(),LoginActivity.class);
+                        }
                         break;
                     //打小报告
                     case 6:
-                        JumpUtil.overlay(MainActivity.this, FeedbackActivity.class);
+                        if(CheckUtils.isLogin(getContext())){
+                            JumpUtil.overlay(MainActivity.this, FeedbackActivity.class);
+                        }else{
+                            JumpUtil.overlay(getContext(),LoginActivity.class);
+                        }
                         break;
                 }
             }

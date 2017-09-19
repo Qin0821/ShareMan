@@ -25,13 +25,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".MainActivity" android:launchMode="singleTask">
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" android:launchMode="singleTask"/>
         <activity android:name=".ui.activity.VoucherActivity"/>
         <activity android:name=".ui.activity.RecoverActivity"/>
         <activity android:name=".ui.activity.ShareTypeActivity"/>
@@ -65,6 +66,7 @@
         <activity android:name=".ui.activity.ServiceOrderActivity"/>
         <activity android:name=".ui.activity.FeedBackOrderNormalActivity"/>
         <activity android:name=".ui.activity.ShareOrderActivity"/>
+        <activity android:name=".ui.activity.EditAddressActivity"/>
 
         <activity android:name=".ui.activity.CropActivity"/>
 

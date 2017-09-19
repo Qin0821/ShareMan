@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.youhu.shareman.shareman.model.Api.RetrofitService;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandData;
+import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
-import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 
 import java.util.List;
 
@@ -33,17 +33,27 @@ public class DataManager {
     }
 
     //专区
-    public  Observable<BaseData<List<BrandData>>> getBrandDatas(String brand){
+    public  Observable<BaseData<List<BrandModel>>> getBrandDatas(String brand){
         return mRetrofitService.getBrandDatas(brand);
     }
 
     //修改昵称
-    public  Observable<NormalData> changeNickname(String phoneNumber,String token,String nickname){
+    public  Observable<NormalModel> changeNickname(String phoneNumber, String token, String nickname){
         return mRetrofitService.changeNickname(phoneNumber,token,nickname);
     }
 
     //修改性别
-    public  Observable<NormalData> changeSex(String phoneNumber,String token,int sex){
+    public  Observable<NormalModel> changeSex(String phoneNumber, String token, int sex){
         return mRetrofitService.changeSex(phoneNumber,token,sex);
+    }
+
+    //修改手机号码
+    public  Observable<NormalModel> changePhoneNumber(String phoneNumber, String token, String newPhoneNumber){
+        return mRetrofitService.changePhoneNumber(phoneNumber,token,newPhoneNumber);
+    }
+
+    //新手机号码验证
+    public  Observable<BaseData<LoginCodeModel>> newPhoneNumber(String phoneNumber, String token, String newPhoneNumber,String code){
+        return mRetrofitService.newPhoneNumber(phoneNumber,token,newPhoneNumber,code);
     }
 }

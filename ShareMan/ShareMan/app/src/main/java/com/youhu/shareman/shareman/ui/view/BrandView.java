@@ -2,7 +2,7 @@ package com.youhu.shareman.shareman.ui.view;
 
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandData;
+import com.youhu.shareman.shareman.model.data.BrandModel;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import java.util.List;
  */
 
 public interface BrandView extends BaseView{
-    void getBrandData(BaseData<List<BrandData>> baseData);
+    void getBrandData(BaseData<List<BrandModel>> baseData);
 }

@@ -35,4 +35,14 @@ public class AppConfig {
      */
     public static final String CHANGE_SEX = "shareman/user/updateGender";
 
+    /**
+     * 修改手机号码
+     */
+    public static final String CHANGE_PHONENUMBER = "shareman/user/updatePhoneNumberSendCode";
+
+    /**
+     * 修改手机号验证
+     */
+    public static final String NEW_PHONENUMBER = "shareman/user/updatePhoneNumberCheckCode";
+
 }

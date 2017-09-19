@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
-import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.ui.view.UserInfoView;
 
@@ -23,8 +23,9 @@ public class UserInfoPresenter implements BasePresenter {
     private static String Tag="UserInfoPresenter";
     private Context context;
     private DataManager manager;
-    private NormalData nickNameModel;
-    private NormalData sexModel;
+    private NormalModel nickNameModel;
+    private NormalModel sexModel;
+    private NormalModel phoneNumberModel;
     private UserInfoView userInfoView;
     private CompositeSubscription compositeSubscription;
 
@@ -64,7 +65,7 @@ public class UserInfoPresenter implements BasePresenter {
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<NormalData>() {
+                .subscribe(new Observer<NormalModel>() {
                     @Override
                     public void onCompleted() {
                         if(sexModel!=null){
@@ -78,7 +79,7 @@ public class UserInfoPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(NormalData sexModelData) {
+                    public void onNext(NormalModel sexModelData) {
                         Log.i(Tag,sexModelData.getMessage());
                         sexModel=sexModelData;
                     }
@@ -95,7 +96,7 @@ public class UserInfoPresenter implements BasePresenter {
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<NormalData>() {
+                .subscribe(new Observer<NormalModel>() {
                     @Override
                     public void onCompleted() {
                         if(nickNameModel!=null){
@@ -109,7 +110,7 @@ public class UserInfoPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(NormalData nickNameData) {
+                    public void onNext(NormalModel nickNameData) {
                         Log.i(Tag,nickNameData.getMessage());
                         nickNameModel=nickNameData;
                     }
@@ -117,4 +118,5 @@ public class UserInfoPresenter implements BasePresenter {
 
         );
     }
+
 }

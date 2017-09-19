@@ -4,11 +4,8 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -17,52 +14,39 @@ import java.util.Random;
 
 public class SMApplication extends Application{
 
-    private static SMApplication instance;
-
-    /**
-     * 用于接口调用
-     */
-//    public String imei;
-
-    public SMApplication() {
-        super();
-        instance = this;
-    }
+//    private static SMApplication instance;
 
 
-    public static SMApplication getInstance() {
-        if (instance == null)
-            throw new IllegalStateException();
-        return instance;
+//    public SMApplication() {
+//        super();
+//        instance = this;
+//    }
+
+
+//    public static SMApplication getInstance() {
+//        if (instance == null)
+//            throw new IllegalStateException();
+//        return instance;
+//    }
+
+//    public static Context getAppContext() {
+//        if (instance == null)
+//            throw new IllegalStateException();
+//        return instance.getApplicationContext();
+//    }
+
+    private static Context context;
+
+    public void onCreate(){
+        super.onCreate();
+        SMApplication.context = getApplicationContext();
     }
 
     public static Context getAppContext() {
-        if (instance == null)
-            throw new IllegalStateException();
-        return instance.getApplicationContext();
+        return SMApplication.context;
     }
 
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-//        imei = getIMEI();
-    }
-
-
-
-    /**
-     * android 6.0以上的权限问题需要动态申请权限
-     * 获取手机IMEI号
-     */
-    public String getIMEI() {
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        String imei = telephonyManager.getDeviceId();
-        if(TextUtils.isEmpty(imei)){
-            return "01234"+String.valueOf(new Random().nextInt(99999));
-        }
-        return imei;
-    }
 
 
     @Override

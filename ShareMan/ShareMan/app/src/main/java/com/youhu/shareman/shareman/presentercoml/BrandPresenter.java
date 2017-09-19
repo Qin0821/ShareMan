@@ -6,7 +6,7 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandData;
+import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.ui.view.BrandView;
 
@@ -26,7 +26,7 @@ public class BrandPresenter implements BasePresenter {
     private static String Tag="BrandPresenter";
     private Context context;
     private DataManager manager;
-    private BaseData<List<BrandData>> brandModel;
+    private BaseData<List<BrandModel>> brandModel;
     private BrandView brandView;
     private CompositeSubscription compositeSubscription;
 
@@ -65,7 +65,7 @@ public class BrandPresenter implements BasePresenter {
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<BrandData>>>() {
+                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
                     @Override
                     public void onCompleted() {
                         if(brandModel!=null){
@@ -79,7 +79,7 @@ public class BrandPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<BrandData>> brandDataBaseData) {
+                    public void onNext(BaseData<List<BrandModel>> brandDataBaseData) {
                         Log.i(Tag,brandDataBaseData.getData().toString());
                         brandModel=brandDataBaseData;
                     }

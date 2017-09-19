@@ -16,13 +16,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kevin.crop.UCrop;
+import com.youhu.shareman.shareman.MainActivity;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
 import com.youhu.shareman.shareman.ui.view.UserInfoView;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
+import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 
 import java.io.File;
@@ -63,6 +66,7 @@ public class UserInfoActivity extends BaseActivity {
     private TextView secondChoose;
     private TextView chooseCancel;
     private View inflate;
+
     //自定义底部弹窗
     private Dialog dialog;
     //自定义中间弹窗
@@ -72,9 +76,8 @@ public class UserInfoActivity extends BaseActivity {
     private String mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
 
     UserInfoPresenter userInfoPresenter=new UserInfoPresenter();
-
-
-
+    private String phoneNumber;
+    private String token;
 
     @Override
     protected void initBind() {
@@ -85,6 +88,9 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void initUI() {
         setContext(this);
+
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
 
         userInfoPresenter.onCreate();
         userInfoPresenter.attachView(userInfoView);
@@ -114,7 +120,6 @@ public class UserInfoActivity extends BaseActivity {
             case R.id.user_nickname_manger:
                 //初始化修改昵称弹窗
                 initChangeNicknameDidalog();
-                ToastUtils.show(this,"用户昵称");
                 break;
             case R.id.user_sex_manger:
                 dialogShow(R.id.user_sex_manger);
@@ -133,12 +138,12 @@ public class UserInfoActivity extends BaseActivity {
 
     UserInfoView userInfoView=new UserInfoView() {
         @Override
-        public void doChangeNickname(NormalData nickNameData) {
+        public void doChangeNickname(NormalModel nickNameData) {
             ToastUtils.show(getContext(),nickNameData.getMessage());
         }
 
         @Override
-        public void doChangeSex(NormalData sexData) {
+        public void doChangeSex(NormalModel sexData) {
             ToastUtils.show(getContext(),sexData.getMessage());
         }
 
@@ -164,13 +169,13 @@ public class UserInfoActivity extends BaseActivity {
             public void onYesClick() {
                 //修改昵称并且上传到服务器
                 String nickname=selfDialog.getmChangeNickName().getText().toString();
-                //TODO
                 //上传到服务器
                 //非空判断
                 if("".equals(nickname)){
                     ToastUtils.show(getContext(),"输入的昵称为空");
                 }else{
-                    userInfoPresenter.doChangeNick("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",nickname);
+//                    userInfoPresenter.doChangeNick("phoneNumber","fcfcf1962e40afc99ea1e84a01e6c001",nickname);
+                    userInfoPresenter.doChangeNick(phoneNumber,token,nickname);
                     selfDialog.dismiss();
                 }
             }
@@ -246,7 +251,8 @@ public class UserInfoActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         mUserSex.setText("男");
-                        userInfoPresenter.doChangeSex("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",1);
+//                        userInfoPresenter.doChangeSex("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",1);
+                        userInfoPresenter.doChangeSex(phoneNumber,token,1);
                         dialog.dismiss();
                     }
                 });
@@ -254,7 +260,7 @@ public class UserInfoActivity extends BaseActivity {
                     @Override
                     public void onClick(View view) {
                         mUserSex.setText("女");
-                        userInfoPresenter.doChangeSex("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",2);
+                        userInfoPresenter.doChangeSex(phoneNumber,token,2);
                         dialog.dismiss();
                     }
                 });
@@ -265,14 +271,18 @@ public class UserInfoActivity extends BaseActivity {
                 firstChoose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ToastUtils.show(getContext(),"退出账号");
+                        CheckUtils.clearLogin(getContext());
+                        JumpUtil.overlay(getContext(), MainActivity.class);
+                        ToastUtils.show(getContext(),"退出账号成功");
                         dialog.dismiss();
                     }
                 });
                 secondChoose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ToastUtils.show(getContext(),"切换账号");
+                        CheckUtils.clearLogin(getContext());
+                        JumpUtil.overlay(getContext(),LoginActivity.class);
+                        finish();
                         dialog.dismiss();
                     }
                 });

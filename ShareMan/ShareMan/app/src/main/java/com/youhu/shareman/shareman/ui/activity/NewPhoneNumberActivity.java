@@ -11,10 +11,16 @@ import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.LoginCodeModel;
+import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.presentercoml.NewPhoneNumberPresenter;
+import com.youhu.shareman.shareman.ui.view.NewPhoneNumberView;
 import com.youhu.shareman.shareman.ui.widget.SecurityCodeView;
 import com.youhu.shareman.shareman.util.CheckUtils;
+import com.youhu.shareman.shareman.util.CountDownTimerUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 
 import butterknife.BindView;
@@ -24,7 +30,7 @@ import butterknife.OnClick;
  * Created by Touch on 2017/8/15.
  */
 
-public class NewPhoneNumberActivity extends BaseActivity implements BaseView,SecurityCodeView.InputCompleteListener {
+public class NewPhoneNumberActivity extends BaseActivity implements SecurityCodeView.InputCompleteListener {
 
     @BindView(R.id.textView)
     TextView mTitle;
@@ -41,7 +47,11 @@ public class NewPhoneNumberActivity extends BaseActivity implements BaseView,Sec
     @BindView(R.id.tv_error_message)
     TextView mErroeMessage;
 
+    private String phoneNumber;
+    private String token;
     private String newPhoneNumber;
+    //修改手机号码接口
+    NewPhoneNumberPresenter newPhoneNumberPresenter=new NewPhoneNumberPresenter();
 
     @Override
     protected void initBind() {
@@ -57,6 +67,13 @@ public class NewPhoneNumberActivity extends BaseActivity implements BaseView,Sec
         setSecurityCodeListener();
         //监听输入文字变化
         setEditTextChangeLisenter();
+
+        newPhoneNumberPresenter.onCreate();
+        newPhoneNumberPresenter.attachView(newPhoneNumberView);
+
+        //获取已登录的手机号
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token=SharedPreferencesUtils.getToken(this);
     }
 
     @Override
@@ -69,15 +86,49 @@ public class NewPhoneNumberActivity extends BaseActivity implements BaseView,Sec
 
     }
 
+    //修改手机号码返回结果
+    NewPhoneNumberView newPhoneNumberView=new NewPhoneNumberView() {
+        @Override
+        public void doChangePhoneNumber(NormalModel phoneNumberData) {
+            //提示验证码信息
+            ToastUtils.show(getContext(),phoneNumberData.getMessage());
 
-    @Override
-    public void showMessage(String message) {
+        }
 
-    }
+        @Override
+        public void doNewPhoneNumber(BaseData<LoginCodeModel> newPhoneNumberData) {
+            //保存新手机的账号和token
+            CheckUtils.saveLogin(getContext(),newPhoneNumberData.getData().getPhoneNumber(),newPhoneNumberData.getData().getToken());
 
-    @OnClick({R.id.back,R.id.bt_next})
+            if("0".equals(newPhoneNumberData.getCode())){
+                mBtNext.setEnabled(true);
+                mBtNext.setText("下一步");
+                mBtNext.setTextColor(Color.WHITE);
+                mBtNext.setBackgroundResource(R.drawable.button_react);
+                ToastUtils.show(getContext(),newPhoneNumberData.getMessage());
+            }else{
+
+                mErroeMessage.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
+
+    @OnClick({R.id.back,R.id.bt_next,R.id.bt_get_securityCode})
     void onClick(View view){
         switch (view.getId()){
+            case R.id.bt_get_securityCode:
+                //获取新手机号
+                newPhoneNumber=mEtPhoneNumber.getText().toString();
+                newPhoneNumberPresenter.doChangePhoneNumber(phoneNumber,token,newPhoneNumber);
+                //倒计时60秒
+                CountDownTimerUtils count = new CountDownTimerUtils(mGetSecurityCode, 60000, 1000);
+                count.start();
+                break;
             case R.id.back:
                 finish();
                 break;
@@ -91,19 +142,21 @@ public class NewPhoneNumberActivity extends BaseActivity implements BaseView,Sec
         mScvEditText.setInputCompleteListener(this);
     }
 
+    //请求验证码接口调用
     @Override
     public void inputComplete() {
-        if (!mScvEditText.getEditContent().equals("1234")) {
-//            mBtNext.setText("验证码输入错误");
-//            mBtNext.setTextColor(Color.RED);
-//            mScvEditText.clearEditText();
-            mErroeMessage.setVisibility(View.VISIBLE);
-        }else{
-            mBtNext.setEnabled(true);
-            mBtNext.setText("下一步");
-            mBtNext.setTextColor(Color.WHITE);
-            mBtNext.setBackgroundResource(R.drawable.button_react);
-        }
+        newPhoneNumberPresenter.doNewPhoneNumber(phoneNumber,token,newPhoneNumber,mScvEditText.getEditContent());
+//        if (!mScvEditText.getEditContent().equals("1234")) {
+////            mBtNext.setText("验证码输入错误");
+////            mBtNext.setTextColor(Color.RED);
+////            mScvEditText.clearEditText();
+//            mErroeMessage.setVisibility(View.VISIBLE);
+//        }else{
+//            mBtNext.setEnabled(true);
+//            mBtNext.setText("下一步");
+//            mBtNext.setTextColor(Color.WHITE);
+//            mBtNext.setBackgroundResource(R.drawable.button_react);
+//        }
     }
 
     @Override

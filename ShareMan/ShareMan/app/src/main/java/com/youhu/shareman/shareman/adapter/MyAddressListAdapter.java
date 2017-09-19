@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.data.AddressInfo;
+import com.youhu.shareman.shareman.ui.activity.EditAddressActivity;
+import com.youhu.shareman.shareman.util.JumpUtil;
 
 import java.util.List;
 
@@ -66,6 +69,22 @@ public class MyAddressListAdapter extends BaseAdapter{
         myViewHolder.mReceiver.setText(datas.get(i).getReceiver());
         myViewHolder.mReceiverNumber.setText(datas.get(i).getReceiverNumber());
         myViewHolder.mReceiverAddress.setText(datas.get(i).getReceiverAddress());
+        //点击编辑按钮
+        myViewHolder.mAddressEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //跳转至编辑收货地址界面
+                //把上面数据传给下一个界面
+                JumpUtil.overlay(getContext(), EditAddressActivity.class);
+            }
+        });
+        //点击删除按钮
+        myViewHolder.mAddressDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return view;
     }
@@ -74,11 +93,15 @@ public class MyAddressListAdapter extends BaseAdapter{
         private TextView mReceiver;
         private TextView mReceiverNumber;
         private TextView mReceiverAddress;
+        private ImageView mAddressEdit;
+        private ImageView mAddressDelete;
 
         MyViewHolder(View itemView) {
             mReceiver=itemView.findViewById(R.id.receiver);
             mReceiverNumber = itemView.findViewById(R.id.receiver_number);
             mReceiverAddress=itemView.findViewById(R.id.receiver_address);
+            mAddressEdit=itemView.findViewById(R.id.address_edit);
+            mAddressDelete=itemView.findViewById(R.id.address_delete);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.youhu.shareman.shareman.ui.view;
 
 import com.youhu.shareman.shareman.base.BaseView;
-import com.youhu.shareman.shareman.model.data.NormalData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 
 /**
  * Created by Touch on 2017/9/18.
@@ -9,8 +9,9 @@ import com.youhu.shareman.shareman.model.data.NormalData;
 
 public interface UserInfoView extends BaseView {
     //修改昵称的方法
-    void doChangeNickname(NormalData nickNameData);
+    void doChangeNickname(NormalModel nickNameData);
 
     //修改性别的方法
-    void doChangeSex(NormalData sexData);
+    void doChangeSex(NormalModel sexData);
+
 }

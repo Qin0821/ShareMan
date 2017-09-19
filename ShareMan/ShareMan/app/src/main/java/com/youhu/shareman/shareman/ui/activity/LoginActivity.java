@@ -77,7 +77,6 @@ public class LoginActivity extends BaseActivity {
                 phoneNumber=mLoginNumber.getText().toString();
                 //验证手机号码是否符合规定
                 if(CheckUtils.isMobileNO(phoneNumber)){
-//                    mLoginNext.setBackgroundResource(R.drawable.button_react);
                     Intent intent = new Intent(this,LoginCodeActivity.class);
                     intent.putExtra("phoneNumber",phoneNumber);
                     //获取验证码

@@ -11,6 +11,7 @@ import com.youhu.shareman.shareman.adapter.MyAddressListAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.AddressMangerPresenter;
 import com.youhu.shareman.shareman.ui.view.AddressMangerView;
 import com.youhu.shareman.shareman.util.JumpUtil;
@@ -91,6 +92,11 @@ public class AddressMangerActivity extends BaseActivity {
             myAddressListAdapter.setContext(getContext());
             myAddressListAdapter.setDatas(datas);
             mAddressList.setAdapter(myAddressListAdapter);
+        }
+
+        @Override
+        public void doDeletePostDetail(NormalModel deleteAddressModel) {
+
         }
 
         @Override

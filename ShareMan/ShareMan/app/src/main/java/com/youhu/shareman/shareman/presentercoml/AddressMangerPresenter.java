@@ -7,6 +7,7 @@ import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.ui.view.AddressMangerView;
 
@@ -27,6 +28,7 @@ public class AddressMangerPresenter implements BasePresenter {
     private Context context;
     private DataManager manager;
     private BaseData<List<AddressMangerModel>> addressMangerModel;
+    private NormalModel deleteAddressModel;
     private AddressMangerView addressMangerView;
     private CompositeSubscription compositeSubscription;
 
@@ -84,6 +86,38 @@ public class AddressMangerPresenter implements BasePresenter {
                             public void onNext(BaseData<List<AddressMangerModel>> addressMangerData) {
                                 Log.i(Tag, addressMangerData.getMessage());
                                 addressMangerModel = addressMangerData;
+                            }
+                        })
+
+        );
+    }
+
+
+    public void doDeletePostDetail(String phoneNumber,String token,int postDetailId) {
+        compositeSubscription.add(manager.deletePostDetail(phoneNumber, token,postDetailId)
+                        //事件消费在主线程
+                        .observeOn(AndroidSchedulers.mainThread())
+                        //事件消费在子线程
+                        .subscribeOn(Schedulers.io())
+                        //指定一个观察者
+                        .subscribe(new Observer<NormalModel>() {
+                            @Override
+                            public void onCompleted() {
+                                if (deleteAddressModel != null) {
+                                    addressMangerView.doDeletePostDetail(deleteAddressModel);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(Tag, "获取失败" + e.getMessage());
+//                        ToastUtils.show(context,"网络连接失败");
+                            }
+
+                            @Override
+                            public void onNext(NormalModel deleteAddressData) {
+                                Log.i(Tag, deleteAddressData.getMessage());
+                                deleteAddressModel = deleteAddressData;
                             }
                         })
 

@@ -1,10 +1,12 @@
 package com.youhu.shareman.shareman.model.data;
 
+import java.io.Serializable;
+
 /**
  * Created by Touch on 2017/9/20.
  */
 
-public class AddressMangerModel {
+public class AddressMangerModel implements Serializable{
 
     /**
      * consignee_address : 杭州市西湖风景区
@@ -89,4 +91,5 @@ public class AddressMangerModel {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
 }

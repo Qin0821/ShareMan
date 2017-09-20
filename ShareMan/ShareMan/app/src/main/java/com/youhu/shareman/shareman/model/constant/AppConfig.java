@@ -65,4 +65,9 @@ public class AppConfig {
      */
     public static final String UPDATE_POST_DETAIL = "shareman/postDetail/addPostDetail";
 
+    /**
+     * 删除收货地址
+     */
+    public static final String DELETE_POST_DETAIL = "shareman/postDetail/logicDeletePostDetail";
+
 }

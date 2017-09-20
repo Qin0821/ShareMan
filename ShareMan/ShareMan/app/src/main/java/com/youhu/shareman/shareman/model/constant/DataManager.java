@@ -73,4 +73,14 @@ public class DataManager {
     public  Observable<NormalModel> addPostDetail(String phoneNumber, String token,String consigneeName,String consigneeTel,String consigneeAddress,String detailAddress){
         return mRetrofitService.addPostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress);
     }
+
+    //修改收货地址
+    public  Observable<NormalModel> updatePostDetail(String phoneNumber, String token,String consigneeName,String consigneeTel,String consigneeAddress,String detailAddress,int postDetailId){
+        return mRetrofitService.updatePostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress,postDetailId);
+    }
+
+    //删除收货地址
+    public  Observable<NormalModel> deletePostDetail(String phoneNumber, String token,int postDetailId){
+        return mRetrofitService.deletePostDetail(phoneNumber,token,postDetailId);
+    }
 }

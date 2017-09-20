@@ -87,5 +87,10 @@ public interface RetrofitService {
             @Field("consigneeTel") String consigneeTel,
             @Field("consigneeAddress") String consigneeAddress,
             @Field("detailAddress") String detailAddress,
-            @Field("postDetailId") String postDetailId);
+            @Field("postDetailId") int postDetailId);
+
+    //删除手机收货地址
+    @FormUrlEncoded
+    @POST(AppConfig.DELETE_POST_DETAIL)
+    Observable<NormalModel> deletePostDetail(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("postDetailId") int postDetailId);
 }

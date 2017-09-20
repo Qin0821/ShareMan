@@ -1,6 +1,7 @@
 package com.youhu.shareman.shareman.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class MyAddressListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         MyViewHolder myViewHolder = null;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.list_item_address, viewGroup, false);
@@ -75,7 +76,9 @@ public class MyAddressListAdapter extends BaseAdapter{
             public void onClick(View view) {
                 //跳转至编辑收货地址界面
                 //把上面数据传给下一个界面
-                JumpUtil.overlay(getContext(), EditAddressActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("updateAddress",datas.get(i));
+                JumpUtil.overlay(getContext(), EditAddressActivity.class,bundle);
             }
         });
         //点击删除按钮

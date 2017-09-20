@@ -113,8 +113,7 @@ public class AccidentProtectionDialog extends Dialog {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                mWebView.loadUrl("http://192.168.11.145:80/project-1.0/order/getAgreement");
-
+                mWebView.loadUrl("http://123.207.70.168/shareman/product/showInsurance");
             }
         });
     }

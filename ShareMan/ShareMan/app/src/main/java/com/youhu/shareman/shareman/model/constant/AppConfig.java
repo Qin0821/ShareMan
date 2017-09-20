@@ -45,4 +45,24 @@ public class AppConfig {
      */
     public static final String NEW_PHONENUMBER = "shareman/user/updatePhoneNumberCheckCode";
 
+    /**
+     * 打小报告
+     */
+    public static final String SEND_ADVICE = "shareman/advice/sendAdvice";
+
+    /**
+     * 获取收货地址
+     */
+    public static final String GET_POST_DETAIL = "shareman/postDetail/getPostDetail";
+
+    /**
+     * 添加收货地址
+     */
+    public static final String ADD_POST_DETAIL = "shareman/postDetail/addPostDetail";
+
+    /**
+     * 修改收货地址
+     */
+    public static final String UPDATE_POST_DETAIL = "shareman/postDetail/addPostDetail";
+
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
-import com.youhu.shareman.shareman.data.AddressInfo;
+import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.ui.activity.EditAddressActivity;
 import com.youhu.shareman.shareman.util.JumpUtil;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class MyAddressListAdapter extends BaseAdapter{
 
     private Context context;
-    private List<AddressInfo> datas;
+    private List<AddressMangerModel> datas;
 
     public Context getContext() {
         return context;
@@ -32,11 +32,11 @@ public class MyAddressListAdapter extends BaseAdapter{
         this.context = context;
     }
 
-    public List<AddressInfo> getDatas() {
+    public List<AddressMangerModel> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<AddressInfo> datas) {
+    public void setDatas(List<AddressMangerModel> datas) {
         this.datas = datas;
     }
 
@@ -66,9 +66,9 @@ public class MyAddressListAdapter extends BaseAdapter{
             myViewHolder = (MyViewHolder) view.getTag();
         }
         //设置数据
-        myViewHolder.mReceiver.setText(datas.get(i).getReceiver());
-        myViewHolder.mReceiverNumber.setText(datas.get(i).getReceiverNumber());
-        myViewHolder.mReceiverAddress.setText(datas.get(i).getReceiverAddress());
+        myViewHolder.mReceiver.setText(datas.get(i).getConsignee_name());
+        myViewHolder.mReceiverNumber.setText(datas.get(i).getConsignee_tel());
+        myViewHolder.mReceiverAddress.setText(datas.get(i).getConsignee_address()+datas.get(i).getDetail_address());
         //点击编辑按钮
         myViewHolder.mAddressEdit.setOnClickListener(new View.OnClickListener() {
             @Override

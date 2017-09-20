@@ -12,8 +12,7 @@ import android.widget.TextView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.LoginCodeModel;
-import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.presentercoml.NewPhoneNumberPresenter;
 import com.youhu.shareman.shareman.ui.view.NewPhoneNumberView;
 import com.youhu.shareman.shareman.ui.widget.SecurityCodeView;
@@ -61,6 +60,7 @@ public class NewPhoneNumberActivity extends BaseActivity implements SecurityCode
 
     @Override
     protected void initUI() {
+        setContext(this);
         mTitle.setText("新手机号码");
 
         //设置输入验证码监听
@@ -89,16 +89,15 @@ public class NewPhoneNumberActivity extends BaseActivity implements SecurityCode
     //修改手机号码返回结果
     NewPhoneNumberView newPhoneNumberView=new NewPhoneNumberView() {
         @Override
-        public void doChangePhoneNumber(NormalModel phoneNumberData) {
+        public void doChangePhoneNumber(BaseData<String> phoneNumberData) {
             //提示验证码信息
             ToastUtils.show(getContext(),phoneNumberData.getMessage());
-
         }
 
         @Override
-        public void doNewPhoneNumber(BaseData<LoginCodeModel> newPhoneNumberData) {
+        public void doNewPhoneNumber(BaseData<NewNumberLoginCodeModel> newPhoneNumberData) {
             //保存新手机的账号和token
-            CheckUtils.saveLogin(getContext(),newPhoneNumberData.getData().getPhoneNumber(),newPhoneNumberData.getData().getToken());
+            CheckUtils.saveLogin(getContext(),newPhoneNumberData.getData().getNewPhoneNumber(),newPhoneNumberData.getData().getToken());
 
             if("0".equals(newPhoneNumberData.getCode())){
                 mBtNext.setEnabled(true);

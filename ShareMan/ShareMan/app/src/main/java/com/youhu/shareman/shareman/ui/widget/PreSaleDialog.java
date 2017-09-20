@@ -91,14 +91,11 @@ public class PreSaleDialog extends Dialog {
         settings.setBuiltInZoomControls(true);
         settings.setUseWideViewPort(true);
         settings.setDomStorageEnabled(true);
-//        settings.setDefaultTextEncodingName("UTF-8") ;
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
-//                view.loadData(url,"text/html","UTF-8");
-//                view.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
-//                webView.loadData(data, "text/html", "UTF-8");
+
                 return true;
             }
         });
@@ -115,8 +112,7 @@ public class PreSaleDialog extends Dialog {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                mWebView.loadUrl("http://192.168.11.145:80/project-1.0/order/getAgreement");
-
+                mWebView.loadUrl("http://123.207.70.168/shareman/product/showClaim");
             }
         });
     }

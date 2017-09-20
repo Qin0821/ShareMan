@@ -15,6 +15,7 @@ import com.youhu.shareman.shareman.presentercoml.LoginPresenter;
 import com.youhu.shareman.shareman.ui.view.LoginCodeView;
 import com.youhu.shareman.shareman.ui.view.LoginView;
 import com.youhu.shareman.shareman.ui.widget.SecurityCodeView;
+import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.CountDownTimerUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
@@ -103,6 +104,7 @@ public class ChangeNumberActivity extends BaseActivity implements SecurityCodeVi
             //更新UI
             if(data.getCode()==0){
                 //登录成功
+                CheckUtils.saveLogin(getContext(),data.getData().getPhoneNumber(),data.getData().getToken());
                 mErroeMessage.setVisibility(View.INVISIBLE);
                 mBtNext.setEnabled(true);
                 mBtNext.setText("下一步");

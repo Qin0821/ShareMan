@@ -3,9 +3,11 @@ package com.youhu.shareman.shareman.model.constant;
 import android.content.Context;
 
 import com.youhu.shareman.shareman.model.Api.RetrofitService;
+import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
+import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 
 import java.util.List;
@@ -48,12 +50,27 @@ public class DataManager {
     }
 
     //修改手机号码
-    public  Observable<NormalModel> changePhoneNumber(String phoneNumber, String token, String newPhoneNumber){
+    public  Observable<BaseData<String>> changePhoneNumber(String phoneNumber, String token, String newPhoneNumber){
         return mRetrofitService.changePhoneNumber(phoneNumber,token,newPhoneNumber);
     }
 
     //新手机号码验证
-    public  Observable<BaseData<LoginCodeModel>> newPhoneNumber(String phoneNumber, String token, String newPhoneNumber,String code){
+    public  Observable<BaseData<NewNumberLoginCodeModel>> newPhoneNumber(String phoneNumber, String token, String newPhoneNumber, String code){
         return mRetrofitService.newPhoneNumber(phoneNumber,token,newPhoneNumber,code);
+    }
+
+    //打小报告
+    public  Observable<NormalModel> sendAdvice(String phoneNumber, String token, String advice,String contactWay){
+        return mRetrofitService.sendAdvice(phoneNumber,token,advice,contactWay);
+    }
+
+    //获取收货地址
+    public  Observable<BaseData<List<AddressMangerModel>>> getPostDetail(String phoneNumber, String token){
+        return mRetrofitService.getPostDetail(phoneNumber,token);
+    }
+
+    //添加收货地址
+    public  Observable<NormalModel> addPostDetail(String phoneNumber, String token,String consigneeName,String consigneeTel,String consigneeAddress,String detailAddress){
+        return mRetrofitService.addPostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress);
     }
 }

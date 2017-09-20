@@ -3,6 +3,7 @@ package com.youhu.shareman.shareman.ui.activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +11,11 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.presentercoml.AddAddressPresenter;
+import com.youhu.shareman.shareman.ui.view.AddAddressView;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
+import com.youhu.shareman.shareman.util.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -25,7 +30,7 @@ import db.ProvinceBean;
  * Created by Touch on 2017/8/12.
  */
 
-public class AddAddressActivity extends BaseActivity implements BaseView {
+public class AddAddressActivity extends BaseActivity {
 
     @BindView(R.id.back)
     ImageView mBack;
@@ -39,7 +44,11 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
     TextView mChooseAddress;
     @BindView(R.id.et_detail_address)
     EditText mDetailAddress;
+    @BindView(R.id.save_address)
+    Button mSaveAddress;
 
+
+    AddAddressPresenter addAddressPresenter=new AddAddressPresenter();
 
     private OptionsPickerView pvOptions;//地址选择器
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();//省
@@ -48,6 +57,9 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
     private ArrayList<String> Provincestr = new ArrayList<>();//省
     private ArrayList<ArrayList<String>> Citystr = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> Areastr = new ArrayList<>();//区
+    private String phoneNumber;
+    private String token;
+    private String consigneeAddress="";
 
     @Override
     protected void initBind() {
@@ -55,24 +67,24 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
         super.initBind();
     }
 
-    @Override
-    public void showMessage(String message) {
-
-    }
 
     @Override
     protected void initUI() {
         setContext(this);
         //设置标题
         mTitleText.setText("新增地址");
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
 
+        addAddressPresenter.onCreate();
+        addAddressPresenter.attachView(addAddressView);
 
     }
 
     @Override
     protected void initData() {
         //初始化地址选择器
-        ininPickerView();
+//        ininPickerView();
 
     }
 
@@ -82,8 +94,20 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
     }
 
 
+    //添加地址接口返回
+    AddAddressView addAddressView=new AddAddressView() {
+        @Override
+        public void doAddAddress(NormalModel addAddressData) {
+            ToastUtils.show(getContext(),addAddressData.getMessage());
+        }
 
-    @OnClick({R.id.back, R.id.et_receiver_name, R.id.et_mobile_phone_number, R.id.tv_choose_address, R.id.et_detail_address})
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
+
+    @OnClick({R.id.back, R.id.et_receiver_name, R.id.et_mobile_phone_number, R.id.tv_choose_address, R.id.et_detail_address,R.id.save_address})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.et_receiver_name:
@@ -93,10 +117,26 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
 
                 break;
             case R.id.tv_choose_address:
-                pvOptions.show();
+//                pvOptions.show();
                 break;
             case R.id.et_detail_address:
 
+                break;
+            case R.id.save_address:
+                //提交新的地址
+                String consigneeName=mReceiverName.getText().toString();
+                String consigneeTel=mMobilePhoneNumber.getText().toString();
+                consigneeAddress="浙江省杭州市西湖区";
+                String detailAddress=mDetailAddress.getText().toString();
+                if(consigneeName==null||"".equals(consigneeName)){
+                    ToastUtils.show(this,"收货人姓名不能为空");
+                }else if(consigneeTel==null||"".equals(consigneeTel)){
+                    ToastUtils.show(this,"收货人手机号不能为空");
+                }else if("".equals(consigneeAddress)){
+                    ToastUtils.show(this,"收货人地址不能为空");
+                }else{
+                    addAddressPresenter.doPostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress);
+                }
                 break;
             case R.id.back:
                 finish();
@@ -180,6 +220,7 @@ public class AddAddressActivity extends BaseActivity implements BaseView {
                         + options2Items.get(options1).get(option2).getName()
                         + options3Items.get(options1).get(option2).get(options3).getName();
                 mChooseAddress.setText(tx);
+                consigneeAddress=tx;
             }
         });
     }

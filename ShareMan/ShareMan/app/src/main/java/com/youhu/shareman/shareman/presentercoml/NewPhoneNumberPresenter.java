@@ -6,8 +6,7 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.LoginCodeModel;
-import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.ui.view.NewPhoneNumberView;
 
@@ -25,8 +24,8 @@ public class NewPhoneNumberPresenter implements BasePresenter {
     private static String Tag="NewPhoneNumberPresenter";
     private Context context;
     private DataManager manager;
-    private NormalModel phoneNumberModel;
-    private BaseData<LoginCodeModel> newPhoneNumberData;
+    private BaseData<String> phoneNumberModel;
+    private BaseData<NewNumberLoginCodeModel> newPhoneNumberData;
     private NewPhoneNumberView newPhoneNumberView;
     private CompositeSubscription compositeSubscription;
 
@@ -67,7 +66,7 @@ public class NewPhoneNumberPresenter implements BasePresenter {
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<NormalModel>() {
+                .subscribe(new Observer<BaseData<String>>() {
                     @Override
                     public void onCompleted() {
                         if(phoneNumberModel!=null){
@@ -81,8 +80,8 @@ public class NewPhoneNumberPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(NormalModel phoneNumberData) {
-                        Log.i(Tag,phoneNumberData.getMessage());
+                    public void onNext(BaseData<String> phoneNumberData) {
+                        Log.i(Tag,phoneNumberData.getData().toString());
                         phoneNumberModel=phoneNumberData;
                     }
                 })
@@ -99,7 +98,7 @@ public class NewPhoneNumberPresenter implements BasePresenter {
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<LoginCodeModel>>() {
+                .subscribe(new Observer<BaseData<NewNumberLoginCodeModel>>() {
                     @Override
                     public void onCompleted() {
                         if(newPhoneNumberData!=null){
@@ -113,7 +112,7 @@ public class NewPhoneNumberPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<LoginCodeModel> newPhoneData) {
+                    public void onNext(BaseData<NewNumberLoginCodeModel> newPhoneData) {
                         Log.i(Tag,newPhoneData.getMessage());
                         newPhoneNumberData=newPhoneData;
                     }

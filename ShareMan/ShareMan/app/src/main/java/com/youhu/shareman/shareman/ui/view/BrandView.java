@@ -11,5 +11,6 @@ import java.util.List;
  */
 
 public interface BrandView extends BaseView{
+    //专区数据返回
     void getBrandData(BaseData<List<BrandModel>> baseData);
 }

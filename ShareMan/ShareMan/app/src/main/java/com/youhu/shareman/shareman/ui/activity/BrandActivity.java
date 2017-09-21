@@ -50,9 +50,8 @@ public class BrandActivity extends BaseActivity {
     private Bundle bundle;
     BrandPresenter presenter=new BrandPresenter();
     private TypeChooseAdapter mPagerAdapter=new TypeChooseAdapter(this);
-//    private List<Integer> list = new ArrayList<>();
     private List<BrandModel> list = new ArrayList<>();
-//    private List<Integer> list_detail = new ArrayList<>();
+
 
     @Override
     protected void initBind() {

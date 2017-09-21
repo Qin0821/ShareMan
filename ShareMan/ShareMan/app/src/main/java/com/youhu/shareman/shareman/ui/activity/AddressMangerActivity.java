@@ -16,6 +16,7 @@ import com.youhu.shareman.shareman.presentercoml.AddressMangerPresenter;
 import com.youhu.shareman.shareman.ui.view.AddressMangerView;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
+import com.youhu.shareman.shareman.util.ToastUtils;
 
 import java.util.List;
 
@@ -55,21 +56,38 @@ public class AddressMangerActivity extends BaseActivity {
         //上下文
         setContext(this);
         mTitle.setText("管理收货地址");
+
+        //初始化适配器
+        myAddressListAdapter=new MyAddressListAdapter();
+        myAddressListAdapter.setContext(getContext());
+
+        //初始化用户信息
         phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
         token = SharedPreferencesUtils.getToken(this);
 
+        //初始化RetrofitManger
         addressMangerPresenter.onStart();
         addressMangerPresenter.attachView(addressMangerView);
 
         //调用获取地址接口
 //        addressMangerPresenter.doPostDetail(phoneNumber,token);
-        addressMangerPresenter.doPostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001");
+//        addressMangerPresenter.doPostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001");
+
+        //调用删除地址接口
+        myAddressListAdapter.setOnItemDeleteClickListener(new MyAddressListAdapter.onItemDeleteListener() {
+            @Override
+            public void onDeleteClick(int i) {
+                int postDetailId=datas.get(i).getId();
+                addressMangerPresenter.doDeletePostDetail(phoneNumber,token,postDetailId);
+//                addressMangerPresenter.doDeletePostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",postDetailId);
+                myAddressListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        //获取收货地址信息
-//        initAddress();
+
     }
 
     @Override
@@ -80,6 +98,9 @@ public class AddressMangerActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //调用获取地址接口
+        addressMangerPresenter.doPostDetail(phoneNumber,token);
+//        addressMangerPresenter.doPostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001");
     }
 
     //获取地址数据返回
@@ -88,15 +109,13 @@ public class AddressMangerActivity extends BaseActivity {
         public void doPostDetail(BaseData<List<AddressMangerModel>> addressMangerModel) {
             //数据来源
             datas=addressMangerModel.getData();
-            myAddressListAdapter=new MyAddressListAdapter();
-            myAddressListAdapter.setContext(getContext());
             myAddressListAdapter.setDatas(datas);
             mAddressList.setAdapter(myAddressListAdapter);
         }
 
         @Override
         public void doDeletePostDetail(NormalModel deleteAddressModel) {
-
+            ToastUtils.show(getContext(),deleteAddressModel.getMessage());
         }
 
         @Override
@@ -117,17 +136,4 @@ public class AddressMangerActivity extends BaseActivity {
         }
     }
 
-//    private void initAddress() {
-//        //数据来源
-//        datas=new ArrayList<AddressInfo>();
-//        datas.add(new AddressInfo("微微","15355479993","浙江省杭州市西湖区文三路文锦大厦B座905"));
-//        datas.add(new AddressInfo("波波","15355479993","浙江省杭州市西湖区文三路文锦大厦B座905"));
-//        datas.add(new AddressInfo("超哥","15355479993","浙江省杭州市西湖区文三路文锦大厦B座905"));
-//        datas.add(new AddressInfo("小美","15355479993","浙江省杭州市西湖区文三路文锦大厦B座905"));
-//        myAddressListAdapter=new MyAddressListAdapter();
-//        myAddressListAdapter.setContext(this);
-//        myAddressListAdapter.setDatas(datas);
-//        mAddressList.setAdapter(myAddressListAdapter);
-//
-//    }
 }

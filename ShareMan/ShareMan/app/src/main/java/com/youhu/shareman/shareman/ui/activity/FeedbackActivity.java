@@ -87,8 +87,8 @@ public class FeedbackActivity extends BaseActivity {
                 //将反馈内容上传到服务器
                 String advice=mCustomEditText.getText().toString();
                 String contactWay=mContactWay.getText().toString();
-//                feedBackPresenter.doSendAdvice(phoneNumber,token,advice,contactWay);
-                feedBackPresenter.doSendAdvice("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",advice,contactWay);
+                feedBackPresenter.doSendAdvice(phoneNumber,token,advice,contactWay);
+//                feedBackPresenter.doSendAdvice("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",advice,contactWay);
                 break;
             case R.id.back:
                 finish();

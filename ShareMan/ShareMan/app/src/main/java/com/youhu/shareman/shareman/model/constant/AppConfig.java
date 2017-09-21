@@ -70,4 +70,19 @@ public class AppConfig {
      */
     public static final String DELETE_POST_DETAIL = "shareman/postDetail/logicDeletePostDetail";
 
+    /**
+     * 共享订单
+     */
+    public static final String SHARE_ORDER = "shareman/order/getOrder";
+
+    /**
+     * 查看协议
+     */
+    public static final String CHECK_AGREEMENT = "shareman/order/getAgreement";
+
+    /**
+     * 上传签名
+     */
+    public static final String UPLOAD_SIGN = "shareman/order/uploadSignature";
+
 }

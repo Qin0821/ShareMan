@@ -136,6 +136,7 @@ public class AddAddressActivity extends BaseActivity {
                     ToastUtils.show(this,"收货人地址不能为空");
                 }else{
                     addAddressPresenter.doPostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress);
+                    finish();
                 }
                 break;
             case R.id.back:

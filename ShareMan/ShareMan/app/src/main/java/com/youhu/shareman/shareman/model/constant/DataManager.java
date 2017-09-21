@@ -9,9 +9,11 @@ import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -82,5 +84,20 @@ public class DataManager {
     //删除收货地址
     public  Observable<NormalModel> deletePostDetail(String phoneNumber, String token,int postDetailId){
         return mRetrofitService.deletePostDetail(phoneNumber,token,postDetailId);
+    }
+
+    //获取共享订单
+    public  Observable<BaseData<List<ShareOrderModel>>> getShareOrder(String phoneNumber, String token, int status){
+        return mRetrofitService.getShareOrder(phoneNumber,token,status);
+    }
+
+    //获取订单协议
+    public  Observable<NormalModel> getOrderAgreement(String phoneNumber, String token, int orderId){
+        return mRetrofitService.getOrderAgreement(phoneNumber,token,orderId);
+    }
+
+    //上传签名图片
+    public  Observable<NormalModel> uploanSign(String phoneNumber, String token, int orderId, RequestBody signImage){
+        return mRetrofitService.uploanSign(phoneNumber,token,orderId,signImage);
     }
 }

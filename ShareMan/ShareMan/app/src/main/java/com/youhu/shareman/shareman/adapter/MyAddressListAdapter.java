@@ -85,11 +85,25 @@ public class MyAddressListAdapter extends BaseAdapter{
         myViewHolder.mAddressDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //把点击条目的id传给
+                mOnItemDeleteListener.onDeleteClick(i);
             }
         });
 
         return view;
+    }
+
+    /**
+     * 删除按钮的监听接口
+     */
+    public interface onItemDeleteListener {
+        void onDeleteClick(int i);
+    }
+
+    private onItemDeleteListener mOnItemDeleteListener;
+
+    public void setOnItemDeleteClickListener(onItemDeleteListener mOnItemDeleteListener) {
+        this.mOnItemDeleteListener = mOnItemDeleteListener;
     }
 
     class MyViewHolder {

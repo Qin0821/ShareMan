@@ -1,8 +1,10 @@
 package com.youhu.shareman.shareman.ui.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,9 +20,12 @@ import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.presentercoml.SignUpAndPaymentPresenter;
+import com.youhu.shareman.shareman.ui.view.SignUpAndPaymentView;
 import com.youhu.shareman.shareman.ui.widget.LinePathView;
 import com.youhu.shareman.shareman.util.JumpUtil;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 
 import java.io.File;
@@ -33,7 +38,7 @@ import butterknife.OnClick;
  * Created by Touch on 2017/8/24.
  */
 
-public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
+public class SignUpAndPaymentActivity extends BaseActivity {
 
     @BindView(R.id.webview)
     WebView mWebView;
@@ -58,6 +63,13 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
     private LinePathView mLine;
     //签名文件本地保存路径，上传时选择服务器作为路径
     public static String path= Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "qm.png";
+    private String phoneNumber;
+    private String token;
+    private Bundle bundle;
+    private int orderId;
+    private String postData;
+
+    SignUpAndPaymentPresenter signUpAndPaymentPresenter=new SignUpAndPaymentPresenter();
 
     @Override
     protected void initBind() {
@@ -70,10 +82,22 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
         //上下文
         setContext(this);
         mTitle.setText("签约支付");
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
+        Intent intent=getIntent();
+        bundle=intent.getExtras();
+        orderId=bundle.getInt("orderId");
+//        postData="phoneNumber="+phoneNumber+"&token="+token+"&orderId="+orderId;
+        postData="phoneNumber=15701236749&token=fcfcf1962e40afc99ea1e84a01e6c001&orderId="+orderId;
 
         //默认接受协议
         mChooseSignContract.setImageResource(R.drawable.btn_choose_blue);
         mSignAndPayment.setBackgroundResource(R.drawable.button_react);
+
+        //获取协议界面
+        signUpAndPaymentPresenter.onCreate();
+        signUpAndPaymentPresenter.attachView(signUpAndPaymentView);
+        signUpAndPaymentPresenter.getOrderAgreement("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",orderId);
 
         //初始化WebView
         initWebView();
@@ -90,11 +114,28 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
 
     }
 
+    SignUpAndPaymentView signUpAndPaymentView=new SignUpAndPaymentView() {
+        @Override
+        public void doOrderAgreement(NormalModel orderAgreementData) {
 
-    @Override
-    public void showMessage(String message) {
+        }
 
-    }
+        @Override
+        public void doUploadSign(NormalModel uploadSignData) {
+            if("0".equals(uploadSignData.getCode())){
+                ToastUtils.show(getContext(),"上传成功");
+            }else if("1010".equals(uploadSignData.getCode())){
+                ToastUtils.show(getContext(),"签名图片为空");
+            }else{
+                ToastUtils.show(getContext(),"未登录");
+            }
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
     @OnClick({R.id.back,R.id.btn_sign_payment,R.id.choose_sign_contract})
     void onClick(View view){
@@ -132,15 +173,13 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
         settings.setBuiltInZoomControls(true);
         settings.setUseWideViewPort(true);
         settings.setDomStorageEnabled(true);
-//        settings.setDefaultTextEncodingName("UTF-8") ;
+
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
-//                view.loadData(url,"text/html","UTF-8");
-//                view.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
-//                webView.loadData(data, "text/html", "UTF-8");
+
                 return true;
             }
         });
@@ -157,7 +196,7 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                mWebView.loadUrl("http://123.207.70.168/shareman/order/getAgreement");
+                mWebView.postUrl("http://123.207.70.168/shareman/order/getAgreement", postData.getBytes());
 
             }
         });
@@ -196,6 +235,7 @@ public class SignUpAndPaymentActivity extends BaseActivity implements BaseView {
                         mLine.save("/sdcard/qm.png", true, 10);
                         ToastUtils.show(getContext(),"保存路径为："+path);
                         dialog.dismiss();
+//                        signUpAndPaymentPresenter.uploanSign("15701236749","fcfcf1962e40afc99ea1e84a01e6c001", RequestBody.create(MediaType.parse("UTF-8"),path));
                         JumpUtil.overlay(getContext(),PaymentWayActivity.class);
                     } catch (IOException e) {
                         e.printStackTrace();

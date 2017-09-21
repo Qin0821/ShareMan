@@ -7,12 +7,16 @@ import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -93,4 +97,19 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST(AppConfig.DELETE_POST_DETAIL)
     Observable<NormalModel> deletePostDetail(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("postDetailId") int postDetailId);
+
+    //共享订单列表
+    @FormUrlEncoded
+    @POST(AppConfig.SHARE_ORDER)
+    Observable<BaseData<List<ShareOrderModel>>> getShareOrder(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("status") int status);
+
+    //共享订单列表
+    @FormUrlEncoded
+    @POST(AppConfig.CHECK_AGREEMENT)
+    Observable<NormalModel> getOrderAgreement(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
+
+    //上传签名(图片)
+    @Multipart
+    @POST(AppConfig.UPLOAD_SIGN)
+    Observable<NormalModel> uploanSign(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId,@Part("image") RequestBody signImage);
 }

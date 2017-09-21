@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.ui.fragment.ApplyingFragment;
-import com.youhu.shareman.shareman.ui.fragment.CandelFragment;
+import com.youhu.shareman.shareman.ui.fragment.CancelFragment;
 import com.youhu.shareman.shareman.ui.fragment.ShareingFragment;
 
 import butterknife.BindView;
@@ -116,7 +116,7 @@ public class ShareOrderActivity extends FragmentActivity {
                 case R.id.rb_canceled:
                     //已取消fragment
                     hideFragment(transaction);
-                    cancelfragment = new CandelFragment();
+                    cancelfragment = new CancelFragment();
                     transaction.replace(R.id.feedback_frameLayout, cancelfragment);
                     transaction.commit();
                     break;

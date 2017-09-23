@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
@@ -159,7 +160,7 @@ public class ScrollViewFragment extends ScrollViewBaseFragment {
             public void onWechatClick() {
                 ToastUtils.show(getContext(),"分享到微信好友！");
 
-                String text="真好玩";
+                /*String text="真好玩";
                 WXTextObject textobj=new WXTextObject();
                 textobj.text=text;
 
@@ -171,7 +172,20 @@ public class ScrollViewFragment extends ScrollViewBaseFragment {
                 req.transaction = String.valueOf(System.currentTimeMillis());
                 req.message = msg;
                 req.scene = SendMessageToWX.Req.WXSceneSession;
+                api.sendReq(req);*/
+
+                WXTextObject textObject = new WXTextObject();
+                textObject.text = "helloWorld";
+                WXMediaMessage msg = new WXMediaMessage();
+                msg.mediaObject = textObject;
+                msg.description = "吃鸡吃鸡";
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = "transaction";
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneSession;
+
                 api.sendReq(req);
+
                 mShareDialog.dismiss();
             }
         });

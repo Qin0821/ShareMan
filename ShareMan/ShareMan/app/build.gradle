@@ -21,6 +21,15 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file('shareMan.jks')
+            storePassword "990808uuu"
+            keyAlias "shareMan"
+            keyPassword "990808uuu"
+        }
+    }
+
     //新加的配置
 //    signingConfigs {
 //        shareMan {

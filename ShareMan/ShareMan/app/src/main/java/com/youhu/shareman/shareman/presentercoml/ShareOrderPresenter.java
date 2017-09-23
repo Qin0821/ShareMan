@@ -8,7 +8,7 @@ import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.ui.view.ShareOrderView;
+import com.youhu.shareman.shareman.view.ShareOrderView;
 
 import java.util.List;
 

@@ -19,7 +19,7 @@ import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.presentercoml.BrandPresenter;
-import com.youhu.shareman.shareman.ui.view.BrandView;
+import com.youhu.shareman.shareman.view.BrandView;
 import com.youhu.shareman.shareman.ui.widget.ClipViewPager;
 import com.youhu.shareman.shareman.ui.widget.ScalePageTransformer;
 import com.youhu.shareman.shareman.util.JumpUtil;

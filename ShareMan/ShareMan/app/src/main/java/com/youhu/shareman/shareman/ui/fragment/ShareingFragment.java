@@ -12,7 +12,7 @@ import com.youhu.shareman.shareman.adapter.MySharingPagerAdapter;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
-import com.youhu.shareman.shareman.ui.view.ShareOrderView;
+import com.youhu.shareman.shareman.view.ShareOrderView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,8 +7,11 @@ import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.ui.view.SignUpAndPaymentView;
+import com.youhu.shareman.shareman.view.SignUpAndPaymentView;
 
+import java.io.File;
+
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -88,8 +91,14 @@ public class SignUpAndPaymentPresenter implements BasePresenter {
 
 
     //上传图片
-    public void uploanSign(String phoneNumber, String token, int orderId, RequestBody signImage){
-        compositeSubscription.add(manager.uploanSign(phoneNumber,token,orderId,signImage)
+    public void uploadSign(String phoneNumber, String token, String orderId, File signImage){
+        //创建RequwstBody对象
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), signImage);
+        //创建nickNameBody对象
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        RequestBody orderIdBody = RequestBody.create(MediaType.parse("text/plain"), orderId);
+        compositeSubscription.add(manager.uploadSign(phoneNumberBody,tokenBody,orderIdBody,requestBody)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程

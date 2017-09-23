@@ -21,7 +21,7 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
-import com.youhu.shareman.shareman.ui.view.UserInfoView;
+import com.youhu.shareman.shareman.view.UserInfoView;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;

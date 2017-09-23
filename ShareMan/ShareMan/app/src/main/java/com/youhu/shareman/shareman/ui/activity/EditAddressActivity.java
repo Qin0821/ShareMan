@@ -15,7 +15,7 @@ import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.EditAddressPresenter;
-import com.youhu.shareman.shareman.ui.view.EditAddressView;
+import com.youhu.shareman.shareman.view.EditAddressView;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.presentercoml.LoginPresenter;
-import com.youhu.shareman.shareman.ui.view.LoginView;
+import com.youhu.shareman.shareman.view.LoginView;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.ToastUtils;

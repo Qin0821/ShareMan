@@ -9,7 +9,7 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.FeedBackPresenter;
-import com.youhu.shareman.shareman.ui.view.FeedBackView;
+import com.youhu.shareman.shareman.view.FeedBackView;
 import com.youhu.shareman.shareman.ui.widget.CustomEditText;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;

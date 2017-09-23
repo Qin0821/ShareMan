@@ -14,7 +14,7 @@ import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.presentercoml.NewPhoneNumberPresenter;
-import com.youhu.shareman.shareman.ui.view.NewPhoneNumberView;
+import com.youhu.shareman.shareman.view.NewPhoneNumberView;
 import com.youhu.shareman.shareman.ui.widget.SecurityCodeView;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.CountDownTimerUtils;

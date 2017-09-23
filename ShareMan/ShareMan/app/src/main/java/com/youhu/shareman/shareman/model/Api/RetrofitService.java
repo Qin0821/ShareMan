@@ -111,5 +111,22 @@ public interface RetrofitService {
     //上传签名(图片)
     @Multipart
     @POST(AppConfig.UPLOAD_SIGN)
-    Observable<NormalModel> uploanSign(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId,@Part("image") RequestBody signImage);
+    Observable<NormalModel> uploadSign(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token, @Part("orderId") RequestBody orderId,@Part("image\"; filename=\"image.png\"") RequestBody signImage);
+
+    //修改手机收货地址
+    @FormUrlEncoded
+    @POST(AppConfig.UPLOAD_INFORMATION)
+    Observable<NormalModel> uploadInformation(
+            @Field("phoneNumber") String phoneNumber,
+            @Field("token") String token,
+            @Field("name") String name,
+            @Field("idCardNo") String idCardNo,
+            @Field("servicePassword") String servicePassword,
+            @Field("company") String company,
+            @Field("address") String address);
+
+    //上传身份证A面
+    @Multipart
+    @POST(AppConfig.UPLOAD_ID_CARD_A)
+    Observable<NormalModel> uploadIdCardA(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
 }

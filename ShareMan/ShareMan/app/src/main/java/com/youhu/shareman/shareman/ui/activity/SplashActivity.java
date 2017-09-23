@@ -1,6 +1,6 @@
 package com.youhu.shareman.shareman.ui.activity;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -10,6 +10,7 @@ import android.view.View;
 import com.youhu.shareman.shareman.MainActivity;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
+import com.youhu.shareman.shareman.util.JumpUtil;
 
 /**
  * Created by Touch on 2017/9/19.
@@ -25,6 +26,8 @@ public class SplashActivity extends BaseActivity{
 
     @Override
     protected void initUI() {
+        setContext(this);
+
         //沉浸式状态栏
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
@@ -40,7 +43,16 @@ public class SplashActivity extends BaseActivity{
             @Override
             public boolean handleMessage(Message arg0) {
                 //实现页面跳转
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                SharedPreferences sp = getContext().getSharedPreferences("indicator",0);
+                boolean isFirst=sp.getBoolean("isFirst",true);
+                if(isFirst){
+                    SharedPreferences.Editor editor= sp.edit();
+                    editor.putBoolean("isFirst",false);
+                    editor.commit();
+                    JumpUtil.overlay(getContext(),GuideActivity.class);
+                }else{
+                    JumpUtil.overlay(getContext(),MainActivity.class);
+                }
                 finish();
                 return false;
             }

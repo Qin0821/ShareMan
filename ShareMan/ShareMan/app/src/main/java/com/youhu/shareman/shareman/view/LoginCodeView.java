@@ -1,4 +1,4 @@
-package com.youhu.shareman.shareman.ui.view;
+package com.youhu.shareman.shareman.view;
 
 /**
  * Created by Touch on 2017/9/15.

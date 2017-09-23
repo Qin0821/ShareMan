@@ -97,7 +97,17 @@ public class DataManager {
     }
 
     //上传签名图片
-    public  Observable<NormalModel> uploanSign(String phoneNumber, String token, int orderId, RequestBody signImage){
-        return mRetrofitService.uploanSign(phoneNumber,token,orderId,signImage);
+    public  Observable<NormalModel> uploadSign(RequestBody phoneNumber, RequestBody token, RequestBody orderId, RequestBody signImage){
+        return mRetrofitService.uploadSign(phoneNumber,token,orderId,signImage);
+    }
+
+    //上传身份信息
+    public  Observable<NormalModel> uploadInformation(String phoneNumber, String token,String name,String idCardNo,String servicePassword,String company,String address){
+        return mRetrofitService.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
+    }
+
+    //上传签名图片
+    public  Observable<NormalModel> uploadIdCardA(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
+        return mRetrofitService.uploadIdCardA(phoneNumber,token,signImage);
     }
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -23,11 +24,16 @@ import android.widget.Toast;
 import com.kevin.crop.UCrop;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.presentercoml.InformationPresenter;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.InformationView;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -37,7 +43,7 @@ import butterknife.OnClick;
  * Created by Touch on 2017/8/18.
  */
 
-public class InfomationActivity extends BaseActivity implements BaseView {
+public class InfomationActivity extends BaseActivity {
 
     @BindView(R.id.back)
     ImageView mBack;
@@ -80,8 +86,14 @@ public class InfomationActivity extends BaseActivity implements BaseView {
     private View inflate;
     //自定义底部弹窗
     private Dialog dialog;
-    private static final int CAMERA_REQUEST_CODE = 11;
-    private static final int GALLERY_REQUEST_CODE = 22;
+    private static final int CAMERA_REQUEST_CODE_1 = 11;
+    private static final int CAMERA_REQUEST_CODE_2 = 12;
+    private static final int CAMERA_REQUEST_CODE_3 = 13;
+    private static final int CAMERA_REQUEST_CODE_4 = 14;
+    private static final int GALLERY_REQUEST_CODE_1 = 21;
+    private static final int GALLERY_REQUEST_CODE_2 = 22;
+    private static final int GALLERY_REQUEST_CODE_3 = 23;
+    private static final int GALLERY_REQUEST_CODE_4 = 24;
     private Uri mDestinationUri;
     private String mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
     /**
@@ -91,6 +103,10 @@ public class InfomationActivity extends BaseActivity implements BaseView {
     /** 依附的Activity */
     protected InfomationActivity mActivity= null;
     private Uri mGetPhotoPath;
+    InformationPresenter informationPresenter=new InformationPresenter();
+    private String phoneNumber;
+    private String token;
+    private File myCaptureFile;
 
     @Override
     protected void initBind() {
@@ -104,6 +120,11 @@ public class InfomationActivity extends BaseActivity implements BaseView {
 
         //标题
         mTitle.setText("身份信息");
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
+
+        informationPresenter.onCreate();
+        informationPresenter.attachView(informationView);
     }
 
     @Override
@@ -117,10 +138,38 @@ public class InfomationActivity extends BaseActivity implements BaseView {
     }
 
 
-    @Override
-    public void showMessage(String message) {
+    //上传身份信息接口返回
+    InformationView informationView=new InformationView() {
+        @Override
+        public void doUploadInformation(NormalModel uploadInformation) {
+            ToastUtils.show(getContext(),"上传成功");
+        }
 
-    }
+        @Override
+        public void doUploadIdCardA(NormalModel uploadIdCardAData) {
+
+        }
+
+        @Override
+        public void doUploadIdCardB(NormalModel uploadIdCardBData) {
+
+        }
+
+        @Override
+        public void doUploadBanshen(NormalModel uploadBanshenData) {
+
+        }
+
+        @Override
+        public void doUploadStudent(NormalModel uploadStudentData) {
+
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
     @OnClick({R.id.back,R.id.relativeLayout1,R.id.relativeLayout2,R.id.relativeLayout3,R.id.relativeLayout4,R.id.submit_infomation})
     void onClici(View view){
@@ -150,6 +199,16 @@ public class InfomationActivity extends BaseActivity implements BaseView {
                 }else if(TextUtils.isEmpty(mAddressNow.getText().toString())){
                     ToastUtils.show(this,"现住地址不能为空");
                 }else{
+                    //获取用户填写信息
+                    String name=mReallyName.getText().toString();
+                    String idCardNo=mIDNumber.getText().toString();
+                    String servicePassword=mServerPwd.getText().toString();
+                    String company=mUnitName.getText().toString();
+                    String address=mAddressNow.getText().toString();
+                    //图片文件
+                    informationPresenter.uploadIdCardA("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",myCaptureFile);
+//                    informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
+                    informationPresenter.uploadInformation("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",name,idCardNo,servicePassword,company,address);
                     ToastUtils.show(this,"提交身份信息成功");
                 }
                 break;
@@ -159,19 +218,61 @@ public class InfomationActivity extends BaseActivity implements BaseView {
         }
     }
 
-    //切割图片
+    //选择图片
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == this.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case CAMERA_REQUEST_CODE:   // 调用相机拍照
-                    File temp = new File(mTempPhotoPath);
-                    mDestinationUri = Uri.fromFile(new File(this.getCacheDir(), "cropImage.jpeg"));
-                    startCropActivity(Uri.fromFile(temp));
+                // 调用相机拍照
+                case CAMERA_REQUEST_CODE_1:
+                    Bundle bundle = data.getExtras();
+                    Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                    try {
+                        saveFile(bitmap,"photo.jpeg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    ToastUtils.show(getContext(),"文件保存在");
+                    mImageInfomationA.setImageBitmap(bitmap);
+//                    Glide.with(getContext()).load(data.getExtras()).asBitmap().transform(new GlideRoundTransform(getContext(), 20)).into(mImageInfomationA);
+//                    File temp = new File(mTempPhotoPath);
+//                    mImageInfomationA.setImageURI(Uri.fromFile(temp));
+//                    mDestinationUri = Uri.fromFile(new File(this.getCacheDir(), "cropImage.jpeg"));
+//                    startCropActivity(Uri.fromFile(temp));
                     break;
-                case GALLERY_REQUEST_CODE:  // 直接从相册获取
-//                    mGetPhotoPath=data.getData();
-                    startCropActivity(data.getData());
+                case CAMERA_REQUEST_CODE_2:
+                    Bundle bundle2 = data.getExtras();
+                    Bitmap bitmap2 = (Bitmap) bundle2.get("data");
+                    mImageInfomationB.setImageBitmap(bitmap2);
+                    break;
+                case CAMERA_REQUEST_CODE_3:
+                    Bundle bundle3 = data.getExtras();
+                    Bitmap bitmap3 = (Bitmap) bundle3.get("data");
+                    mImageInfomationBanshen.setImageBitmap(bitmap3);
+                    break;
+                case CAMERA_REQUEST_CODE_4:
+                    Bundle bundle4 = data.getExtras();
+                    Bitmap bitmap4 = (Bitmap) bundle4.get("data");
+                    mImageInfomationStudent.setImageBitmap(bitmap4);
+                    break;
+                // 直接从相册获取
+                case GALLERY_REQUEST_CODE_1:
+                    mGetPhotoPath=data.getData();
+                    mImageInfomationA.setImageURI(mGetPhotoPath);
+//                    startCropActivity(data.getData());
+                    break;
+                case GALLERY_REQUEST_CODE_2:
+                    mGetPhotoPath=data.getData();
+                    mImageInfomationB.setImageURI(mGetPhotoPath);
+                    break;
+                case GALLERY_REQUEST_CODE_3:
+                    mGetPhotoPath=data.getData();
+                    mImageInfomationBanshen.setImageURI(mGetPhotoPath);
+                    break;
+                case GALLERY_REQUEST_CODE_4:
+                    mGetPhotoPath=data.getData();
+                    mImageInfomationStudent.setImageURI(mGetPhotoPath);
                     break;
                 case UCrop.REQUEST_CROP:
                     // TODO: 裁剪图片结果
@@ -202,15 +303,29 @@ public class InfomationActivity extends BaseActivity implements BaseView {
             public void onClick(View view) {
                 ToastUtils.show(getContext(),"拍照");
                 dialog.dismiss();
-                //调用相机拍照
-                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //下面这句指定调用相机拍照后的照片存储的路径
-                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
-                startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
+//                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
                 switch (viewId){
                     case R.id.relativeLayout1:
+                        //调用相机拍照
+                        Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takeIntent, CAMERA_REQUEST_CODE_1);
                         mImageInfomationA.setVisibility(View.VISIBLE);
-                        mImageInfomationA.setImageURI(Uri.fromFile(new File(mTempPhotoPath)));
+                        break;
+                    case R.id.relativeLayout2:
+                        Intent takeIntent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takeIntent2, CAMERA_REQUEST_CODE_2);
+                        mImageInfomationB.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.relativeLayout3:
+                        Intent takeIntent3 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takeIntent3, CAMERA_REQUEST_CODE_3);
+                        mImageInfomationBanshen.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.relativeLayout4:
+                        Intent takeIntent4 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takeIntent4, CAMERA_REQUEST_CODE_4);
+                        mImageInfomationStudent.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -220,15 +335,32 @@ public class InfomationActivity extends BaseActivity implements BaseView {
             public void onClick(View view) {
                 ToastUtils.show(getContext(),"相册选取");
                 dialog.dismiss();
-                // "从相册选择"按钮被点击了
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-                // 如果限制上传到服务器的图片类型时可以直接写如："image/jpeg 、 image/png等的类型"
-                pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(pickIntent, GALLERY_REQUEST_CODE);
                 switch (viewId){
                     case R.id.relativeLayout1:
+                        // "从相册选择"按钮被点击了
+                        Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+                        // 如果限制上传到服务器的图片类型时可以直接写如："image/jpeg 、 image/png等的类型"
+                        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        startActivityForResult(pickIntent, GALLERY_REQUEST_CODE_1);
                         mImageInfomationA.setVisibility(View.VISIBLE);
-                        mImageInfomationA.setImageURI(mGetPhotoPath);
+                        break;
+                    case R.id.relativeLayout2:
+                        Intent pickIntent2 = new Intent(Intent.ACTION_PICK, null);
+                        pickIntent2.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        startActivityForResult(pickIntent2, GALLERY_REQUEST_CODE_2);
+                        mImageInfomationB.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.relativeLayout3:
+                        Intent pickIntent3 = new Intent(Intent.ACTION_PICK, null);
+                        pickIntent3.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        startActivityForResult(pickIntent3, GALLERY_REQUEST_CODE_3);
+                        mImageInfomationBanshen.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.relativeLayout4:
+                        Intent pickIntent4 = new Intent(Intent.ACTION_PICK, null);
+                        pickIntent4.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        startActivityForResult(pickIntent4, GALLERY_REQUEST_CODE_4);
+                        mImageInfomationStudent.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -340,5 +472,25 @@ public class InfomationActivity extends BaseActivity implements BaseView {
          * @param bitmap
          */
         void onPictureSelected(Uri fileUri, Bitmap bitmap);
+    }
+
+
+    /**
+     * 保存文件
+     * @param bm
+     * @param fileName
+     * @throws IOException
+     */
+    public void saveFile(Bitmap bm, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() +"/revoeye/";
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        myCaptureFile = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
     }
 }

@@ -22,7 +22,7 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.SignUpAndPaymentPresenter;
-import com.youhu.shareman.shareman.ui.view.SignUpAndPaymentView;
+import com.youhu.shareman.shareman.view.SignUpAndPaymentView;
 import com.youhu.shareman.shareman.ui.widget.LinePathView;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
@@ -119,6 +119,7 @@ public class SignUpAndPaymentActivity extends BaseActivity {
         public void doOrderAgreement(NormalModel orderAgreementData) {
 
         }
+
 
         @Override
         public void doUploadSign(NormalModel uploadSignData) {
@@ -233,9 +234,10 @@ public class SignUpAndPaymentActivity extends BaseActivity {
                 if (mLine.getTouched()) {
                     try {
                         mLine.save("/sdcard/qm.png", true, 10);
-                        ToastUtils.show(getContext(),"保存路径为："+path);
                         dialog.dismiss();
-//                        signUpAndPaymentPresenter.uploanSign("15701236749","fcfcf1962e40afc99ea1e84a01e6c001", RequestBody.create(MediaType.parse("UTF-8"),path));
+                        File file=new File(path);
+//                        signUpAndPaymentPresenter.uploanSign(phoneNumber,token,String.valueOf(orderId),file);
+                        signUpAndPaymentPresenter.uploadSign("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",String.valueOf(orderId),file);
                         JumpUtil.overlay(getContext(),PaymentWayActivity.class);
                     } catch (IOException e) {
                         e.printStackTrace();

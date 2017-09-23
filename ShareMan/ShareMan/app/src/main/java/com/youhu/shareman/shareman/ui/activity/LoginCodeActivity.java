@@ -13,7 +13,7 @@ import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.presentercoml.LoginCodePresenter;
-import com.youhu.shareman.shareman.ui.view.LoginCodeView;
+import com.youhu.shareman.shareman.view.LoginCodeView;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 

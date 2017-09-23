@@ -8,7 +8,7 @@ import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.ui.view.LoginView;
+import com.youhu.shareman.shareman.view.LoginView;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;

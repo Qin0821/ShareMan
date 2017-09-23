@@ -9,7 +9,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.ui.view.AddressMangerView;
+import com.youhu.shareman.shareman.view.AddressMangerView;
 
 import java.util.List;
 

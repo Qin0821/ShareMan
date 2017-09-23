@@ -13,7 +13,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.AddressMangerPresenter;
-import com.youhu.shareman.shareman.ui.view.AddressMangerView;
+import com.youhu.shareman.shareman.view.AddressMangerView;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;

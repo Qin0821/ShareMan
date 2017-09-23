@@ -51,6 +51,9 @@ public class PaymentWayActivity extends BaseActivity implements BaseView {
         setContext(this);
         mTitle.setText("签约支付");
 
+        //不使用微信支付
+        mRlWechatpayment.setVisibility(View.GONE);
+
         //默认选中支付宝
         mChooseAlipay.setImageResource(R.drawable.btn_choose_blue);
 

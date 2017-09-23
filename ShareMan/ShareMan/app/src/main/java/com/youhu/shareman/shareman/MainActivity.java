@@ -3,7 +3,6 @@ package com.youhu.shareman.shareman;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -106,6 +106,8 @@ public class MainActivity extends BaseActivity implements BaseView {
     private static int STATE_STYLE=1;
     //特惠活动
     private static int STATE_PREFERENCE=2;
+    //退出时的时间
+    private long mExitTime;
     private ActionBarDrawerToggle mActionBarToggle;
     private MyListAdapter mListAdapter;
     private MyHotRecomentAdapter hotRecomentAdapter;
@@ -120,9 +122,6 @@ public class MainActivity extends BaseActivity implements BaseView {
     private Dialog dialog;
     //打电话权限申请
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
-    //获取登录状态
-    private SharedPreferences sp;
-    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -135,13 +134,6 @@ public class MainActivity extends BaseActivity implements BaseView {
     protected void initUI() {
         //上下文设置
         setContext(this);
-        //初始化存储登录状态
-        //先判断sp对象是否已经存在值了
-        sp=getApplication().getSharedPreferences("LoginState",MODE_PRIVATE);
-        editor=sp.edit();
-        //默认未登录
-        editor.putBoolean("isLogin",false);
-        editor.commit();
 
         //轮播图
         List<String> imageUrl = new ArrayList<>();
@@ -150,12 +142,6 @@ public class MainActivity extends BaseActivity implements BaseView {
         imageUrl.add("http://192.168.11.145:80/image/carousel/44d44f0f-ade7-489f-b4e2-67fba397bfc0.jpg");
         imageUrl.add("http://192.168.11.145:80/image/carousel/1d74826d-f50e-4a3c-9a32-8f24a3399714.jpg");
 
-//        List<Integer> imageUrl = new ArrayList<>();
-//        imageUrl.add(R.drawable.product_detail_1);
-//        imageUrl.add(R.drawable.product_detail_2);
-//        imageUrl.add(R.drawable.product_detail_3);
-//        imageUrl.add(R.drawable.product_detail_4);
-        //初始化轮播图
         initBanner(imageUrl);
 
         //初始化热门推荐
@@ -486,5 +472,28 @@ public class MainActivity extends BaseActivity implements BaseView {
         dialogWindow.setAttributes(lp);
         //显示对话框
         dialog.show();
+    }
+
+
+    //双击退出应用
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 }

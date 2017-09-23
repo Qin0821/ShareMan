@@ -1,4 +1,4 @@
-package com.youhu.shareman.shareman.ui.view;
+package com.youhu.shareman.shareman.view;
 
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;

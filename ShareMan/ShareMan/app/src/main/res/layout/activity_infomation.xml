@@ -241,10 +241,10 @@
 
                         <ImageView
                             android:id="@+id/ig_infomationA"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_centerInParent="true"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
                             android:visibility="gone" />
                     </RelativeLayout>
 
@@ -279,9 +279,10 @@
 
                         <ImageView
                             android:id="@+id/ig_infomationB"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_centerInParent="true"
+                            android:scaleType="centerCrop"
                             android:visibility="gone" />
                     </RelativeLayout>
 
@@ -316,9 +317,10 @@
 
                         <ImageView
                             android:id="@+id/ig_infomation_banshen"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_centerInParent="true"
+                            android:scaleType="centerCrop"
                             android:visibility="gone" />
                     </RelativeLayout>
 
@@ -353,9 +355,10 @@
 
                         <ImageView
                             android:id="@+id/ig_infomation_student"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_centerInParent="true"
+                            android:scaleType="centerCrop"
                             android:visibility="gone" />
                     </RelativeLayout>
                 </RelativeLayout>

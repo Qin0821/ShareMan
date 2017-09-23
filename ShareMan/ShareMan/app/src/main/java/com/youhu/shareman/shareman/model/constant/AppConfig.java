@@ -85,4 +85,28 @@ public class AppConfig {
      */
     public static final String UPLOAD_SIGN = "shareman/order/uploadSignature";
 
+    /**
+     * 上传个人信息
+     */
+    public static final String UPLOAD_INFORMATION = "shareman/user/uploadPersonalInfo";
+
+    /**
+     * 上传身份证A面
+     */
+    public static final String UPLOAD_ID_CARD_A = "shareman/user/uploadIdCardA";
+
+    /**
+     * 上传身份证B面
+     */
+    public static final String UPLOAD_ID_CARD_B = "shareman/user/uploadIdCardB";
+
+    /**
+     * 上传身份证半身照
+     */
+    public static final String UPLOAD_BANSEHNG = "shareman/user/uploadIdCardOnHand";
+
+    /**
+     * 上传身份证学生照
+     */
+    public static final String UPLOAD_STUDENT = "shareman/user/uploadStudentIdCard";
 }

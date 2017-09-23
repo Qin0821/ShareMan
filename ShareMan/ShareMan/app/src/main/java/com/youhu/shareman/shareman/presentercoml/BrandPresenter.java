@@ -8,7 +8,7 @@ import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.ui.view.BrandView;
+import com.youhu.shareman.shareman.view.BrandView;
 
 import java.util.List;
 

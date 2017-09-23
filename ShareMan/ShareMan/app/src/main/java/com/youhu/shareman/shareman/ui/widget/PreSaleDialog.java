@@ -27,7 +27,7 @@ public class PreSaleDialog extends Dialog {
 
 
     public PreSaleDialog(@NonNull Context context) {
-        super(context);
+        super(context,R.style.ActionSheetDialogStyle);
     }
 
     public void setCancelOnclickListener(onCancelOnclickListener onCancelOnclickListener) {

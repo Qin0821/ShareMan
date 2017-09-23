@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
-import com.youhu.shareman.shareman.util.ToastUtils;
 
 import java.util.List;
 
@@ -74,20 +73,23 @@ public class MySharingPagerAdapter extends PagerAdapter {
         TextView IDNumber=view.findViewById(R.id.tv_id_number);
         TextView shareingAddress=view.findViewById(R.id.tv_shareing_address);
         TextView shareingDate=view.findViewById(R.id.tv_shareing_date);
+        TextView shareIMEI=view.findViewById(R.id.tv_shareing_chuanhao);
 
-        shareingPhoneColor.setText("黑色");
-        shareingPhoneMenmer.setText("32G");
+        shareingPhoneColor.setText(data.get(position).getColor_name());
+        shareingPhoneMenmer.setText(data.get(position).getMemory()+"G");
         shareingPhoneName.setText(data.get(position).getVersion());
-        shareingPhonePrice.setText("¥ "+String.valueOf(data.get(position).getPrice()));
+        shareingPhonePrice.setText("¥ "+String.valueOf(data.get(position).getReal_price()));
         shareingName.setText(data.get(position).getName());
         IDNumber.setText(String.valueOf(data.get(position).getId_card_no()));
         shareingAddress.setText(data.get(position).getAddress());
-        shareingDate.setText(data.get(position).getApply_date());
+        shareingDate.setText(data.get(position).getSign_date_a());
+        shareIMEI.setText(data.get(position).getImei());
 
         dianzixieyi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.show(context,"电子协议");
+                //弹出电子协议对话框
+                mOnItemAgreementListener.onDeleteClick();
             }
         });
 
@@ -97,13 +99,13 @@ public class MySharingPagerAdapter extends PagerAdapter {
     /**
      * 删除按钮的监听接口
      */
-    public interface onItemDeleteListener {
-        void onDeleteClick(int i);
+    public interface onItemAgreementListener {
+        void onDeleteClick();
     }
 
-    private onItemDeleteListener mOnItemDeleteListener;
+    private onItemAgreementListener mOnItemAgreementListener;
 
-    public void setOnItemDeleteClickListener(onItemDeleteListener mOnItemDeleteListener) {
-        this.mOnItemDeleteListener = mOnItemDeleteListener;
+    public void setOnItemAgreementClickListener(onItemAgreementListener mOnItemAgreementListener) {
+        this.mOnItemAgreementListener = mOnItemAgreementListener;
     }
 }

@@ -138,8 +138,8 @@ public class EditAddressActivity extends BaseActivity {
                 }else if("".equals(consigneeAddress)){
                     ToastUtils.show(this,"收货人地址不能为空");
                 }else{
-                    editAddressPresenter.updatePostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",consigneeName,consigneeTel,consigneeAddress,detailAddress,postDetailId);
-//                    editAddressPresenter.updatePostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress,postDetailId);
+//                    editAddressPresenter.updatePostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",consigneeName,consigneeTel,consigneeAddress,detailAddress,postDetailId);
+                    editAddressPresenter.updatePostDetail(phoneNumber,token,consigneeName,consigneeTel,consigneeAddress,detailAddress,postDetailId);
                 }
                 finish();
                 break;

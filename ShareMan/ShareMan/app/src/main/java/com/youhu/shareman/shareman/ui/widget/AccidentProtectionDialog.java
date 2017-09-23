@@ -25,7 +25,7 @@ public class AccidentProtectionDialog extends Dialog {
 
 
     public AccidentProtectionDialog(@NonNull Context context) {
-        super(context);
+        super(context,R.style.ActionSheetDialogStyle);
     }
 
     public void setCancelOnclickListener(onCancelOnclickListener onCancelOnclickListener) {

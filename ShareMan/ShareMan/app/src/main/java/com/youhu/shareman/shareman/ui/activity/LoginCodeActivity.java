@@ -101,7 +101,7 @@ public class LoginCodeActivity extends BaseActivity {
                 ToastUtils.show(getContext(),"登录成功");
             }else{
                 //登录失败
-                ToastUtils.show(getContext(),"登录失败");
+                ToastUtils.show(getContext(),data.getMessage());
                 mErrorMessage.setVisibility(View.VISIBLE);
             }
         }

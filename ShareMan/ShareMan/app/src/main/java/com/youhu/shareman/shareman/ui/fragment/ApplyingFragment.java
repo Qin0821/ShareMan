@@ -14,6 +14,7 @@ import com.youhu.shareman.shareman.adapter.MyApplyingPagerAdapter;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.view.ShareOrderView;
 
 import java.util.ArrayList;
@@ -37,9 +38,13 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
     private TextView textView;
 
     ShareOrderPresenter shareOrderPresenter=new ShareOrderPresenter();
+    private String phoneNumber;
+    private String token;
 
     @Override
     protected View initView(final LayoutInflater inflater, ViewGroup container) {
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(getContext());
+        token = SharedPreferencesUtils.getToken(getContext());
         view = inflater.inflate(R.layout.fragment_applying, container, false);
         final ImageView normal=view.findViewById(R.id.img_normal);
         //获取ViewPager
@@ -48,7 +53,8 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
 
         shareOrderPresenter.onStart();
         //获取订单信息
-        shareOrderPresenter.getShareOrder("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",1);
+//        shareOrderPresenter.getShareOrder(phoneNumber,token,1);
+        shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",0);
         shareOrderPresenter.attachView(new ShareOrderView() {
             @Override
             public void doShareOrder(BaseData<List<ShareOrderModel>> shareOrderData) {

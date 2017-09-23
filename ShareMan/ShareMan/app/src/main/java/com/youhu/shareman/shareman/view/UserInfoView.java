@@ -14,4 +14,7 @@ public interface UserInfoView extends BaseView {
     //修改性别的方法
     void doChangeSex(NormalModel sexData);
 
+    //修改头像的方法
+    void doChangeUserImage(NormalModel userImageData);
+
 }

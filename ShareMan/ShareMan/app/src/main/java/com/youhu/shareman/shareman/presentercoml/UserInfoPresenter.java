@@ -9,6 +9,10 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.view.UserInfoView;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,7 +29,7 @@ public class UserInfoPresenter implements BasePresenter {
     private DataManager manager;
     private NormalModel nickNameModel;
     private NormalModel sexModel;
-    private NormalModel phoneNumberModel;
+    private NormalModel userImageModel;
     private UserInfoView userInfoView;
     private CompositeSubscription compositeSubscription;
 
@@ -113,6 +117,43 @@ public class UserInfoPresenter implements BasePresenter {
                     public void onNext(NormalModel nickNameData) {
                         Log.i(Tag,nickNameData.getMessage());
                         nickNameModel=nickNameData;
+                    }
+                })
+
+        );
+    }
+
+
+    //修改头像
+    public void doChangeUserImage(String phoneNumber,String token, File signImage){
+        //创建RequwstBody对象
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), signImage);
+        //创建nickNameBody对象
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        compositeSubscription.add(manager.changeUserImage(phoneNumberBody,tokenBody,requestBody)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(userImageModel!=null){
+                            userInfoView.doChangeUserImage(userImageModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel userImageData) {
+                        Log.i(Tag,userImageData.getMessage());
+                        userImageModel=userImageData;
                     }
                 })
 

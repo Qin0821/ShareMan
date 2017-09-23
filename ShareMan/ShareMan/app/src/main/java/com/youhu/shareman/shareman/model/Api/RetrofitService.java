@@ -38,7 +38,7 @@ public interface RetrofitService {
     //获取专区数据
     @FormUrlEncoded
     @POST(AppConfig.SHARE_BRAND)
-    Observable<BaseData<List<BrandModel>>> getBrandDatas(@Field("brand") String brand);
+    Observable<BaseData<List<BrandModel>>> getBrandDatas(@Field("brandId") String brand);
 
     //修改昵称
     @FormUrlEncoded
@@ -49,6 +49,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST(AppConfig.CHANGE_SEX)
     Observable<NormalModel> changeSex(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("gender") int sex);
+
+    //修改头像(图片)
+    @Multipart
+    @POST(AppConfig.CHANGE_USER_IMAGE)
+    Observable<NormalModel> changeUserImage(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody signImage);
 
     //修改手机号码获取验证码
     @FormUrlEncoded

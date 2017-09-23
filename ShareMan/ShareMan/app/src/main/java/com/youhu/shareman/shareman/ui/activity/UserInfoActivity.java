@@ -2,7 +2,9 @@ package com.youhu.shareman.shareman.ui.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Gravity;
@@ -21,14 +23,17 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
-import com.youhu.shareman.shareman.view.UserInfoView;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.UserInfoView;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -74,6 +79,7 @@ public class UserInfoActivity extends BaseActivity {
     private static final int CAMERA_REQUEST_CODE = 11;
     private static final int GALLERY_REQUEST_CODE = 22;
     private String mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
+    private File myCaptureFile;
 
     UserInfoPresenter userInfoPresenter=new UserInfoPresenter();
     private String phoneNumber;
@@ -139,12 +145,17 @@ public class UserInfoActivity extends BaseActivity {
     UserInfoView userInfoView=new UserInfoView() {
         @Override
         public void doChangeNickname(NormalModel nickNameData) {
-            ToastUtils.show(getContext(),nickNameData.getMessage());
+            ToastUtils.show(getContext(),"修改成功");
         }
 
         @Override
         public void doChangeSex(NormalModel sexData) {
-            ToastUtils.show(getContext(),sexData.getMessage());
+            ToastUtils.show(getContext(),"修改成功");
+        }
+
+        @Override
+        public void doChangeUserImage(NormalModel userImageData) {
+            ToastUtils.show(getContext(),"修改成功");
         }
 
         @Override
@@ -189,11 +200,22 @@ public class UserInfoActivity extends BaseActivity {
         if (resultCode == this.RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_REQUEST_CODE:   // 调用相机拍照
-                    File temp = new File(mTempPhotoPath);
-                    startCropActivity(Uri.fromFile(temp));
+                    Bundle bundle = data.getExtras();
+                    Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                    try {
+                        saveFile(bitmap,"userImage.jpeg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+//                    File temp = new File(mTempPhotoPath);
+                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFile);
+//                    startCropActivity(Uri.fromFile(temp));
                     break;
                 case GALLERY_REQUEST_CODE:  // 直接从相册获取
-                    startCropActivity(data.getData());
+
+//                    startCropActivity(data.getData());
                     break;
                 case UCrop.REQUEST_CROP:
                     // TODO: 裁剪图片结果
@@ -227,7 +249,7 @@ public class UserInfoActivity extends BaseActivity {
                         //调用相机拍照
                         Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         //下面这句指定调用相机拍照后的照片存储的路径
-                        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
+//                        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
                         startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
                     }
                 });
@@ -321,5 +343,25 @@ public class UserInfoActivity extends BaseActivity {
                 .withMaxResultSize(maxWidth, maxHeight)
                 .start(this);
 
+    }
+
+
+    /**
+     * 保存文件
+     * @param bm
+     * @param fileName
+     * @throws IOException
+     */
+    public void saveFile(Bitmap bm, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() +"/revoeye/";
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        myCaptureFile = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
     }
 }

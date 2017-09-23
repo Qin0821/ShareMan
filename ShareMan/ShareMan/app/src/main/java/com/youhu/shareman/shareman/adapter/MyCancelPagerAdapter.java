@@ -65,7 +65,7 @@ public class MyCancelPagerAdapter extends PagerAdapter {
         View view=viewList.get(position);
         //获取对应的控件设置数据
         TextView orderCancel=view.findViewById(R.id.tv_cancel_order);
-        TextView cancelPhoneName=view.findViewById(R.id.tv_applying_phone_name);
+        TextView cancelPhoneName=view.findViewById(R.id.tv_cancel_phone_name);
         TextView cancelName=view.findViewById(R.id.tv_cancel_name);
         TextView IDNumber=view.findViewById(R.id.tv_id_number);
         TextView IDAddress=view.findViewById(R.id.tv_id_address);
@@ -75,7 +75,7 @@ public class MyCancelPagerAdapter extends PagerAdapter {
         cancelName.setText(data.get(position).getName());
         IDNumber.setText(String.valueOf(data.get(position).getId_card_no()));
         IDAddress.setText(data.get(position).getAddress());
-        cancelDate.setText(data.get(position).getApply_date());
+        cancelDate.setText(data.get(position).getCancel_time());
 
 
         orderCancel.setOnClickListener(new View.OnClickListener() {

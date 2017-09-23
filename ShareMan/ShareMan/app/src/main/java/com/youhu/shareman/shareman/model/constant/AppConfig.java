@@ -23,7 +23,7 @@ public class AppConfig {
     /**
      * 共享分类
      */
-    public static final String SHARE_BRAND = "shareman/product/findShowByBrand";
+    public static final String SHARE_BRAND = "shareman/product/findShowByBrandId";
 
     /**
      * 修改昵称
@@ -34,6 +34,11 @@ public class AppConfig {
      * 修改性别
      */
     public static final String CHANGE_SEX = "shareman/user/updateGender";
+
+    /**
+     * 修改头像
+     */
+    public static final String CHANGE_USER_IMAGE = "shareman/user/updatePortrait";
 
     /**
      * 修改手机号码

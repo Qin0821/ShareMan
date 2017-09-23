@@ -13,9 +13,9 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.AddAddressPresenter;
-import com.youhu.shareman.shareman.view.AddAddressView;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.AddAddressView;
 
 import java.util.ArrayList;
 

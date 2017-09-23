@@ -15,7 +15,7 @@ import com.youhu.shareman.shareman.adapter.ViewPagerAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.data.ProductDetailInfo;
-import com.youhu.shareman.shareman.ui.fragment.ScrollViewFragment;
+import com.youhu.shareman.shareman.ui.fragment.ProductDetailScrollViewFragment;
 import com.youhu.shareman.shareman.ui.widget.ISlideCallback;
 import com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout;
 
@@ -69,7 +69,7 @@ public class ProductDetailActivity extends BaseActivity implements BaseView,ISli
         }
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.slidedetails_front, new ScrollViewFragment()).commit();
+        fm.beginTransaction().replace(R.id.slidedetails_front, new ProductDetailScrollViewFragment()).commit();
 
         //关于事件分发
         initViewPager();

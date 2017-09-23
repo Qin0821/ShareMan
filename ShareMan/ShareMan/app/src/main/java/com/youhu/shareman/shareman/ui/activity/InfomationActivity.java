@@ -209,7 +209,6 @@ public class InfomationActivity extends BaseActivity {
                     informationPresenter.uploadIdCardA("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",myCaptureFile);
 //                    informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
                     informationPresenter.uploadInformation("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",name,idCardNo,servicePassword,company,address);
-                    ToastUtils.show(this,"提交身份信息成功");
                 }
                 break;
             case R.id.back:
@@ -229,11 +228,11 @@ public class InfomationActivity extends BaseActivity {
                     Bitmap bitmap = (Bitmap) bundle.get("data");
 
                     try {
-                        saveFile(bitmap,"photo.jpeg");
+                        saveFile(bitmap,"informationA.jpeg");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    ToastUtils.show(getContext(),"文件保存在");
+
                     mImageInfomationA.setImageBitmap(bitmap);
 //                    Glide.with(getContext()).load(data.getExtras()).asBitmap().transform(new GlideRoundTransform(getContext(), 20)).into(mImageInfomationA);
 //                    File temp = new File(mTempPhotoPath);

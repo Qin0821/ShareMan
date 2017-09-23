@@ -88,7 +88,7 @@ public class SignUpAndPaymentActivity extends BaseActivity {
         bundle=intent.getExtras();
         orderId=bundle.getInt("orderId");
 //        postData="phoneNumber="+phoneNumber+"&token="+token+"&orderId="+orderId;
-        postData="phoneNumber=15701236749&token=fcfcf1962e40afc99ea1e84a01e6c001&orderId="+orderId;
+        postData="phoneNumber=15701236749&token=4f4f5ccb9f7ad689ba2552c2c0d25703&orderId="+orderId;
 
         //默认接受协议
         mChooseSignContract.setImageResource(R.drawable.btn_choose_blue);
@@ -97,7 +97,7 @@ public class SignUpAndPaymentActivity extends BaseActivity {
         //获取协议界面
         signUpAndPaymentPresenter.onCreate();
         signUpAndPaymentPresenter.attachView(signUpAndPaymentView);
-        signUpAndPaymentPresenter.getOrderAgreement("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",orderId);
+        signUpAndPaymentPresenter.getOrderAgreement("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
 
         //初始化WebView
         initWebView();
@@ -237,7 +237,7 @@ public class SignUpAndPaymentActivity extends BaseActivity {
                         dialog.dismiss();
                         File file=new File(path);
 //                        signUpAndPaymentPresenter.uploanSign(phoneNumber,token,String.valueOf(orderId),file);
-                        signUpAndPaymentPresenter.uploadSign("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",String.valueOf(orderId),file);
+                        signUpAndPaymentPresenter.uploadSign("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",String.valueOf(orderId),file);
                         JumpUtil.overlay(getContext(),PaymentWayActivity.class);
                     } catch (IOException e) {
                         e.printStackTrace();

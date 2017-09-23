@@ -58,8 +58,8 @@ public class BrandPresenter implements BasePresenter {
         brandView= (BrandView) view;
     }
 
-    public void doBrandData(String series){
-        compositeSubscription.add(manager.getBrandDatas(series)
+    public void doBrandData(String brandId){
+        compositeSubscription.add(manager.getBrandDatas(brandId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程

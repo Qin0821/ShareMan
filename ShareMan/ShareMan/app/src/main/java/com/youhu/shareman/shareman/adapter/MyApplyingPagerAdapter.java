@@ -68,6 +68,8 @@ public class MyApplyingPagerAdapter extends PagerAdapter {
         View view=viewList.get(position);
         //获取对应的控件设置数据
         TextView loadingPay=view.findViewById(R.id.tv_loading_pay);
+        TextView applyingColor=view.findViewById(R.id.tv_applying_phone_color);
+        TextView applyingMenmer=view.findViewById(R.id.tv_applying_phone_menmer);
         TextView orderCancel=view.findViewById(R.id.tv_order_cancel);
         TextView applyingPhoneName=view.findViewById(R.id.tv_applying_phone_name);
         TextView applyingPhonePrice=view.findViewById(R.id.tv_aplying_phone_price);
@@ -77,11 +79,13 @@ public class MyApplyingPagerAdapter extends PagerAdapter {
         TextView applyingDate=view.findViewById(R.id.tv_applying_date);
 
         applyingPhoneName.setText(data.get(position).getVersion());
-        applyingPhonePrice.setText("¥ "+String.valueOf(data.get(position).getPrice()));
+        applyingColor.setText(data.get(position).getColor_name());
+        applyingMenmer.setText(data.get(position).getMemory()+"G");
+        applyingPhonePrice.setText("¥ "+String.valueOf(data.get(position).getReal_price()));
         applyingName.setText(data.get(position).getName());
         IDNumber.setText(String.valueOf(data.get(position).getId_card_no()));
         IDAddress.setText(data.get(position).getAddress());
-        applyingDate.setText(data.get(position).getApply_date());
+        applyingDate.setText(data.get(position).getCreate_time());
 
         loadingPay.setOnClickListener(new View.OnClickListener() {
             @Override

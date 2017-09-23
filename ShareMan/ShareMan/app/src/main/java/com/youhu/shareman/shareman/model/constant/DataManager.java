@@ -37,8 +37,8 @@ public class DataManager {
     }
 
     //专区
-    public  Observable<BaseData<List<BrandModel>>> getBrandDatas(String brand){
-        return mRetrofitService.getBrandDatas(brand);
+    public  Observable<BaseData<List<BrandModel>>> getBrandDatas(String brandId){
+        return mRetrofitService.getBrandDatas(brandId);
     }
 
     //修改昵称
@@ -49,6 +49,11 @@ public class DataManager {
     //修改性别
     public  Observable<NormalModel> changeSex(String phoneNumber, String token, int sex){
         return mRetrofitService.changeSex(phoneNumber,token,sex);
+    }
+
+    //修改头像
+    public  Observable<NormalModel> changeUserImage(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
+        return mRetrofitService.changeUserImage(phoneNumber,token,signImage);
     }
 
     //修改手机号码
@@ -106,7 +111,7 @@ public class DataManager {
         return mRetrofitService.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
     }
 
-    //上传签名图片
+    //上传身份证A图片
     public  Observable<NormalModel> uploadIdCardA(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
         return mRetrofitService.uploadIdCardA(phoneNumber,token,signImage);
     }

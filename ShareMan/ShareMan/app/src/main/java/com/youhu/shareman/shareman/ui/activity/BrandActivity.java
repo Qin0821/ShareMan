@@ -81,19 +81,19 @@ public class BrandActivity extends BaseActivity {
                     break;
                 case 11:
                     mTitle.setText("iPhone专区");
-                    presenter.doBrandData("OPPO");
+                    presenter.doBrandData("1");
                     break;
                 case 12:
                     mTitle.setText("VIVO专区");
-                    presenter.doBrandData("OPPO");
+                    presenter.doBrandData("4");
                     break;
                 case 13:
                     mTitle.setText("华为专区");
-                    presenter.doBrandData("OPPO");
+                    presenter.doBrandData("3");
                     break;
                 case 14:
                     mTitle.setText("OPPO专区");
-                    presenter.doBrandData("OPPO");
+                    presenter.doBrandData("2");
                     break;
             }
         }else{
@@ -174,7 +174,7 @@ public class BrandActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 //监听图片的滑动改变下面详情的图片
 //                mImageDetail.setImageURI(Uri.parse(list.get(position).getBot_show()));
-                Glide.with(getContext()).load(AppConfig.BASE_URL+list.get(position).getBot_show()).error(R.drawable.pic_01).crossFade(300).into(mImageDetail);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+list.get(position).getBot_show()).error(R.drawable.error).crossFade(300).into(mImageDetail);
             }
 
             @Override
@@ -212,7 +212,7 @@ public class BrandActivity extends BaseActivity {
 
             //圆角图片
 //            imageView.setImageURI(Uri.parse(mList.get(position).getTop_show()));
-            Glide.with(getContext()).load(AppConfig.BASE_URL+mList.get(position).getTop_show()).error(R.drawable.pic_01).crossFade(300).into(imageView);
+            Glide.with(getContext()).load(AppConfig.BASE_URL+mList.get(position).getTop_show()).error(R.drawable.error).crossFade(300).into(imageView);
 //            Glide.with(getContext()).load(mList.get(position)).transform(new GlideRoundTransform(getContext(), 5)).into(imageView);
             imageView.setTag(position);
             //条目点击事件

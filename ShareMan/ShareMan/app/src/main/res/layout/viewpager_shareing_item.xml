@@ -160,6 +160,7 @@
             android:maxLines="2"
             android:text="浙江省杭州市西湖区文三西路文锦大厦905"
             android:textSize="16sp"
+            android:gravity="end"
             android:textColor="@color/apptitle"
             android:layout_width="200dp"
             android:layout_height="wrap_content" />

@@ -96,6 +96,16 @@ public class DataManager {
         return mRetrofitService.getShareOrder(phoneNumber,token,status);
     }
 
+    //取消共享订单
+    public  Observable<NormalModel> cancelOrder(String phoneNumber, String token, int orderId){
+        return mRetrofitService.cancelOrder(phoneNumber,token,orderId);
+    }
+
+    //删除共享订单
+    public  Observable<NormalModel> deleteOrder(String phoneNumber, String token, int orderId){
+        return mRetrofitService.deleteOrder(phoneNumber,token,orderId);
+    }
+
     //获取订单协议
     public  Observable<NormalModel> getOrderAgreement(String phoneNumber, String token, int orderId){
         return mRetrofitService.getOrderAgreement(phoneNumber,token,orderId);
@@ -114,5 +124,20 @@ public class DataManager {
     //上传身份证A图片
     public  Observable<NormalModel> uploadIdCardA(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
         return mRetrofitService.uploadIdCardA(phoneNumber,token,signImage);
+    }
+
+    //上传身份证A图片
+    public  Observable<NormalModel> uploadIdCardB(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
+        return mRetrofitService.uploadIdCardB(phoneNumber,token,signImage);
+    }
+
+    //上传身份证A图片
+    public  Observable<NormalModel> uploadIdCardBanshen(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
+        return mRetrofitService.uploadIdCardBanshen(phoneNumber,token,signImage);
+    }
+
+    //上传身份证A图片
+    public  Observable<NormalModel> uploadIdCardStudent(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
+        return mRetrofitService.uploadIdCardStudent(phoneNumber,token,signImage);
     }
 }

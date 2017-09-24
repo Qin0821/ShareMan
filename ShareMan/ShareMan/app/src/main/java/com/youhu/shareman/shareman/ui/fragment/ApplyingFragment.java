@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.MyApplyingPagerAdapter;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
@@ -77,6 +78,16 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
                     //设置适配器
                     pager.setAdapter(viewAdapter);
                 }
+            }
+
+            @Override
+            public void doDeleteOrder(NormalModel deleteOrderData) {
+
+            }
+
+            @Override
+            public void doCancelOrder(NormalModel cancelOrderData) {
+
             }
 
             @Override

@@ -110,6 +110,7 @@ public class ChangeNumberActivity extends BaseActivity implements SecurityCodeVi
                 mBtNext.setText("下一步");
                 mBtNext.setTextColor(Color.WHITE);
                 mBtNext.setBackgroundResource(R.drawable.button_react);
+                ToastUtils.show(getContext(),"登录成功");
             }else{
                 //登录失败
                 mErroeMessage.setVisibility(View.VISIBLE);

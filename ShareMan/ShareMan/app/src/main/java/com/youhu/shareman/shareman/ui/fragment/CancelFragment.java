@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.MyCancelPagerAdapter;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
@@ -35,6 +36,7 @@ public class CancelFragment extends ViewPagerBaseFragment {
     ShareOrderPresenter shareOrderPresenter=new ShareOrderPresenter();
     private String phoneNumber;
     private String token;
+    private int orderId;
 
     @Override
     protected View initView(final LayoutInflater inflater, ViewGroup container) {
@@ -45,6 +47,8 @@ public class CancelFragment extends ViewPagerBaseFragment {
         //获取ViewPager
         pager = (ViewPager) view.findViewById(R.id.canceled_viewpager);
         pager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
+        //实例化适配器
+        viewAdapter = new MyCancelPagerAdapter(getContext(),viewList);
 
         //获取view
         //查找布局文件用LayoutInflater.inflate
@@ -69,8 +73,6 @@ public class CancelFragment extends ViewPagerBaseFragment {
                         viewList.add(i,view1);
                     }
 
-                    //实例化适配器
-                    viewAdapter = new MyCancelPagerAdapter(getContext(),viewList);
                     viewAdapter.setData(data);
                     //设置适配器
                     pager.setAdapter(viewAdapter);
@@ -78,8 +80,26 @@ public class CancelFragment extends ViewPagerBaseFragment {
             }
 
             @Override
+            public void doDeleteOrder(NormalModel deleteOrderData) {
+
+            }
+
+            @Override
+            public void doCancelOrder(NormalModel cancelOrderData) {
+
+            }
+
+            @Override
             public void showMessage(String message) {
 
+            }
+        });
+
+        viewAdapter.setOnItemDeleteClickListener(new MyCancelPagerAdapter.onItemDeleteListener() {
+            @Override
+            public void onDeleteClick(int i) {
+                orderId=data.get(i).getOrder_id();
+                shareOrderPresenter.cancelOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
             }
         });
         return view;

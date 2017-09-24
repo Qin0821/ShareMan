@@ -99,7 +99,7 @@ public class NewPhoneNumberActivity extends BaseActivity implements SecurityCode
             //保存新手机的账号和token
             CheckUtils.saveLogin(getContext(),newPhoneNumberData.getData().getNewPhoneNumber(),newPhoneNumberData.getData().getToken());
 
-            if("0".equals(newPhoneNumberData.getCode())){
+            if(newPhoneNumberData.getCode()==0){
                 mBtNext.setEnabled(true);
                 mBtNext.setText("下一步");
                 mBtNext.setTextColor(Color.WHITE);
@@ -123,10 +123,14 @@ public class NewPhoneNumberActivity extends BaseActivity implements SecurityCode
             case R.id.bt_get_securityCode:
                 //获取新手机号
                 newPhoneNumber=mEtPhoneNumber.getText().toString();
-                newPhoneNumberPresenter.doChangePhoneNumber(phoneNumber,token,newPhoneNumber);
-                //倒计时60秒
-                CountDownTimerUtils count = new CountDownTimerUtils(mGetSecurityCode, 60000, 1000);
-                count.start();
+                if(CheckUtils.isMobileNO(newPhoneNumber)){
+                    newPhoneNumberPresenter.doChangePhoneNumber(phoneNumber,token,newPhoneNumber);
+                    //倒计时60秒
+                    CountDownTimerUtils count = new CountDownTimerUtils(mGetSecurityCode, 60000, 1000);
+                    count.start();
+                }else {
+                    ToastUtils.show(getContext(),"输入的手机号码有误！");
+                }
                 break;
             case R.id.back:
                 finish();

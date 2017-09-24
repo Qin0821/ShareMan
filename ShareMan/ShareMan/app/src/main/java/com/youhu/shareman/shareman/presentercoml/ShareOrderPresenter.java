@@ -6,6 +6,7 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.view.ShareOrderView;
@@ -27,6 +28,8 @@ public class ShareOrderPresenter implements BasePresenter {
     private Context context;
     private DataManager manager;
     private BaseData<List<ShareOrderModel>> shareOrderModel;
+    private NormalModel cancelModel;
+    private NormalModel deleteModel;
     private ShareOrderView shareOrderView;
     private CompositeSubscription compositeSubscription;
 
@@ -83,6 +86,70 @@ public class ShareOrderPresenter implements BasePresenter {
                     public void onNext(BaseData<List<ShareOrderModel>> shareOrderData) {
                         Log.i(Tag,shareOrderData.getData().toString());
                         shareOrderModel=shareOrderData;
+                    }
+                })
+
+        );
+    }
+
+
+    //取消订单
+    public void cancelOrder(String phoneNumber, String token, int orderId){
+        compositeSubscription.add(manager.cancelOrder(phoneNumber,token,orderId)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(cancelModel!=null){
+                            shareOrderView.doCancelOrder(cancelModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel cancelOrderData) {
+                        Log.i(Tag,cancelOrderData.getMessage());
+                        cancelModel=cancelOrderData;
+                    }
+                })
+
+        );
+    }
+
+
+    //删除订单
+    public void deleteOrder(String phoneNumber, String token, int orderId){
+        compositeSubscription.add(manager.deleteOrder(phoneNumber,token,orderId)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(deleteModel!=null){
+                            shareOrderView.doDeleteOrder(deleteModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel deleteOrderData) {
+                        Log.i(Tag,deleteOrderData.getMessage());
+                        deleteModel=deleteOrderData;
                     }
                 })
 

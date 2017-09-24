@@ -28,6 +28,10 @@ public class InformationPresenter implements BasePresenter{
     private Context context;
     private DataManager manager;
     private NormalModel informationModel;
+    private NormalModel informationAModel;
+    private NormalModel informationBModel;
+    private NormalModel informationBanshenModel;
+    private NormalModel informationStudentModel;
     private InformationView informationView;
     private CompositeSubscription compositeSubscription;
 
@@ -108,8 +112,8 @@ public class InformationPresenter implements BasePresenter{
                 .subscribe(new Observer<NormalModel>() {
                     @Override
                     public void onCompleted() {
-                        if(informationModel!=null){
-                            informationView.doUploadIdCardA(informationModel);
+                        if(informationAModel!=null){
+                            informationView.doUploadIdCardA(informationAModel);
                         }
                     }
 
@@ -121,7 +125,120 @@ public class InformationPresenter implements BasePresenter{
                     @Override
                     public void onNext(NormalModel brandDataBaseData) {
                         Log.i(Tag,brandDataBaseData.getMessage());
-                        informationModel=brandDataBaseData;
+                        informationAModel=brandDataBaseData;
+                    }
+                })
+
+        );
+    }
+
+
+    //上传身份证B面
+    public void uploadIdCardB(String phoneNumber, String token, File idCardA){
+        //创建RequwstBody对象
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), idCardA);
+        //创建nickNameBody对象
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        compositeSubscription.add(manager.uploadIdCardB(phoneNumberBody,tokenBody,requestBody)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(informationBModel!=null){
+                            informationView.doUploadIdCardB(informationBModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel brandDataBaseData) {
+                        Log.i(Tag,brandDataBaseData.getMessage());
+                        informationBModel=brandDataBaseData;
+                    }
+                })
+
+        );
+    }
+
+
+
+    //上传手持身份证照
+    public void uploadIdCardBanshen(String phoneNumber, String token, File idCardA){
+        //创建RequwstBody对象
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), idCardA);
+        //创建nickNameBody对象
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        compositeSubscription.add(manager.uploadIdCardBanshen(phoneNumberBody,tokenBody,requestBody)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(informationBanshenModel!=null){
+                            informationView.doUploadBanshen(informationBanshenModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel brandDataBaseData) {
+                        Log.i(Tag,brandDataBaseData.getMessage());
+                        informationBanshenModel=brandDataBaseData;
+                    }
+                })
+
+        );
+    }
+
+
+
+    //上传学生照
+    public void uploadStudent(String phoneNumber, String token, File idCardA){
+        //创建RequwstBody对象
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), idCardA);
+        //创建nickNameBody对象
+        RequestBody phoneNumberBody = RequestBody.create(MediaType.parse("text/plain"), phoneNumber);
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("text/plain"), token);
+        compositeSubscription.add(manager.uploadIdCardStudent(phoneNumberBody,tokenBody,requestBody)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<NormalModel>() {
+                    @Override
+                    public void onCompleted() {
+                        if(informationStudentModel!=null){
+                            informationView.doUploadStudent(informationStudentModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(NormalModel brandDataBaseData) {
+                        Log.i(Tag,brandDataBaseData.getMessage());
+                        informationStudentModel=brandDataBaseData;
                     }
                 })
 

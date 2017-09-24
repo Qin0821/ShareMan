@@ -106,7 +106,10 @@ public class InfomationActivity extends BaseActivity {
     InformationPresenter informationPresenter=new InformationPresenter();
     private String phoneNumber;
     private String token;
-    private File myCaptureFile;
+    private File myCaptureFileA;
+    private File myCaptureFileB;
+    private File myCaptureFileC;
+    private File myCaptureFileD;
 
     @Override
     protected void initBind() {
@@ -147,22 +150,22 @@ public class InfomationActivity extends BaseActivity {
 
         @Override
         public void doUploadIdCardA(NormalModel uploadIdCardAData) {
-
+            ToastUtils.show(getContext(),"上传中...");
         }
 
         @Override
         public void doUploadIdCardB(NormalModel uploadIdCardBData) {
-
+            ToastUtils.show(getContext(),"上传中...");
         }
 
         @Override
         public void doUploadBanshen(NormalModel uploadBanshenData) {
-
+            ToastUtils.show(getContext(),"上传成功");
         }
 
         @Override
         public void doUploadStudent(NormalModel uploadStudentData) {
-
+            ToastUtils.show(getContext(),"上传成功");
         }
 
         @Override
@@ -206,9 +209,16 @@ public class InfomationActivity extends BaseActivity {
                     String company=mUnitName.getText().toString();
                     String address=mAddressNow.getText().toString();
                     //图片文件
-                    informationPresenter.uploadIdCardA("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",myCaptureFile);
-//                    informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
-                    informationPresenter.uploadInformation("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",name,idCardNo,servicePassword,company,address);
+                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileA);
+                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileB);
+                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileC);
+                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileD);
+                    informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
+//                    informationPresenter.uploadIdCardA("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileA);
+//                    informationPresenter.uploadIdCardB("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileB);
+//                    informationPresenter.uploadIdCardBanshen("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileC);
+//                    informationPresenter.uploadStudent("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileD);
+//                    informationPresenter.uploadInformation("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",name,idCardNo,servicePassword,company,address);
                 }
                 break;
             case R.id.back:
@@ -228,7 +238,7 @@ public class InfomationActivity extends BaseActivity {
                     Bitmap bitmap = (Bitmap) bundle.get("data");
 
                     try {
-                        saveFile(bitmap,"informationA.jpeg");
+                        saveFileA(bitmap,"informationA");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -243,34 +253,53 @@ public class InfomationActivity extends BaseActivity {
                 case CAMERA_REQUEST_CODE_2:
                     Bundle bundle2 = data.getExtras();
                     Bitmap bitmap2 = (Bitmap) bundle2.get("data");
+                    try {
+                        saveFileB(bitmap2,"informationB.jpeg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     mImageInfomationB.setImageBitmap(bitmap2);
                     break;
                 case CAMERA_REQUEST_CODE_3:
                     Bundle bundle3 = data.getExtras();
                     Bitmap bitmap3 = (Bitmap) bundle3.get("data");
+                    try {
+                        saveFileC(bitmap3,"informationBanshen.jpeg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     mImageInfomationBanshen.setImageBitmap(bitmap3);
                     break;
                 case CAMERA_REQUEST_CODE_4:
                     Bundle bundle4 = data.getExtras();
                     Bitmap bitmap4 = (Bitmap) bundle4.get("data");
+                    try {
+                        saveFileD(bitmap4,"informationStudent.jpeg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     mImageInfomationStudent.setImageBitmap(bitmap4);
                     break;
                 // 直接从相册获取
                 case GALLERY_REQUEST_CODE_1:
                     mGetPhotoPath=data.getData();
+                    myCaptureFileA = new File(String.valueOf(mGetPhotoPath));
                     mImageInfomationA.setImageURI(mGetPhotoPath);
 //                    startCropActivity(data.getData());
                     break;
                 case GALLERY_REQUEST_CODE_2:
                     mGetPhotoPath=data.getData();
+                    myCaptureFileB = new File(String.valueOf(mGetPhotoPath));
                     mImageInfomationB.setImageURI(mGetPhotoPath);
                     break;
                 case GALLERY_REQUEST_CODE_3:
                     mGetPhotoPath=data.getData();
+                    myCaptureFileC = new File(String.valueOf(mGetPhotoPath));
                     mImageInfomationBanshen.setImageURI(mGetPhotoPath);
                     break;
                 case GALLERY_REQUEST_CODE_4:
                     mGetPhotoPath=data.getData();
+                    myCaptureFileD = new File(String.valueOf(mGetPhotoPath));
                     mImageInfomationStudent.setImageURI(mGetPhotoPath);
                     break;
                 case UCrop.REQUEST_CROP:
@@ -480,16 +509,56 @@ public class InfomationActivity extends BaseActivity {
      * @param fileName
      * @throws IOException
      */
-    public void saveFile(Bitmap bm, String fileName) throws IOException {
+    public void saveFileA(Bitmap bm, String fileName) throws IOException {
         String path = Environment.getExternalStorageDirectory() +"/revoeye/";
         File dirFile = new File(path);
         if(!dirFile.exists()){
             dirFile.mkdir();
         }
-        myCaptureFile = new File(path + fileName);
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        myCaptureFileA = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFileA));
         bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
         bos.flush();
         bos.close();
     }
+
+    public void saveFileB(Bitmap bm, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() +"/revoeye/";
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        myCaptureFileB = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFileB));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+    }
+
+    public void saveFileC(Bitmap bm, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() +"/revoeye/";
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        myCaptureFileC = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFileC));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+    }
+
+    public void saveFileD(Bitmap bm, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() +"/revoeye/";
+        File dirFile = new File(path);
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        myCaptureFileD = new File(path + fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFileD));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+    }
+
 }

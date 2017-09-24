@@ -81,6 +81,16 @@ public class AppConfig {
     public static final String SHARE_ORDER = "shareman/order/getOrder";
 
     /**
+     * 删除订单
+     */
+    public static final String SHARE_ORDER_DELETE = "shareman/order/deleteOrders";
+
+    /**
+     * 取消订单
+     */
+    public static final String SHARE_ORDER_CANCEL = "shareman/order/cancelOrders";
+
+    /**
      * 查看协议
      */
     public static final String CHECK_AGREEMENT = "shareman/order/getAgreement";

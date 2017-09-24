@@ -108,7 +108,17 @@ public interface RetrofitService {
     @POST(AppConfig.SHARE_ORDER)
     Observable<BaseData<List<ShareOrderModel>>> getShareOrder(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("status") int status);
 
-    //共享订单列表
+    //取消订单
+    @FormUrlEncoded
+    @POST(AppConfig.SHARE_ORDER_CANCEL)
+    Observable<NormalModel> cancelOrder(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
+
+    //删除订单
+    @FormUrlEncoded
+    @POST(AppConfig.SHARE_ORDER_DELETE)
+    Observable<NormalModel> deleteOrder(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
+
+    //查看协议
     @FormUrlEncoded
     @POST(AppConfig.CHECK_AGREEMENT)
     Observable<NormalModel> getOrderAgreement(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
@@ -134,4 +144,19 @@ public interface RetrofitService {
     @Multipart
     @POST(AppConfig.UPLOAD_ID_CARD_A)
     Observable<NormalModel> uploadIdCardA(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
+
+    //上传身份证A面
+    @Multipart
+    @POST(AppConfig.UPLOAD_ID_CARD_B)
+    Observable<NormalModel> uploadIdCardB(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
+
+    //上传身份证A面
+    @Multipart
+    @POST(AppConfig.UPLOAD_BANSEHNG)
+    Observable<NormalModel> uploadIdCardBanshen(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
+
+    //上传身份证A面
+    @Multipart
+    @POST(AppConfig.UPLOAD_STUDENT)
+    Observable<NormalModel> uploadIdCardStudent(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
 }

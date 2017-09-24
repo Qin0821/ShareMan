@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.MySharingPagerAdapter;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
 import com.youhu.shareman.shareman.ui.widget.AgreementDialog;
@@ -87,6 +88,16 @@ public class ShareingFragment extends ViewPagerBaseFragment {
                         }
                     });
                 }
+            }
+
+            @Override
+            public void doDeleteOrder(NormalModel deleteOrderData) {
+
+            }
+
+            @Override
+            public void doCancelOrder(NormalModel cancelOrderData) {
+
             }
 
             @Override

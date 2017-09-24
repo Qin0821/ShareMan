@@ -80,6 +80,7 @@ public class UserInfoActivity extends BaseActivity {
     private static final int GALLERY_REQUEST_CODE = 22;
     private String mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
     private File myCaptureFile;
+    private Uri mGetPhotoPath;
 
     UserInfoPresenter userInfoPresenter=new UserInfoPresenter();
     private String phoneNumber;
@@ -210,11 +211,15 @@ public class UserInfoActivity extends BaseActivity {
                     }
 
 //                    File temp = new File(mTempPhotoPath);
-                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFile);
+                    userInfoPresenter.doChangeUserImage(phoneNumber,token,myCaptureFile);
+//                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFile);
 //                    startCropActivity(Uri.fromFile(temp));
                     break;
                 case GALLERY_REQUEST_CODE:  // 直接从相册获取
-
+                    mGetPhotoPath=data.getData();
+                    File file=new File(String.valueOf(mGetPhotoPath));
+                    userInfoPresenter.doChangeUserImage(phoneNumber,token,file);
+//                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",file);
 //                    startCropActivity(data.getData());
                     break;
                 case UCrop.REQUEST_CROP:

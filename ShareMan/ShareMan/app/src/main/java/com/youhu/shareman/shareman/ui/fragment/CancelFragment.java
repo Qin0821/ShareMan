@@ -14,6 +14,7 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
+import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.ShareOrderView;
 
 import java.util.ArrayList;
@@ -76,12 +77,13 @@ public class CancelFragment extends ViewPagerBaseFragment {
                     viewAdapter.setData(data);
                     //设置适配器
                     pager.setAdapter(viewAdapter);
+                    viewAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void doDeleteOrder(NormalModel deleteOrderData) {
-
+                ToastUtils.show(getContext(),"删除成功");
             }
 
             @Override
@@ -99,7 +101,10 @@ public class CancelFragment extends ViewPagerBaseFragment {
             @Override
             public void onDeleteClick(int i) {
                 orderId=data.get(i).getOrder_id();
-                shareOrderPresenter.cancelOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
+//                shareOrderPresenter.cancelOrder(phoneNumber,token,orderId);
+                shareOrderPresenter.deleteOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
+                //重新发送请求并刷新数据
+                shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",2);
             }
         });
         return view;

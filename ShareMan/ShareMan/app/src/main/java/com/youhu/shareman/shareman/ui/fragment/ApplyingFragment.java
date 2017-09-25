@@ -16,6 +16,7 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.presentercoml.ShareOrderPresenter;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
+import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.ShareOrderView;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
     ShareOrderPresenter shareOrderPresenter=new ShareOrderPresenter();
     private String phoneNumber;
     private String token;
+    private int orderId;
 
     @Override
     protected View initView(final LayoutInflater inflater, ViewGroup container) {
@@ -51,6 +53,8 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
         //获取ViewPager
         pager = (ViewPager) view.findViewById(R.id.applying_viewpager);
         pager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
+        //实例化适配器
+        viewAdapter = new MyApplyingPagerAdapter(getContext(),viewList);
 
         shareOrderPresenter.onStart();
         //获取订单信息
@@ -72,8 +76,6 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
                         viewList.add(i,view1);
                     }
 
-                    //实例化适配器
-                    viewAdapter = new MyApplyingPagerAdapter(getContext(),viewList);
                     viewAdapter.setData(data);
                     //设置适配器
                     pager.setAdapter(viewAdapter);
@@ -87,7 +89,7 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
 
             @Override
             public void doCancelOrder(NormalModel cancelOrderData) {
-
+                ToastUtils.show(getContext(),"取消成功");
             }
 
             @Override
@@ -97,7 +99,14 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
         });
 
         //设置点击取消订单的监听
-
+        viewAdapter.setOnItemCancelClickListener(new MyApplyingPagerAdapter.mOnItemCancelListener() {
+            @Override
+            public void onCancelClick(int i) {
+                orderId=data.get(i).getOrder_id();
+//                shareOrderPresenter.deleteOrder(phoneNumber,token,orderId);
+                shareOrderPresenter.cancelOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
+            }
+        });
 
         return view;
     }

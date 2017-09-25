@@ -23,6 +23,36 @@ public class AgreementDialog extends Dialog {
     private TextView mTitle;
     private WebView mWebView;
     private Button mCancel;
+    private String postData;
+    private String phoneNumber;
+    private String token;
+    private int orderId;
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     private onCancelOnclickListener cancelOnclickListener;//微信按钮被点击了的监听器
 
 
@@ -55,7 +85,12 @@ public class AgreementDialog extends Dialog {
         mWebView=findViewById(R.id.wb_pre_sale);
         mCancel=findViewById(R.id.btn_cancel);
 
+        //设置标题
         mTitle.setText("电子协议");
+
+        //webView发送的请求
+//        postData="phoneNumber="+phoneNumber+"&token="+token+"&orderId="+orderId;
+        postData="phoneNumber=15701236749&token=4f4f5ccb9f7ad689ba2552c2c0d25703&orderId="+orderId;
 
         //初始化webView
         initWebView();
@@ -115,7 +150,7 @@ public class AgreementDialog extends Dialog {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                mWebView.loadUrl("http://123.207.70.168/shareman/product/showClaim");
+                mWebView.postUrl("http://123.207.70.168/shareman/order/getAgreement", postData.getBytes());
             }
         });
     }

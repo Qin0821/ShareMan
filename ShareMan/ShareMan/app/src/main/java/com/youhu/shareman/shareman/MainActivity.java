@@ -35,6 +35,10 @@ import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.data.HotRecomentInfo;
 import com.youhu.shareman.shareman.data.UserInfo;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
+import com.youhu.shareman.shareman.model.data.BannerModel;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.presentercoml.MainActivityPreserter;
 import com.youhu.shareman.shareman.ui.activity.BrandActivity;
 import com.youhu.shareman.shareman.ui.activity.FeedBackOrderNormalActivity;
 import com.youhu.shareman.shareman.ui.activity.FeedbackActivity;
@@ -53,7 +57,9 @@ import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.GlideImageLoader;
 import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.JumpUtil;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.MainActivityView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -122,6 +128,10 @@ public class MainActivity extends BaseActivity implements BaseView {
     private Dialog dialog;
     //打电话权限申请
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    private String phoneNumber;
+    private String token;
+    MainActivityPreserter mainActivityPreserter=new MainActivityPreserter();
+    private List<String> bannerImageUrl;
 
 
     @Override
@@ -135,14 +145,14 @@ public class MainActivity extends BaseActivity implements BaseView {
         //上下文设置
         setContext(this);
 
-        //轮播图
-        List<String> imageUrl = new ArrayList<>();
-        imageUrl.add("http://192.168.11.145:80/image/carousel/44d44f0f-ade7-489f-b4e2-67fba397bfc0.jpg");
-        imageUrl.add("http://192.168.11.145:80/image/carousel/1d74826d-f50e-4a3c-9a32-8f24a3399714.jpg");
-        imageUrl.add("http://192.168.11.145:80/image/carousel/44d44f0f-ade7-489f-b4e2-67fba397bfc0.jpg");
-        imageUrl.add("http://192.168.11.145:80/image/carousel/1d74826d-f50e-4a3c-9a32-8f24a3399714.jpg");
+        //登录用户信息
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
 
-        initBanner(imageUrl);
+        //请求轮播图数据
+        mainActivityPreserter.onCreate();
+        mainActivityPreserter.attachView(mainActivityView);
+        mainActivityPreserter.getMainBanner();
 
         //初始化热门推荐
         initHotRecoment();
@@ -187,6 +197,28 @@ public class MainActivity extends BaseActivity implements BaseView {
     public void showMessage(String message) {
 
     }
+
+
+    //请求接口回调
+    MainActivityView mainActivityView=new MainActivityView() {
+        @Override
+        public void doBanner(BaseData<List<BannerModel>> bannerData) {
+            //轮播图
+            bannerImageUrl = new ArrayList<>();
+            if(bannerData!=null){
+                for(int i=0;i<bannerData.getData().size();i++){
+                    bannerImageUrl.add(AppConfig.BASE_URL+bannerData.getData().get(i).getCarousel());
+                }
+                initBanner(bannerImageUrl);
+            }
+
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
     //按钮点击跳转
     @OnClick({R.id.ll_recover, R.id.ll_share, R.id.ll_service, R.id.main_user, R.id.main_message, R.id.economy, R.id.style, R.id.preference, R.id.user_image})
@@ -405,7 +437,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     }
 
 
-    //设置选择图片弹出框
+    //设置客服电话弹出框
     public void dialogShow() {
         dialog = new Dialog(this, R.style.ActionSheetDialogStyle);
         //填充对话框的布局

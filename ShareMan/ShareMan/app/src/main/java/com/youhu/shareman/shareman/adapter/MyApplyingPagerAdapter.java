@@ -100,7 +100,7 @@ public class MyApplyingPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 //设置监听
-                mOnItemDeleteListener.onDeleteClick(position);
+                mOnItemCancelListener.onCancelClick(position);
             }
         });
         return viewList.get(position);
@@ -109,13 +109,13 @@ public class MyApplyingPagerAdapter extends PagerAdapter {
     /**
      * 删除按钮的监听接口
      */
-    public interface onItemDeleteListener {
-        void onDeleteClick(int i);
+    public interface mOnItemCancelListener {
+        void onCancelClick(int i);
     }
 
-    private onItemDeleteListener mOnItemDeleteListener;
+    private mOnItemCancelListener mOnItemCancelListener;
 
-    public void setOnItemDeleteClickListener(onItemDeleteListener mOnItemDeleteListener) {
-        this.mOnItemDeleteListener = mOnItemDeleteListener;
+    public void setOnItemCancelClickListener(mOnItemCancelListener mOnItemCancelListener) {
+        this.mOnItemCancelListener = mOnItemCancelListener;
     }
 }

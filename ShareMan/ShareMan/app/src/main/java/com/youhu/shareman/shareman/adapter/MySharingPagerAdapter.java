@@ -89,7 +89,7 @@ public class MySharingPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 //弹出电子协议对话框
-                mOnItemAgreementListener.onDeleteClick();
+                mOnItemAgreementListener.onDeleteClick(position);
             }
         });
 
@@ -100,7 +100,7 @@ public class MySharingPagerAdapter extends PagerAdapter {
      * 删除按钮的监听接口
      */
     public interface onItemAgreementListener {
-        void onDeleteClick();
+        void onDeleteClick(int position);
     }
 
     private onItemAgreementListener mOnItemAgreementListener;

@@ -38,6 +38,7 @@ public class ShareingFragment extends ViewPagerBaseFragment {
     ShareOrderPresenter shareOrderPresenter=new ShareOrderPresenter();
     private String phoneNumber;
     private String token;
+    private int orderId;
 
     @Override
     protected View initView(final LayoutInflater inflater, ViewGroup container) {
@@ -48,6 +49,9 @@ public class ShareingFragment extends ViewPagerBaseFragment {
         //获取ViewPager
         pager = (ViewPager) view.findViewById(R.id.shareing_viewpager);
         pager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
+
+        //实例化适配器
+        viewAdapter = new MySharingPagerAdapter(getContext(),viewList);
 
         shareOrderPresenter.onStart();
         //获取订单信息
@@ -69,24 +73,9 @@ public class ShareingFragment extends ViewPagerBaseFragment {
                         viewList.add(i,view1);
                     }
 
-                    //实例化适配器
-                    viewAdapter = new MySharingPagerAdapter(getContext(),viewList);
                     viewAdapter.setData(data);
                     //设置适配器
                     pager.setAdapter(viewAdapter);
-                    viewAdapter.setOnItemAgreementClickListener(new MySharingPagerAdapter.onItemAgreementListener() {
-                        @Override
-                        public void onDeleteClick() {
-                            agreementDialog=new AgreementDialog(getContext());
-                            agreementDialog.setCancelOnclickListener(new AgreementDialog.onCancelOnclickListener() {
-                                @Override
-                                public void onCancelClick() {
-                                    agreementDialog.dismiss();
-                                }
-                            });
-                            agreementDialog.dismiss();
-                        }
-                    });
                 }
             }
 
@@ -103,6 +92,24 @@ public class ShareingFragment extends ViewPagerBaseFragment {
             @Override
             public void showMessage(String message) {
 
+            }
+        });
+
+        viewAdapter.setOnItemAgreementClickListener(new MySharingPagerAdapter.onItemAgreementListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                agreementDialog=new AgreementDialog(getContext());
+                agreementDialog.setPhoneNumber(phoneNumber);
+                agreementDialog.setToken(token);
+                orderId=data.get(position).getOrder_id();
+                agreementDialog.setOrderId(orderId);
+                agreementDialog.setCancelOnclickListener(new AgreementDialog.onCancelOnclickListener() {
+                    @Override
+                    public void onCancelClick() {
+                        agreementDialog.dismiss();
+                    }
+                });
+                agreementDialog.show();
             }
         });
         return view;

@@ -4,12 +4,14 @@ import android.content.Context;
 
 import com.youhu.shareman.shareman.model.Api.RetrofitService;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;
+import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
+import com.youhu.shareman.shareman.model.data.UserInfoModel;
 
 import java.util.List;
 
@@ -69,6 +71,11 @@ public class DataManager {
     //打小报告
     public  Observable<NormalModel> sendAdvice(String phoneNumber, String token, String advice,String contactWay){
         return mRetrofitService.sendAdvice(phoneNumber,token,advice,contactWay);
+    }
+
+    //获取用户信息
+    public  Observable<BaseData<UserInfoModel>> getUserInfo(String phoneNumber, String token){
+        return mRetrofitService.getUserInfo(phoneNumber,token);
     }
 
     //获取收货地址
@@ -139,5 +146,10 @@ public class DataManager {
     //上传身份证A图片
     public  Observable<NormalModel> uploadIdCardStudent(RequestBody phoneNumber, RequestBody token, RequestBody signImage){
         return mRetrofitService.uploadIdCardStudent(phoneNumber,token,signImage);
+    }
+
+    //主页轮播图
+    public  Observable<BaseData<List<BannerModel>>> getMainBanner(){
+        return mRetrofitService.getMainBanner();
     }
 }

@@ -2,18 +2,21 @@ package com.youhu.shareman.shareman.model.Api;
 
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.AddressMangerModel;
+import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
+import com.youhu.shareman.shareman.model.data.UserInfoModel;
 
 import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -39,6 +42,11 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST(AppConfig.SHARE_BRAND)
     Observable<BaseData<List<BrandModel>>> getBrandDatas(@Field("brandId") String brand);
+
+    //获取用户信息
+    @FormUrlEncoded
+    @POST(AppConfig.GET_USER_INFO)
+    Observable<BaseData<UserInfoModel>> getUserInfo(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
 
     //修改昵称
     @FormUrlEncoded
@@ -159,4 +167,8 @@ public interface RetrofitService {
     @Multipart
     @POST(AppConfig.UPLOAD_STUDENT)
     Observable<NormalModel> uploadIdCardStudent(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
+
+    //主页轮播图
+    @GET(AppConfig.MAIN_BANNER)
+    Observable<BaseData<List<BannerModel>>> getMainBanner();
 }

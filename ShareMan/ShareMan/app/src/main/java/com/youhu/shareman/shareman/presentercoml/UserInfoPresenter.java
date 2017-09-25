@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
+import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.UserInfoModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.view.UserInfoView;
 
@@ -27,6 +29,7 @@ public class UserInfoPresenter implements BasePresenter {
     private static String Tag="UserInfoPresenter";
     private Context context;
     private DataManager manager;
+    private BaseData<UserInfoModel> userInfoModel;
     private NormalModel nickNameModel;
     private NormalModel sexModel;
     private NormalModel userImageModel;
@@ -59,6 +62,37 @@ public class UserInfoPresenter implements BasePresenter {
     @Override
     public void attachView(BaseView view) {
         userInfoView= (UserInfoView) view;
+    }
+
+    //获取用户信息
+    public void getUserInfo(String phoneNumber,String token){
+        compositeSubscription.add(manager.getUserInfo(phoneNumber,token)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<BaseData<UserInfoModel>>() {
+                    @Override
+                    public void onCompleted() {
+                        if(userInfoModel!=null){
+                            userInfoView.doGetUserInfo(userInfoModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseData<UserInfoModel> userInfoData) {
+                        Log.i(Tag,userInfoData.getMessage());
+                        userInfoModel=userInfoData;
+                    }
+                })
+
+        );
     }
 
     //修改昵称

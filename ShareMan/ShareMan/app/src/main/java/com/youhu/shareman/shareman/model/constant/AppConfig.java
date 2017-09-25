@@ -56,6 +56,11 @@ public class AppConfig {
     public static final String SEND_ADVICE = "shareman/advice/sendAdvice";
 
     /**
+     * 获取用户信息
+     */
+    public static final String GET_USER_INFO = "shareman/user/getPersonalProfile";
+
+    /**
      * 获取收货地址
      */
     public static final String GET_POST_DETAIL = "shareman/postDetail/getPostDetail";
@@ -124,4 +129,9 @@ public class AppConfig {
      * 上传身份证学生照
      */
     public static final String UPLOAD_STUDENT = "shareman/user/uploadStudentIdCard";
+
+    /**
+     * 主页轮播图
+     */
+    public static final String MAIN_BANNER = "shareman/carousel/findCarousel";
 }

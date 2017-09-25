@@ -17,14 +17,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kevin.crop.UCrop;
 import com.youhu.shareman.shareman.MainActivity;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
+import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.UserInfoModel;
 import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
 import com.youhu.shareman.shareman.util.CheckUtils;
+import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
@@ -61,10 +65,14 @@ public class UserInfoActivity extends BaseActivity {
     RelativeLayout mAddressManger;
     @BindView(R.id.change_account)
     Button mChangeAccount;
+    @BindView(R.id.user_info_image)
+    ImageView mUserImage;
     @BindView(R.id.user_sex)
     TextView mUserSex;
     @BindView(R.id.user_nickname)
     TextView mUserNickname;
+    @BindView(R.id.phone_number)
+    TextView mUserPhoneNumber;
 
     //对话框
     private TextView firstChoose;
@@ -101,6 +109,7 @@ public class UserInfoActivity extends BaseActivity {
 
         userInfoPresenter.onCreate();
         userInfoPresenter.attachView(userInfoView);
+
     }
 
     @Override
@@ -113,6 +122,14 @@ public class UserInfoActivity extends BaseActivity {
 
     }
 
+    //在获取焦点后刷新请求
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userInfoPresenter.getUserInfo(phoneNumber,token);
+    }
 
     @OnClick({R.id.back,R.id.user_image_manger,R.id.user_nickname_manger,R.id.user_sex_manger,
             R.id.phone_number_manger,R.id.address_manger,R.id.change_account})
@@ -144,6 +161,24 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     UserInfoView userInfoView=new UserInfoView() {
+        @Override
+        public void doGetUserInfo(BaseData<UserInfoModel> userInfoData) {
+            //设置界面数据
+            //头像
+            Glide.with(getContext()).load(userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 30)).error(R.drawable.sb_yellow_small).into(mUserImage);
+            //昵称
+            mUserNickname.setText(userInfoData.getData().getNickname());
+            //性别
+            if(userInfoData.getData().getGender()==1){
+                mUserSex.setText("男");
+            }else{
+                mUserSex.setText("女");
+            }
+
+            //手机号码
+            mUserPhoneNumber.setText(userInfoData.getData().getPhone_number());
+        }
+
         @Override
         public void doChangeNickname(NormalModel nickNameData) {
             ToastUtils.show(getContext(),"修改成功");

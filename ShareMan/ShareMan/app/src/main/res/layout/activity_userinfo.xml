@@ -37,9 +37,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/icon_1"/>
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
             <View
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="15dp"
@@ -220,7 +219,7 @@
                 android:layout_marginRight="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="修改"
+                android:text="管理"
                 android:textColor="@color/apptitle"
                 android:textSize="16sp"/>
             <View

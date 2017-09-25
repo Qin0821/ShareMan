@@ -204,7 +204,7 @@ public class SignUpAndPaymentActivity extends BaseActivity {
     }
 
 
-    //设置选择图片弹出框
+    //签名弹出框
     public void dialogShow(){
         dialog = new Dialog(this,R.style.ShopTabDialog);
         //填充对话框的布局

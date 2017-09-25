@@ -67,6 +67,9 @@ public class ChangeNumberActivity extends BaseActivity implements SecurityCodeVi
         //获取已登录的手机号
         phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
 
+        //设置原手机号码
+        mTvPhoneNumber.setText(phoneNumber);
+
         mGetSecurityCode.setEnabled(true);
 
         //设置输入验证码监听

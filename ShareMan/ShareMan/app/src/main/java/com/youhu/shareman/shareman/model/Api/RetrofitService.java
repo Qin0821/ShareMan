@@ -5,6 +5,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
@@ -136,7 +137,12 @@ public interface RetrofitService {
     @POST(AppConfig.UPLOAD_SIGN)
     Observable<NormalModel> uploadSign(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token, @Part("orderId") RequestBody orderId,@Part("image\"; filename=\"image.png\"") RequestBody signImage);
 
-    //修改手机收货地址
+    //查看个人信息
+    @FormUrlEncoded
+    @POST(AppConfig.GET_INFORMATION)
+    Observable<BaseData<InformationModel>> getInformation(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+
+    //上传身份信息
     @FormUrlEncoded
     @POST(AppConfig.UPLOAD_INFORMATION)
     Observable<NormalModel> uploadInformation(
@@ -153,17 +159,17 @@ public interface RetrofitService {
     @POST(AppConfig.UPLOAD_ID_CARD_A)
     Observable<NormalModel> uploadIdCardA(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
 
-    //上传身份证A面
+    //上传身份证B面
     @Multipart
     @POST(AppConfig.UPLOAD_ID_CARD_B)
     Observable<NormalModel> uploadIdCardB(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
 
-    //上传身份证A面
+    //上传身份证半身
     @Multipart
     @POST(AppConfig.UPLOAD_BANSEHNG)
     Observable<NormalModel> uploadIdCardBanshen(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);
 
-    //上传身份证A面
+    //上传学生证照
     @Multipart
     @POST(AppConfig.UPLOAD_STUDENT)
     Observable<NormalModel> uploadIdCardStudent(@Part("phoneNumber") RequestBody phoneNumber, @Part("token") RequestBody token,@Part("image\"; filename=\"image.png\"") RequestBody idCardA);

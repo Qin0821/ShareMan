@@ -87,7 +87,7 @@ public class UserInfoPresenter implements BasePresenter {
 
                     @Override
                     public void onNext(BaseData<UserInfoModel> userInfoData) {
-                        Log.i(Tag,userInfoData.getMessage());
+                        Log.i(Tag,userInfoData.getData().toString());
                         userInfoModel=userInfoData;
                     }
                 })

@@ -22,6 +22,7 @@ import com.kevin.crop.UCrop;
 import com.youhu.shareman.shareman.MainActivity;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
@@ -165,7 +166,7 @@ public class UserInfoActivity extends BaseActivity {
         public void doGetUserInfo(BaseData<UserInfoModel> userInfoData) {
             //设置界面数据
             //头像
-            Glide.with(getContext()).load(userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 30)).error(R.drawable.sb_yellow_small).into(mUserImage);
+            Glide.with(getContext()).load(AppConfig.BASE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 15)).error(R.drawable.sb_yellow_small).into(mUserImage);
             //昵称
             mUserNickname.setText(userInfoData.getData().getNickname());
             //性别

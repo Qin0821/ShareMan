@@ -106,6 +106,11 @@ public class AppConfig {
     public static final String UPLOAD_SIGN = "shareman/order/uploadSignature";
 
     /**
+     * 查看个人信息
+     */
+    public static final String GET_INFORMATION = "shareman/user/getPersonalInfo";
+
+    /**
      * 上传个人信息
      */
     public static final String UPLOAD_INFORMATION = "shareman/user/uploadPersonalInfo";

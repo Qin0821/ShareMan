@@ -15,7 +15,7 @@
         android:layout_marginLeft="54dp"
         android:layout_marginRight="54dp"
         android:layout_marginTop="40dp"
-        android:text="15366765552"
+        android:text=""
         android:textColor="@color/apptitle"
         android:textSize="16sp" />
 

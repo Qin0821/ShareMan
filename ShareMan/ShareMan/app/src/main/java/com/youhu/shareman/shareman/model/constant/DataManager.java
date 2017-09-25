@@ -7,6 +7,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
@@ -121,6 +122,11 @@ public class DataManager {
     //上传签名图片
     public  Observable<NormalModel> uploadSign(RequestBody phoneNumber, RequestBody token, RequestBody orderId, RequestBody signImage){
         return mRetrofitService.uploadSign(phoneNumber,token,orderId,signImage);
+    }
+
+    //获取身份信息
+    public  Observable<BaseData<InformationModel>> getInformation(String phoneNumber, String token){
+        return mRetrofitService.getInformation(phoneNumber,token);
     }
 
     //上传身份信息

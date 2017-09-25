@@ -98,7 +98,7 @@ public class AddAddressActivity extends BaseActivity {
     AddAddressView addAddressView=new AddAddressView() {
         @Override
         public void doAddAddress(NormalModel addAddressData) {
-            ToastUtils.show(getContext(),addAddressData.getMessage());
+            ToastUtils.show(getContext(),"添加成功");
         }
 
         @Override

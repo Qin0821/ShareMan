@@ -1,6 +1,8 @@
 package com.youhu.shareman.shareman.view;
 
 import com.youhu.shareman.shareman.base.BaseView;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 
 /**
@@ -8,6 +10,8 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
  */
 
 public interface InformationView extends BaseView {
+    //获取身份信息
+    void doGetInformation(BaseData<InformationModel> informationModel);
     //上传身份信息
     void doUploadInformation(NormalModel uploadInformation);
 

@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
 import com.youhu.shareman.shareman.view.InformationView;
@@ -27,6 +29,7 @@ public class InformationPresenter implements BasePresenter{
     private static String Tag="InformationPresenter";
     private Context context;
     private DataManager manager;
+    private BaseData<InformationModel> getInformationModel;
     private NormalModel informationModel;
     private NormalModel informationAModel;
     private NormalModel informationBModel;
@@ -63,6 +66,37 @@ public class InformationPresenter implements BasePresenter{
         informationView= (InformationView) view;
     }
 
+
+    //获取身份信息
+    public void getInformation(String phoneNumber, String token){
+        compositeSubscription.add(manager.getInformation(phoneNumber,token)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<BaseData<InformationModel>>() {
+                    @Override
+                    public void onCompleted() {
+                        if(getInformationModel!=null){
+                            informationView.doGetInformation(getInformationModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseData<InformationModel> informationData) {
+                        Log.i(Tag,informationData.getData().toString());
+                        getInformationModel=informationData;
+                    }
+                })
+
+        );
+    }
 
     //上传身份信息
     public void uploadInformation(String phoneNumber, String token,String name,String idCardNo,String servicePassword,String company,String address){

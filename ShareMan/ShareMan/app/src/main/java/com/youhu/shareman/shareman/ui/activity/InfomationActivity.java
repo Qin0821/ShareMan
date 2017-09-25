@@ -21,11 +21,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.kevin.crop.UCrop;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.InformationPresenter;
+import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.InformationView;
@@ -128,6 +133,8 @@ public class InfomationActivity extends BaseActivity {
 
         informationPresenter.onCreate();
         informationPresenter.attachView(informationView);
+//        informationPresenter.getInformation(phoneNumber,token);
+        informationPresenter.getInformation("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703");
     }
 
     @Override
@@ -143,6 +150,43 @@ public class InfomationActivity extends BaseActivity {
 
     //上传身份信息接口返回
     InformationView informationView=new InformationView() {
+        @Override
+        public void doGetInformation(BaseData<InformationModel> informationModel) {
+            //TODO
+            //设置个人信息数据
+            mReallyName.setText(informationModel.getData().getName());
+            mIDNumber.setText(informationModel.getData().getId_card_no());
+            mServerPwd.setText(informationModel.getData().getService_password());
+            mUnitName.setText(informationModel.getData().getCompany());
+            mAddressNow.setText(informationModel.getData().getAddress());
+            //设置身份证图片
+            if(informationModel.getData().getStudent_id_card()==null){
+                mImageInfomationA.setVisibility(View.INVISIBLE);
+            }else{
+                mImageInfomationA.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_a()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationA);
+            }
+            if(informationModel.getData().getStudent_id_card()==null){
+                mImageInfomationB.setVisibility(View.INVISIBLE);
+            }else{
+                mImageInfomationB.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_b()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationB);
+            }
+            if(informationModel.getData().getStudent_id_card()==null){
+                mImageInfomationBanshen.setVisibility(View.INVISIBLE);
+            }else{
+                mImageInfomationBanshen.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_on_hand()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationBanshen);
+            }
+            if(informationModel.getData().getStudent_id_card()==null){
+                mImageInfomationStudent.setVisibility(View.INVISIBLE);
+            }else{
+                mImageInfomationStudent.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_no()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationStudent);
+            }
+
+        }
+
         @Override
         public void doUploadInformation(NormalModel uploadInformation) {
             ToastUtils.show(getContext(),"上传成功");

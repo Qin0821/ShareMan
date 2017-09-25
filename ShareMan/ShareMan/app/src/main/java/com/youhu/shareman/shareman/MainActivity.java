@@ -157,19 +157,9 @@ public class MainActivity extends BaseActivity implements BaseView {
         //初始化热门推荐
         initHotRecoment();
 
-        //头像设置
-//        Glide.with(mContext)
-//                .load(photoTinyURL)
-//                .asBitmap()
-//                .animate(R.anim.crop_image_fade_anim)
-//                .placeholder(R.drawable.crop_corner_white)
-//                .error(R.drawable.icon_default_head_gray_white)
-//                .into(new BitmapImageViewTarget(imageView) {
-//                    @Override
-//                    protected void setResource(Bitmap resource) {
-//                        imageView.setImageBitmap(resource);
-//                    }
-//                });
+        //初始化头像
+
+
         Glide.with(getContext()).load(R.drawable.sb_gray).asBitmap().transform(new GlideRoundTransform(getContext(), 0)).into(new BitmapImageViewTarget(mUserImage) {
             @Override
             protected void setResource(Bitmap resource) {

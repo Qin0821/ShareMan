@@ -1,10 +1,13 @@
 package com.youhu.shareman.shareman.ui.activity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +18,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kevin.crop.UCrop;
+import com.yalantis.ucrop.UCrop;
 import com.youhu.shareman.shareman.MainActivity;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
-import com.youhu.shareman.shareman.view.UserInfoView;
 import com.youhu.shareman.shareman.ui.widget.SelfDialog;
 import com.youhu.shareman.shareman.util.CheckUtils;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.UserInfoView;
 
 import java.io.File;
 
@@ -96,9 +99,11 @@ public class UserInfoActivity extends BaseActivity {
         userInfoPresenter.attachView(userInfoView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initData() {
-
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        requestPermissions(permissions, 1000);
     }
 
     @Override
@@ -197,9 +202,11 @@ public class UserInfoActivity extends BaseActivity {
                     break;
                 case UCrop.REQUEST_CROP:
                     // TODO: 裁剪图片结果
+                    final Uri resultUri = UCrop.getOutput(data);
                     break;
                 case UCrop.RESULT_ERROR:
                     // TODO: 裁剪图片错误
+                    final Throwable cropError = UCrop.getError(data);
                     break;
             }
         }
@@ -314,10 +321,10 @@ public class UserInfoActivity extends BaseActivity {
      * 裁剪图片方法实现
      */
     public void startCropActivity(Uri sourceUri){
-        Uri mDestinationUri = Uri.fromFile(new File(getCacheDir(), "SampleCropImage.jpeg"));
+        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), "mmexport.jpg"));
         //第一个参数图片选择的地址，第二个参数裁剪完图片保存的地址
-        UCrop.of(sourceUri, mDestinationUri)
-                .withAspectRatio(2, 1)
+        UCrop.of(sourceUri, destinationUri)
+                .withAspectRatio(16, 9)
                 .withMaxResultSize(maxWidth, maxHeight)
                 .start(this);
 

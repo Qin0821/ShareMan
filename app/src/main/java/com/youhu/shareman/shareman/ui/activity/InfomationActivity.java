@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kevin.crop.UCrop;
+import com.yalantis.ucrop.UCrop;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
@@ -398,7 +398,6 @@ public class InfomationActivity extends BaseActivity {
         UCrop.of(uri, mDestinationUri)
                 .withAspectRatio(1, 1)
                 .withMaxResultSize(512, 512)
-                .withTargetActivity(CropActivity.class)
                 .start(this);
     }
 

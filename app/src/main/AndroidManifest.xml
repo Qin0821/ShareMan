@@ -69,7 +69,10 @@
         <activity android:name=".ui.activity.ShareOrderActivity"/>
         <activity android:name=".ui.activity.EditAddressActivity"/>
 
-        <activity android:name=".ui.activity.CropActivity"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 

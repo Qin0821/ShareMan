@@ -1,3 +1,4 @@
+/*
 package com.youhu.shareman.shareman.ui.activity;
 
 import android.content.Intent;
@@ -26,6 +27,7 @@ import java.io.OutputStream;
 import butterknife.BindView;
 
 
+*/
 /**
  * 版权所有：XXX有限公司
  *
@@ -36,7 +38,8 @@ import butterknife.BindView;
  *
  *         注:如果您修改了本类请填写以下内容作为记录，如非本人操作劳烦通知，谢谢！！！
  * @author mender，Modified Date Modify Content:
- */
+ *//*
+
 public class CropActivity extends BaseActivity {
 
     private static final String TAG = "CropActivity";
@@ -86,18 +89,22 @@ public class CropActivity extends BaseActivity {
     }
 
 
-    /**
+    */
+/**
      * 初始化ToolBar
-     */
+     *//*
+
     private void initToolBar() {
         mToolBar.setTitle("裁剪图片");
         setSupportActionBar(mToolBar);
         mToolBar.setNavigationIcon(R.drawable.nav_icon_return);
     }
 
-    /**
+    */
+/**
      * 初始化裁剪View
-     */
+     *//*
+
     private void initCropView() {
         // 设置允许缩放
         mGestureCropImageView.setScaleEnabled(true);
@@ -235,3 +242,4 @@ public class CropActivity extends BaseActivity {
 
 
 }
+*/

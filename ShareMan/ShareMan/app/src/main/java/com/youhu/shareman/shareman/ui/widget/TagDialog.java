@@ -8,9 +8,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.youhu.shareman.shareman.R;
+import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.util.ToastUtils;
+
+import java.util.List;
 
 /**
  * Created by Touch on 2017/9/23.
@@ -22,12 +26,20 @@ public class TagDialog extends Dialog {
 
     private ImageView sureImageView;
     private ImageView yiwaiImageView;
-
+    private List<ProductDetailModel.TagBeanBean> tagBeanList;
+    private ListView listView;
 
     public TagDialog(@NonNull Context context) {
         super(context,R.style.ShopTabDialog);
     }
 
+    public List<ProductDetailModel.TagBeanBean> setTagBeanList() {
+        return tagBeanList;
+    }
+
+    public void setTagBeanList(List<ProductDetailModel.TagBeanBean> tagBean) {
+        this.tagBeanList = tagBean;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +76,9 @@ public class TagDialog extends Dialog {
 
         yiwaiImageView= findViewById(R.id.img_yiwaibaozhang);
         sureImageView=findViewById(R.id.sure_button);
+        //TODO
+        //设置适配器
+        listView = findViewById(R.id.lv_product_detail);
 
         findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override

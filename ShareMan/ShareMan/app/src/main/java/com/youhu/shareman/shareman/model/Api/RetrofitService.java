@@ -5,10 +5,12 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.HotRecoment;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
 
@@ -177,4 +179,13 @@ public interface RetrofitService {
     //主页轮播图
     @GET(AppConfig.MAIN_BANNER)
     Observable<BaseData<List<BannerModel>>> getMainBanner();
+
+    //主页热门推荐
+    @GET(AppConfig.MAIN_HOT_RECOMENT)
+    Observable<BaseData<HotRecoment>> getHotRecoment();
+
+    //商品详情预览
+    @FormUrlEncoded
+    @POST(AppConfig.PRODUCT_DETAIL)
+    Observable<BaseData<ProductDetailModel>> getProductDetail(@Field("version") String version);
 }

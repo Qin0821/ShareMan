@@ -133,8 +133,8 @@ public class InfomationActivity extends BaseActivity {
 
         informationPresenter.onCreate();
         informationPresenter.attachView(informationView);
-//        informationPresenter.getInformation(phoneNumber,token);
-        informationPresenter.getInformation("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703");
+        informationPresenter.getInformation(phoneNumber,token);
+//        informationPresenter.getInformation("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703");
     }
 
     @Override
@@ -194,12 +194,12 @@ public class InfomationActivity extends BaseActivity {
 
         @Override
         public void doUploadIdCardA(NormalModel uploadIdCardAData) {
-            ToastUtils.show(getContext(),"上传中...");
+            ToastUtils.show(getContext(),"上传成功");
         }
 
         @Override
         public void doUploadIdCardB(NormalModel uploadIdCardBData) {
-            ToastUtils.show(getContext(),"上传中...");
+            ToastUtils.show(getContext(),"上传成功");
         }
 
         @Override
@@ -253,10 +253,19 @@ public class InfomationActivity extends BaseActivity {
                     String company=mUnitName.getText().toString();
                     String address=mAddressNow.getText().toString();
                     //图片文件
-                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileA);
-                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileB);
-                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileC);
-                    informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileD);
+                    if(myCaptureFileA!=null){
+                        informationPresenter.uploadIdCardA(phoneNumber,token,myCaptureFileA);
+                    }
+                    if(myCaptureFileB!=null){
+                        informationPresenter.uploadIdCardB(phoneNumber,token,myCaptureFileB);
+                    }
+                    if(myCaptureFileC!=null){
+                        informationPresenter.uploadIdCardBanshen(phoneNumber,token,myCaptureFileC);
+                    }
+                    if(myCaptureFileD!=null){
+                        informationPresenter.uploadStudent(phoneNumber,token,myCaptureFileD);
+                    }
+
                     informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
 //                    informationPresenter.uploadIdCardA("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileA);
 //                    informationPresenter.uploadIdCardB("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileB);
@@ -298,7 +307,7 @@ public class InfomationActivity extends BaseActivity {
                     Bundle bundle2 = data.getExtras();
                     Bitmap bitmap2 = (Bitmap) bundle2.get("data");
                     try {
-                        saveFileB(bitmap2,"informationB.jpeg");
+                        saveFileB(bitmap2,"informationB");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -308,7 +317,7 @@ public class InfomationActivity extends BaseActivity {
                     Bundle bundle3 = data.getExtras();
                     Bitmap bitmap3 = (Bitmap) bundle3.get("data");
                     try {
-                        saveFileC(bitmap3,"informationBanshen.jpeg");
+                        saveFileC(bitmap3,"informationBanshen");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -318,7 +327,7 @@ public class InfomationActivity extends BaseActivity {
                     Bundle bundle4 = data.getExtras();
                     Bitmap bitmap4 = (Bitmap) bundle4.get("data");
                     try {
-                        saveFileD(bitmap4,"informationStudent.jpeg");
+                        saveFileD(bitmap4,"informationStudent");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

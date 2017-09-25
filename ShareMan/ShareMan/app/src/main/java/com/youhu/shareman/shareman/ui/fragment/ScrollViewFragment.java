@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
@@ -55,7 +54,7 @@ public class ScrollViewFragment extends ScrollViewBaseFragment {
     TextView mProductName;
     @BindView(R.id.tv_product_price)
     TextView mProductPrice;
-    @BindView(R.id.tv_product_share_price)
+    @BindView(R.id.tv_product_low_price)
     TextView mProductSharePrice;
     @BindView(R.id.ig_product_detail_share)
     ImageView mProductDetailShare;

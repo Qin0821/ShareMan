@@ -1,9 +1,12 @@
 package com.youhu.shareman.shareman.ui.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -68,9 +71,20 @@ public class ProductDetailActivity extends BaseActivity implements BaseView,ISli
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.slidedetails_front, new ProductDetailScrollViewFragment()).commit();
+        //获取传递过来的version
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        String version =bundle.getString("bannerVersion","");
 
+        //给Fragment传递version
+        Bundle bundle1=new Bundle();
+        bundle1.putString("toVersion",version);
+        Fragment fragment=new ProductDetailScrollViewFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.slidedetails_front, fragment).commit();
+
+        fragment.setArguments(bundle1);
         //关于事件分发
         initViewPager();
     }

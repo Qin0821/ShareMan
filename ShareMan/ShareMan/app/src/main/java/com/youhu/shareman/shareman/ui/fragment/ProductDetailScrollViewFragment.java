@@ -17,11 +17,16 @@ import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.youhu.shareman.shareman.R;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.ProductDetailModel;
+import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.widget.PreSaleDialog;
 import com.youhu.shareman.shareman.ui.widget.ShareDialog;
 import com.youhu.shareman.shareman.ui.widget.TagDialog;
 import com.youhu.shareman.shareman.util.GlideImageLoader;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.ProductDetailView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -50,7 +55,9 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     TextView mProductName;
     @BindView(R.id.tv_product_price)
     TextView mProductPrice;
-    @BindView(R.id.tv_product_share_price)
+    @BindView(R.id.tv_product_depression)
+    TextView mProductDepression;
+    @BindView(R.id.tv_product_low_price)
     TextView mProductSharePrice;
     @BindView(R.id.ig_product_detail_share)
     ImageView mProductDetailShare;
@@ -77,6 +84,10 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     private PreSaleDialog preSaleDialog;
     //选择类型弹窗
     private TagDialog tagDialog;
+    //展示的型号
+    private String version;
+    private ProductDetailModel productDetailData;
+    ProductDetailPresenter productDetailPresenter=new ProductDetailPresenter();
 
     @Nullable
     @Override
@@ -92,19 +103,45 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //轮播图
-        List<Integer> imageUrl = new ArrayList<>();
-        imageUrl.add(R.drawable.product_detail_1);
-        imageUrl.add(R.drawable.product_detail_2);
-        imageUrl.add(R.drawable.product_detail_3);
-        imageUrl.add(R.drawable.product_detail_4);
-        imageUrl.add(R.drawable.product_detail_5);
-        initBanner(imageUrl);
+        if (isAdded()) {//判断Fragment已经依附Activity
+            version = getArguments().getString("toVersion");
+        }
+        productDetailPresenter.onCreate();
+        productDetailPresenter.attachView(productDetailView);
+        productDetailPresenter.getProductDetail(version);
+
 
         //分享
         regToWx();
     }
 
+
+    //请求回调数据
+    ProductDetailView productDetailView=new ProductDetailView() {
+        @Override
+        public void getProductDetail(BaseData<ProductDetailModel> productDetailModel) {
+            productDetailData=productDetailModel.getData();
+            List<String> imageUrl = new ArrayList<>();
+            //轮播图
+            if(productDetailData!=null){
+                for(int i=0;i<productDetailData.getProductImages().size();i++){
+                    imageUrl.add(AppConfig.BASE_URL+productDetailData.getProductImages().get(i));
+                }
+            }
+
+            initBanner(imageUrl);
+
+            mProductName.setText(version);
+            mProductPrice.setText("价值"+productDetailData.getOriginal_price());
+            mProductSharePrice.setText("¥"+productDetailData.getReal_price());
+            mProductDepression.setText("折旧费"+productDetailData.getDepreciation_count()+"元/天");
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
 
     @OnClick({R.id.back,R.id.rl_tiaokuan,R.id.ig_product_detail_share,R.id.ig_product_detail_shouquan,R.id.choose_style,R.id.ll_touch_shouqi})
@@ -200,12 +237,13 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     //设置选择图片弹出框
     public void dialogShow(){
         tagDialog=new TagDialog(getContext());
+        tagDialog.setTagBeanList(productDetailData.getTagBean());
         tagDialog.show();
     }
 
 
     //初始化轮播图
-    private void initBanner(List<Integer> imageUrl) {
+    private void initBanner(List<String> imageUrl) {
         //设置间隔
         mBanner.setDelayTime(3000);
         //添加图片

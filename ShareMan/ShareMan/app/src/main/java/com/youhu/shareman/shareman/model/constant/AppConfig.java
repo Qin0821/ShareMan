@@ -139,4 +139,16 @@ public class AppConfig {
      * 主页轮播图
      */
     public static final String MAIN_BANNER = "shareman/carousel/findCarousel";
+
+    /**
+     * 主页热门推荐
+     */
+    public static final String MAIN_HOT_RECOMENT = "shareman/category/findHot";
+
+    /**
+     * 商品详情图预览
+     */
+    public static final String PRODUCT_DETAIL = "shareman/product/findProductByVersion";
+
+
 }

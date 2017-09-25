@@ -132,6 +132,8 @@ public class MainActivity extends BaseActivity implements BaseView {
     private String token;
     MainActivityPreserter mainActivityPreserter=new MainActivityPreserter();
     private List<String> bannerImageUrl;
+    private String version;
+    private List<BannerModel> bannerList;
 
 
     @Override
@@ -193,6 +195,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     MainActivityView mainActivityView=new MainActivityView() {
         @Override
         public void doBanner(BaseData<List<BannerModel>> bannerData) {
+            bannerList=bannerData.getData();
             //轮播图
             bannerImageUrl = new ArrayList<>();
             if(bannerData!=null){
@@ -394,21 +397,11 @@ public class MainActivity extends BaseActivity implements BaseView {
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                switch (position){
-                    case 0:
-                        JumpUtil.overlay(MainActivity.this, ProductDetailActivity.class);
-                        break;
-                    case 1:
-                        JumpUtil.overlay(MainActivity.this, ProductDetailActivity.class);
-                        break;
-                    case 2:
-                        JumpUtil.overlay(MainActivity.this, ProductDetailActivity.class);
-                        break;
-                    case 3:
-                        JumpUtil.overlay(MainActivity.this, ProductDetailActivity.class);
-                        break;
-                }
-
+                //获取version
+                String version=bannerList.get(position).getVersion();
+                Bundle bundle=new Bundle();
+                bundle.putString("bannerVersion",version);
+                JumpUtil.overlay(MainActivity.this, ProductDetailActivity.class,bundle);
             }
         });
         //banner设置方法全部调用完毕时最后调用

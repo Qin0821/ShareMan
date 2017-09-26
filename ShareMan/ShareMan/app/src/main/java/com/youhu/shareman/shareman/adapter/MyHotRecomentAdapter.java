@@ -9,7 +9,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.youhu.shareman.shareman.R;
-import com.youhu.shareman.shareman.data.HotRecomentInfo;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
+import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.util.GlideRoundTransform;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class MyHotRecomentAdapter extends BaseAdapter {
 
     private Context context;
-    private List<HotRecomentInfo> datas;
+    private List<HotRecomentModel> datas;
 
     public Context getContext() {
         return context;
@@ -31,11 +32,11 @@ public class MyHotRecomentAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public List<HotRecomentInfo> getDatas() {
+    public List<HotRecomentModel> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<HotRecomentInfo> datas) {
+    public void setDatas(List<HotRecomentModel> datas) {
         this.datas = datas;
     }
 
@@ -66,7 +67,7 @@ public class MyHotRecomentAdapter extends BaseAdapter {
         }
         //设置数据
         Glide.with(getContext())
-                .load(datas.get(i).getImageUrl())
+                .load(AppConfig.BASE_URL+datas.get(i).getCategory_url())
                 .transform(new GlideRoundTransform(getContext(), 5))
                 .into(myViewHolder.mImage);
 //        myViewHolder.mImage.setImageResource(datas.get(i).getImageUrl());

@@ -7,7 +7,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
-import com.youhu.shareman.shareman.model.data.HotRecoment;
+import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
@@ -161,8 +161,8 @@ public class DataManager {
         return mRetrofitService.getMainBanner();
     }
 
-    //主页轮播图
-    public  Observable<BaseData<HotRecoment>> getHotRecoment(){
+    //主页热推
+    public  Observable<BaseData<List<HotRecomentModel>>> getHotRecoment(){
         return mRetrofitService.getHotRecoment();
     }
 

@@ -33,11 +33,11 @@ import com.youhu.shareman.shareman.adapter.MyHotRecomentAdapter;
 import com.youhu.shareman.shareman.adapter.MyListAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.base.BaseView;
-import com.youhu.shareman.shareman.data.HotRecomentInfo;
 import com.youhu.shareman.shareman.data.UserInfo;
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.presentercoml.MainActivityPreserter;
 import com.youhu.shareman.shareman.ui.activity.BrandActivity;
 import com.youhu.shareman.shareman.ui.activity.FeedBackOrderNormalActivity;
@@ -58,7 +58,6 @@ import com.youhu.shareman.shareman.util.GlideImageLoader;
 import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
-import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.MainActivityView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -118,7 +117,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     private MyListAdapter mListAdapter;
     private MyHotRecomentAdapter hotRecomentAdapter;
     private List<UserInfo> datas;
-    private List<HotRecomentInfo> imageUrl;
+    private List<HotRecomentModel> imageUrl;
     //对话框
     private TextView firstChoose;
     private TextView secondChoose;
@@ -155,13 +154,9 @@ public class MainActivity extends BaseActivity implements BaseView {
         mainActivityPreserter.onCreate();
         mainActivityPreserter.attachView(mainActivityView);
         mainActivityPreserter.getMainBanner();
-
-        //初始化热门推荐
-        initHotRecoment();
+        mainActivityPreserter.getHotRecoment();
 
         //初始化头像
-
-
         Glide.with(getContext()).load(R.drawable.sb_gray).asBitmap().transform(new GlideRoundTransform(getContext(), 0)).into(new BitmapImageViewTarget(mUserImage) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -205,6 +200,15 @@ public class MainActivity extends BaseActivity implements BaseView {
                 initBanner(bannerImageUrl);
             }
 
+        }
+
+        @Override
+        public void doHotRecoment(BaseData<List<HotRecomentModel>> hotRecomentData) {
+            //初始化热门推荐
+            //数据来源
+            imageUrl = new ArrayList<HotRecomentModel>();
+            imageUrl=hotRecomentData.getData();
+            initHotRecoment(imageUrl);
         }
 
         @Override
@@ -350,19 +354,7 @@ public class MainActivity extends BaseActivity implements BaseView {
         });
     }
 
-    private void initHotRecoment() {
-        //数据来源
-        imageUrl = new ArrayList<HotRecomentInfo>();
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_1));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_2));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_3));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_4));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_5));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_1));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_2));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_3));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_4));
-        imageUrl.add(new HotRecomentInfo(R.drawable.product_detail_5));
+    private void initHotRecoment(final List<HotRecomentModel> imageUrl) {
 
         hotRecomentAdapter = new MyHotRecomentAdapter();
         hotRecomentAdapter.setContext(this);
@@ -371,8 +363,11 @@ public class MainActivity extends BaseActivity implements BaseView {
         mHotRecoment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                ToastUtils.show(getContext(),"跳转至第"+position+"个详情界面");
-                JumpUtil.overlay(getContext(),ProductDetailActivity.class);
+                //获取version
+                String version=imageUrl.get(position).getVersion();
+                Bundle bundle=new Bundle();
+                bundle.putString("bannerVersion",version);
+                JumpUtil.overlay(getContext(),ProductDetailActivity.class,bundle);
             }
         });
     }

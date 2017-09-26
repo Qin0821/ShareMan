@@ -4,7 +4,7 @@ package com.youhu.shareman.shareman.model.data;
  * Created by Touch on 2017/9/26.
  */
 
-public class HotRecoment {
+public class HotRecomentModel {
 
 
     /**
@@ -33,7 +33,7 @@ public class HotRecoment {
 
     @Override
     public String toString() {
-        return "HotRecoment{" +
+        return "HotRecomentModel{" +
                 "category_url='" + category_url + '\'' +
                 ", version='" + version + '\'' +
                 '}';

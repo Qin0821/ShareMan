@@ -16,6 +16,8 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
+import com.youhu.shareman.shareman.model.data.VoucherModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 
 import java.util.List;
 
@@ -183,12 +185,17 @@ public class DataManager {
     }
 
     //优惠券
-    public  Observable<NormalModel> getVoucher(String phoneNumber, String token){
+    public  Observable<BaseData<List<VoucherModel>>> getVoucher(String phoneNumber, String token){
         return mRetrofitService.getVoucher(phoneNumber,token);
     }
 
     //使用优惠券
     public  Observable<NormalModel> useVoucher(String phoneNumber, String token, String orderId){
         return mRetrofitService.useVoucher(phoneNumber,token,orderId);
+    }
+
+    //芝麻信用
+    public  Observable<BaseData<ZhimaModel>> getZhima(String phoneNumber, String token, String orderId){
+        return mRetrofitService.getZhima(phoneNumber,token,orderId);
     }
 }

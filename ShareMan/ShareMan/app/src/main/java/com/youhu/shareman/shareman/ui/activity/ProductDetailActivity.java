@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.youhu.shareman.shareman.R;
@@ -22,18 +23,20 @@ import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.fragment.ProductDetailScrollViewFragment;
 import com.youhu.shareman.shareman.ui.widget.ISlideCallback;
 import com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout;
+import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.ProductDetailView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Touch on 2017/8/19.
  */
 
-public class ProductDetailActivity extends BaseActivity implements ISlideCallback {
+public class ProductDetailActivity extends BaseActivity implements ISlideCallback,ProductDetailScrollViewFragment.FragmentInteraction {
 
 
     @BindView(R.id.tabs)
@@ -42,6 +45,8 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
     ViewPager mViewPager;
     @BindView(R.id.slidedetails)
     SlideDetailsLayout mSlideDetailsLayout;
+    @BindView(R.id.img_start_booking)
+    ImageView mStart;
 
     //tab标题
     private ViewPagerAdapter adapter;
@@ -55,6 +60,7 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
     ProductDetailPresenter productDetailPresenter=new ProductDetailPresenter();
     private ListView imagelistview;
     private ListView formatlistview;
+    private int chooseId;
 
     @Override
     protected void initBind() {
@@ -95,6 +101,7 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
         fm.beginTransaction().replace(R.id.slidedetails_front, fragment).commit();
 
         fragment.setArguments(bundle1);
+
 
         //初始化页面
 //        NoScrollListView imagelistview = new NoScrollListView(getContext());
@@ -138,6 +145,20 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
         }
     };
 
+    @OnClick(R.id.img_start_booking)
+    void onClick(View view){
+        switch (view.getId()){
+            case R.id.img_start_booking:
+                if(chooseId==-1){
+                    ToastUtils.show(getContext(),"请选择颜色、内存和增值服务");
+                }else{
+                    //TODO
+                    //发送生成订单请求
+                }
+                break;
+        }
+    }
+
     private void initViewPager(ProductDetailModel imageData) {
         //设置详情ListView
         List<String> detailData=new ArrayList<String>();
@@ -171,4 +192,8 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
         mSlideDetailsLayout.smoothClose(smooth);
     }
 
+    @Override
+    public void process(int choose) {
+        chooseId=choose;
+    }
 }

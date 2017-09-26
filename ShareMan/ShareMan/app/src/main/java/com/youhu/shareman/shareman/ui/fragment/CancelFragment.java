@@ -56,8 +56,8 @@ public class CancelFragment extends ViewPagerBaseFragment {
         View view1 = inflater.inflate(R.layout.viewpager_cancel_item, null);
         shareOrderPresenter.onStart();
         //获取订单信息
-//        shareOrderPresenter.getShareOrder(phoneNumber,token,0);
-        shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",2);
+        shareOrderPresenter.getShareOrder(phoneNumber,token,2);
+//        shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",2);
         shareOrderPresenter.attachView(new ShareOrderView() {
             @Override
             public void doShareOrder(BaseData<List<ShareOrderModel>> shareOrderData) {
@@ -101,10 +101,10 @@ public class CancelFragment extends ViewPagerBaseFragment {
             @Override
             public void onDeleteClick(int i) {
                 orderId=data.get(i).getOrder_id();
-//                shareOrderPresenter.cancelOrder(phoneNumber,token,orderId);
-                shareOrderPresenter.deleteOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
+                shareOrderPresenter.cancelOrder(phoneNumber,token,orderId);
+//                shareOrderPresenter.deleteOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
                 //重新发送请求并刷新数据
-                shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",2);
+                shareOrderPresenter.getShareOrder(phoneNumber,token,2);
             }
         });
         return view;

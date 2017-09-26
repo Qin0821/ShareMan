@@ -16,4 +16,11 @@
         android:dividerHeight="25dp"
         android:layout_marginTop="25dp" />
 
+    <ImageView
+        android:id="@+id/img_voucher_bg"
+        android:visibility="gone"
+        android:background="@drawable/bg_daijinquan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

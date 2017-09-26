@@ -168,11 +168,16 @@ public class AppConfig {
     /**
      * 优惠券
      */
-    public static final String VOUCHER = "";
+    public static final String VOUCHER = "shareman/voucher/findVoucher";
 
     /**
      * 使用优惠券
      */
-    public static final String USE_VOUCHER = "";
+    public static final String USE_VOUCHER = "shareman/voucher/selectVoucher";
+
+    /**
+     * 获取芝麻信用
+     */
+    public static final String ZHI_MA = "shareman/pay/getZhimaScoreResult";
 
 }

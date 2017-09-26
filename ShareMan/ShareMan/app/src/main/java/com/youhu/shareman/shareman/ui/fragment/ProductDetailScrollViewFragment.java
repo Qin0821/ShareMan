@@ -1,5 +1,6 @@
 package com.youhu.shareman.shareman.ui.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -76,6 +77,7 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     //自定义底部弹窗
     private View inflate;
     private Dialog dialog;
+    private int chooseType=-1;
     //分享弹窗
     private ShareDialog mShareDialog;
     private static final  String APP_ID="wx27c6bc5e8c8f52f4";
@@ -110,7 +112,7 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         productDetailPresenter.attachView(productDetailView);
         productDetailPresenter.getProductDetail(version);
 
-
+        listterner.process(chooseType);
         //分享
         regToWx();
     }
@@ -138,6 +140,8 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
             mProductSharePrice.setText("¥"+productDetailData.getReal_price());
             //折旧费
             mProductDepression.setText("折旧费"+productDetailData.getDepreciation_count()+"元/天");
+
+
         }
 
         @Override
@@ -241,6 +245,24 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     public void dialogShow(){
         tagDialog=new TagDialog(getContext());
         tagDialog.setTagBeanList(productDetailData.getTagBean());
+        tagDialog.setItemOnclickListener(new TagDialog.onItemOnclickListener() {
+            @Override
+            public void onItemClick(int chooseId) {
+                if(chooseId==-1){
+                    ToastUtils.show(getContext(),"请选择型号");
+                }else{
+                    tagDialog.dismiss();
+                    //总价值
+                    mProductPrice.setText("价值"+productDetailData.getTagBean().get(chooseId).getOriginal_price());
+                    //共享价
+                    mProductSharePrice.setText("¥"+productDetailData.getTagBean().get(chooseId).getReal_price());
+                    //折旧费
+                    mProductDepression.setText("折旧费"+productDetailData.getTagBean().get(chooseId).getDepreciation_count()+"元/天");
+                    chooseType=chooseId;
+                }
+                listterner.process(chooseType);
+            }
+        });
         tagDialog.show();
     }
 
@@ -261,14 +283,6 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mBanner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner动画效果
         mBanner.setBannerAnimation(Transformer.ZoomOut);
-        //bannerde图片的点击事件
-//        mBanner.setOnBannerListener(new OnBannerListener() {
-//            @Override
-//            public void OnBannerClick(int position) {
-//                ToastUtils.show(getContext(), "我被点击了");
-//            }
-//        });
-        //banner设置方法全部调用完毕时最后调用
         mBanner.start();
     }
 
@@ -278,5 +292,34 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         api= WXAPIFactory.createWXAPI(getContext(),APP_ID,true);
         //将应用的appid注册到微信
         api.registerApp(APP_ID);
+    }
+
+
+    //定义用来与外部activity交互，获取到宿主activity
+    private FragmentInteraction listterner;
+
+    //定义了所有activity必须实现的接口方法
+    public interface FragmentInteraction {
+        void process(int choose);
+    }
+
+    // 当FRagmen被加载到activity的时候会被回调
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if(activity instanceof FragmentInteraction) {
+            //获取到宿主activity并赋值
+            listterner = (FragmentInteraction)activity;
+        } else{
+            throw new IllegalArgumentException("activity must implements FragmentInteraction");
+        }
+    }
+
+    //把传递进来的activity对象释放掉
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listterner = null;
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
-import com.youhu.shareman.shareman.data.VoucherInfo;
+import com.youhu.shareman.shareman.model.data.VoucherModel;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class VoucherAdapter extends BaseAdapter {
 
     private Context context;
-    private List<VoucherInfo> datas;
+    private List<VoucherModel> datas;
 
 
     public Context getContext() {
@@ -31,11 +31,11 @@ public class VoucherAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public List<VoucherInfo> getDatas() {
+    public List<VoucherModel> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<VoucherInfo> datas) {
+    public void setDatas(List<VoucherModel> datas) {
         this.datas = datas;
     }
 
@@ -66,7 +66,7 @@ public class VoucherAdapter extends BaseAdapter {
         }
         //设置数据
         myViewHolder.mImageId.setImageResource(R.drawable.image_daijinquan);
-        myViewHolder.mVoucher.setText(datas.get(i).getVoucherTime());
+        myViewHolder.mVoucher.setText(datas.get(i).getStartDate()+"至"+datas.get(i).getEndDate());
 
         return view;
     }

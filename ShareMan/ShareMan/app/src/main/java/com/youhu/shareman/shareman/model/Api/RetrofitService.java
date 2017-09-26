@@ -5,6 +5,7 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.ChooseVoucherModel;
 import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
@@ -14,6 +15,8 @@ import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
+import com.youhu.shareman.shareman.model.data.VoucherModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 
 import java.util.List;
 
@@ -202,10 +205,15 @@ public interface RetrofitService {
     //优惠券
     @FormUrlEncoded
     @POST(AppConfig.VOUCHER)
-    Observable<NormalModel> getVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+    Observable<BaseData<List<VoucherModel>>> getVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
 
     //使用优惠券
     @FormUrlEncoded
     @POST(AppConfig.USE_VOUCHER)
-    Observable<NormalModel> useVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("orderId") String orderId);
+    Observable<BaseData<ChooseVoucherModel>> useVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("voucherId") String voucherId,@Field("orderId") String orderId);
+
+    //芝麻信用
+    @FormUrlEncoded
+    @POST(AppConfig.ZHI_MA)
+    Observable<BaseData<ZhimaModel>> getZhima(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("orderId") String orderId);
 }

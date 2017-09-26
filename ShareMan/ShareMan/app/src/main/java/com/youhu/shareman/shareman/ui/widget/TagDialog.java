@@ -148,11 +148,12 @@ public class TagDialog extends Dialog {
         sureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(chooseId!=-1){
-                    ToastUtils.show(getContext(),"开始预约----"+chooseId);
-                }else{
-                    ToastUtils.show(getContext(),"请选择型号");
-                }
+                itemOnclickListener.onItemClick(chooseId);
+//                if(chooseId!=-1){
+//                    ToastUtils.show(getContext(),"开始预约----"+chooseId);
+//                }else{
+//                    ToastUtils.show(getContext(),"请选择型号");
+//                }
             }
         });
     }
@@ -160,7 +161,7 @@ public class TagDialog extends Dialog {
 
     //获取选中的ID方法
     public interface onItemOnclickListener {
-        public void onItemClick();
+        public void onItemClick(int chooseId);
     }
 
     private onItemOnclickListener itemOnclickListener;

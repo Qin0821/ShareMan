@@ -55,8 +55,8 @@ public class ShareingFragment extends ViewPagerBaseFragment {
 
         shareOrderPresenter.onStart();
         //获取订单信息
-//        shareOrderPresenter.getShareOrder(phoneNumber,token,2);
-        shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",1);
+        shareOrderPresenter.getShareOrder(phoneNumber,token,1);
+//        shareOrderPresenter.getShareOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",1);
         shareOrderPresenter.attachView(new ShareOrderView() {
             @Override
             public void doShareOrder(BaseData<List<ShareOrderModel>> shareOrderData) {

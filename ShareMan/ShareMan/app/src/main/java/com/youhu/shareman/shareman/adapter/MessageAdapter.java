@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.youhu.shareman.shareman.R;
-import com.youhu.shareman.shareman.data.MessageInfo;
+import com.youhu.shareman.shareman.model.data.MessageModel;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class MessageAdapter extends BaseAdapter{
 
     private Context context;
-    private List<MessageInfo> datas;
+    private List<MessageModel> datas;
 
     public Context getContext() {
         return context;
@@ -29,11 +29,11 @@ public class MessageAdapter extends BaseAdapter{
         this.context = context;
     }
 
-    public List<MessageInfo> getDatas() {
+    public List<MessageModel> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<MessageInfo> datas) {
+    public void setDatas(List<MessageModel> datas) {
         this.datas = datas;
     }
 
@@ -63,19 +63,19 @@ public class MessageAdapter extends BaseAdapter{
             myViewHolder = (MyViewHolder) view.getTag();
         }
         //设置数据
-        myViewHolder.mDetailText.setText(datas.get(i).getDetailText());
-        myViewHolder.mLinkText.setText(datas.get(i).getLinkText());
+        myViewHolder.mDetailText.setText(datas.get(i).getMessage());
+//        myViewHolder.mLinkText.setText(datas.get(i));
 
         return view;
     }
 
     class MyViewHolder {
         private TextView mDetailText;
-        private TextView mLinkText;
+//        private TextView mLinkText;
 
         MyViewHolder(View itemView) {
             mDetailText=itemView.findViewById(R.id.tv_detail_text);
-            mLinkText = itemView.findViewById(R.id.tv_link_text);
+//            mLinkText = itemView.findViewById(R.id.tv_link_text);
         }
     }
 }

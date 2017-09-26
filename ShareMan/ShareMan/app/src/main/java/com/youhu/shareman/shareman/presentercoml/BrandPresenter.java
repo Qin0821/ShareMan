@@ -27,6 +27,7 @@ public class BrandPresenter implements BasePresenter {
     private Context context;
     private DataManager manager;
     private BaseData<List<BrandModel>> brandModel;
+    private BaseData<List<BrandModel>> mainTypeModel;
     private BrandView brandView;
     private CompositeSubscription compositeSubscription;
 
@@ -84,7 +85,36 @@ public class BrandPresenter implements BasePresenter {
                         brandModel=brandDataBaseData;
                     }
                 })
+        );
+    }
 
+
+    public void getMainType(int type){
+        compositeSubscription.add(manager.getMainType(type)
+                //事件消费在主线程
+                .observeOn(AndroidSchedulers.mainThread())
+                //事件消费在子线程
+                .subscribeOn(Schedulers.io())
+                //指定一个观察者
+                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
+                    @Override
+                    public void onCompleted() {
+                        if(mainTypeModel!=null){
+                            brandView.getMainBrandData(mainTypeModel);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(Tag,"获取失败"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseData<List<BrandModel>> mainBrandData) {
+                        Log.i(Tag,mainBrandData.getData().toString());
+                        mainTypeModel=mainBrandData;
+                    }
+                })
         );
     }
 

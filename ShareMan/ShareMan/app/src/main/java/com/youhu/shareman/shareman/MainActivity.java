@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity implements BaseView {
             bannerImageUrl = new ArrayList<>();
             if(bannerData!=null){
                 for(int i=0;i<bannerData.getData().size();i++){
-                    bannerImageUrl.add(AppConfig.BASE_URL+bannerData.getData().get(i).getCarousel());
+                    bannerImageUrl.add(AppConfig.IMAGE_URL+bannerData.getData().get(i).getCarousel());
                 }
                 initBanner(bannerImageUrl);
             }

@@ -9,9 +9,11 @@ import android.widget.TextView;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.MessageAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
-import com.youhu.shareman.shareman.data.MessageInfo;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.MessageModel;
+import com.youhu.shareman.shareman.presentercoml.MessagePresenter;
 import com.youhu.shareman.shareman.util.JumpUtil;
+import com.youhu.shareman.shareman.view.MessageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import butterknife.OnClick;
  * Created by Touch on 2017/9/2.
  */
 
-public class MessageActivity extends BaseActivity implements BaseView {
+public class MessageActivity extends BaseActivity {
 
     @BindView(R.id.lv_message)
     ListView mLvMessage;
@@ -32,8 +34,10 @@ public class MessageActivity extends BaseActivity implements BaseView {
     @BindView(R.id.textView)
     TextView mTitle;
 
-    private List<MessageInfo> data;
+    private List<MessageModel> data;
     private MessageAdapter adapter;
+    MessagePresenter messagePresenter=new MessagePresenter();
+
 
     @Override
     protected void initBind() {
@@ -47,21 +51,9 @@ public class MessageActivity extends BaseActivity implements BaseView {
         setContext(this);
         mTitle.setText("消息");
 
-        adapter=new MessageAdapter();
-        data=new ArrayList<MessageInfo>();
-        data.add(new MessageInfo("新来的朋友，A君送你一张新机优惠券，赶紧行动起来吧！","优惠券传送门"));
-        data.add(new MessageInfo("小伙子，我看你骨骼惊奇，送你一本获得新手机的武林秘籍，赶紧打开看看吧！","优惠券传送门"));
-        data.add(new MessageInfo("老朋友，B君送你一张新机优惠券，赶紧行动起来吧！","优惠券传送门"));
-
-        adapter.setDatas(data);
-        adapter.setContext(this);
-        mLvMessage.setAdapter(adapter);
-        mLvMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                JumpUtil.overlay(getContext(),VoucherActivity.class);
-            }
-        });
+        messagePresenter.onCreate();
+        messagePresenter.attachView(messageView);
+        messagePresenter.getMainMessage();
     }
 
     @Override
@@ -74,11 +66,29 @@ public class MessageActivity extends BaseActivity implements BaseView {
 
     }
 
+    MessageView messageView=new MessageView() {
+        @Override
+        public void doMessage(BaseData<List<MessageModel>> messageData) {
+            adapter=new MessageAdapter();
+            data=new ArrayList<MessageModel>();
+            data=messageData.getData();
 
-    @Override
-    public void showMessage(String message) {
+            adapter.setDatas(data);
+            adapter.setContext(getContext());
+            mLvMessage.setAdapter(adapter);
+            mLvMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    JumpUtil.overlay(getContext(),VoucherActivity.class);
+                }
+            });
+        }
 
-    }
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
     @OnClick({R.id.back})
     void onClick(View view){

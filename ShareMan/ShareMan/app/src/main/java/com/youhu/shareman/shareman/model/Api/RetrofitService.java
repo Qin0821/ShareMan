@@ -8,6 +8,7 @@ import com.youhu.shareman.shareman.model.data.BrandModel;
 import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
+import com.youhu.shareman.shareman.model.data.MessageModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
@@ -184,8 +185,27 @@ public interface RetrofitService {
     @GET(AppConfig.MAIN_HOT_RECOMENT)
     Observable<BaseData<List<HotRecomentModel>>> getHotRecoment();
 
+    //主页分类
+    @FormUrlEncoded
+    @POST(AppConfig.MAIN_PHONE_TYPE)
+    Observable<BaseData<List<BrandModel>>> getMainType(@Field("type") int type);
+
+    //主页消息
+    @GET(AppConfig.MAIN_MESSAGE)
+    Observable<BaseData<List<MessageModel>>> getMainMessage();
+
     //商品详情预览
     @FormUrlEncoded
     @POST(AppConfig.PRODUCT_DETAIL)
     Observable<BaseData<ProductDetailModel>> getProductDetail(@Field("version") String version);
+
+    //优惠券
+    @FormUrlEncoded
+    @POST(AppConfig.VOUCHER)
+    Observable<NormalModel> getVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+
+    //使用优惠券
+    @FormUrlEncoded
+    @POST(AppConfig.USE_VOUCHER)
+    Observable<NormalModel> useVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("orderId") String orderId);
 }

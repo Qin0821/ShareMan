@@ -166,7 +166,7 @@ public class UserInfoActivity extends BaseActivity {
         public void doGetUserInfo(BaseData<UserInfoModel> userInfoData) {
             //设置界面数据
             //头像
-            Glide.with(getContext()).load(AppConfig.BASE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 15)).error(R.drawable.sb_yellow_small).into(mUserImage);
+            Glide.with(getContext()).load(AppConfig.IMAGE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 15)).error(R.drawable.sb_yellow_small).into(mUserImage);
             //昵称
             mUserNickname.setText(userInfoData.getData().getNickname());
             //性别

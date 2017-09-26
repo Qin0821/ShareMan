@@ -125,15 +125,18 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
             //轮播图
             if(productDetailData!=null){
                 for(int i=0;i<productDetailData.getProductImages().size();i++){
-                    imageUrl.add(AppConfig.BASE_URL+productDetailData.getProductImages().get(i));
+                    imageUrl.add(AppConfig.IMAGE_URL+productDetailData.getProductImages().get(i));
                 }
             }
 
             initBanner(imageUrl);
 
             mProductName.setText(version);
+            //总价值
             mProductPrice.setText("价值"+productDetailData.getOriginal_price());
+            //共享价
             mProductSharePrice.setText("¥"+productDetailData.getReal_price());
+            //折旧费
             mProductDepression.setText("折旧费"+productDetailData.getDepreciation_count()+"元/天");
         }
 
@@ -234,7 +237,7 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mShareDialog.show();
     }
 
-    //设置选择图片弹出框
+    //设置选择规格弹出框
     public void dialogShow(){
         tagDialog=new TagDialog(getContext());
         tagDialog.setTagBeanList(productDetailData.getTagBean());

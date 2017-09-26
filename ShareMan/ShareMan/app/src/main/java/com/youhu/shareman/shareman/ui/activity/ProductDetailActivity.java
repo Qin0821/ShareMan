@@ -16,11 +16,13 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.adapter.ProductDetailAdapter;
 import com.youhu.shareman.shareman.adapter.ViewPagerAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
-import com.youhu.shareman.shareman.data.ProductDetailInfo;
+import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.ProductDetailModel;
+import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.fragment.ProductDetailScrollViewFragment;
 import com.youhu.shareman.shareman.ui.widget.ISlideCallback;
 import com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout;
+import com.youhu.shareman.shareman.view.ProductDetailView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ import butterknife.BindView;
  * Created by Touch on 2017/8/19.
  */
 
-public class ProductDetailActivity extends BaseActivity implements BaseView,ISlideCallback {
+public class ProductDetailActivity extends BaseActivity implements ISlideCallback {
 
 
     @BindView(R.id.tabs)
@@ -46,11 +48,13 @@ public class ProductDetailActivity extends BaseActivity implements BaseView,ISli
     private String[] mTitleArray = {"商品详情","商品规格"};
     private ProductDetailAdapter productDetailAdapter1;
     private ProductDetailAdapter productDetailAdapter2;
-    private List<ProductDetailInfo> datas;
     private List<View> pages;
     //自定义底部弹窗
     private View inflate;
     private Dialog dialog;
+    ProductDetailPresenter productDetailPresenter=new ProductDetailPresenter();
+    private ListView imagelistview;
+    private ListView formatlistview;
 
     @Override
     protected void initBind() {
@@ -79,14 +83,35 @@ public class ProductDetailActivity extends BaseActivity implements BaseView,ISli
         //给Fragment传递version
         Bundle bundle1=new Bundle();
         bundle1.putString("toVersion",version);
-        Fragment fragment=new ProductDetailScrollViewFragment();
 
+
+        productDetailPresenter.onCreate();
+        productDetailPresenter.attachView(productDetailView);
+        productDetailPresenter.getProductDetail(version);
+
+
+        Fragment fragment=new ProductDetailScrollViewFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.slidedetails_front, fragment).commit();
 
         fragment.setArguments(bundle1);
-        //关于事件分发
-        initViewPager();
+
+        //初始化页面
+//        NoScrollListView imagelistview = new NoScrollListView(getContext());
+//        NoScrollListView formatlistview = new NoScrollListView(getContext());
+
+        imagelistview = new ListView(getContext());
+        formatlistview = new ListView(getContext());
+
+        pages=new ArrayList<View>();
+        pages.add(imagelistview);
+        pages.add(formatlistview);
+
+
+        //viewPager
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(),pages,mTitleArray);
+        mViewPager.setAdapter(adapter);
+
     }
 
     @Override
@@ -100,43 +125,36 @@ public class ProductDetailActivity extends BaseActivity implements BaseView,ISli
     }
 
 
-    @Override
-    public void showMessage(String message) {
+    ProductDetailView productDetailView=new ProductDetailView() {
+        @Override
+        public void getProductDetail(BaseData<ProductDetailModel> productDetailModel) {
+            //关于事件分发
+            initViewPager(productDetailModel.getData());
+        }
 
-    }
+        @Override
+        public void showMessage(String message) {
 
-    private void initViewPager() {
-        //初始化页面
-//        NoScrollListView imagelistview = new NoScrollListView(getContext());
-//        NoScrollListView formatlistview = new NoScrollListView(getContext());
+        }
+    };
 
-        ListView imagelistview = new ListView(getContext());
-        ListView formatlistview = new ListView(getContext());
+    private void initViewPager(ProductDetailModel imageData) {
+        //设置详情ListView
+        List<String> detailData=new ArrayList<String>();
+        detailData.add(imageData.getGraphics());
 
-        pages=new ArrayList<View>();
-        pages.add(imagelistview);
-        pages.add(formatlistview);
-
-
-        //viewPager
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(),pages,mTitleArray);
-        mViewPager.setAdapter(adapter);
-
-        //设置ListView
-        datas=new ArrayList<ProductDetailInfo>();
-        datas.add(new ProductDetailInfo(R.drawable.product_detail_1));
-        datas.add(new ProductDetailInfo(R.drawable.product_detail_2));
-        datas.add(new ProductDetailInfo(R.drawable.product_detail_3));
-        datas.add(new ProductDetailInfo(R.drawable.product_detail_4));
-        datas.add(new ProductDetailInfo(R.drawable.product_detail_5));
-
+        //详情页面
         productDetailAdapter1=new ProductDetailAdapter();
         productDetailAdapter1.setContext(this);
-        productDetailAdapter1.setDatas(datas);
+        productDetailAdapter1.setDatas(detailData);
         imagelistview.setAdapter(productDetailAdapter1);
+
+        //设置参数ListView
+        List<String> paramData=new ArrayList<String>();
+        paramData.add(imageData.getParams());
         productDetailAdapter2=new ProductDetailAdapter();
         productDetailAdapter2.setContext(this);
-        productDetailAdapter2.setDatas(datas);
+        productDetailAdapter2.setDatas(paramData);
         formatlistview.setAdapter(productDetailAdapter2);
         //viewPager与tab联动
         mTabs.setupWithViewPager(mViewPager);

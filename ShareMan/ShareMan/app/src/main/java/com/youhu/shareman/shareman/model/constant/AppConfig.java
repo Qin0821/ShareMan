@@ -11,6 +11,11 @@ public class AppConfig {
     public static final String BASE_URL = "http://123.207.70.168/";
 
     /**
+     * IMAGE URL
+     */
+    public static final String IMAGE_URL = "http://123.207.70.168/image";
+
+    /**
      * 获取验证码
      */
     public static final String USER_LOGIN = "shareman/login/sendCode";
@@ -146,9 +151,28 @@ public class AppConfig {
     public static final String MAIN_HOT_RECOMENT = "shareman/category/findHot";
 
     /**
+     * 主页分类
+     */
+    public static final String MAIN_PHONE_TYPE = "shareman/category/findCategory";
+
+    /**
+     * 主页系统消息
+     */
+    public static final String MAIN_MESSAGE = "shareman/sysMsg/findMessage";
+
+    /**
      * 商品详情图预览
      */
     public static final String PRODUCT_DETAIL = "shareman/product/findProductByVersion";
 
+    /**
+     * 优惠券
+     */
+    public static final String VOUCHER = "";
+
+    /**
+     * 使用优惠券
+     */
+    public static final String USE_VOUCHER = "";
 
 }

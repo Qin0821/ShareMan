@@ -103,7 +103,7 @@ public class ApplyingFragment extends ViewPagerBaseFragment {
             @Override
             public void onCancelClick(int i) {
                 orderId=data.get(i).getOrder_id();
-                shareOrderPresenter.deleteOrder(phoneNumber,token,orderId);
+                shareOrderPresenter.cancelOrder(phoneNumber,token,orderId);
 //                shareOrderPresenter.cancelOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
                 //重新发送请求
                 shareOrderPresenter.getShareOrder(phoneNumber,token,0);

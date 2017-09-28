@@ -32,13 +32,15 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.youhu.shareman.shareman.adapter.MyHotRecomentAdapter;
 import com.youhu.shareman.shareman.adapter.MyListAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
-import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.data.UserInfo;
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.HotRecomentModel;
+import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.UserInfoModel;
 import com.youhu.shareman.shareman.presentercoml.MainActivityPreserter;
+import com.youhu.shareman.shareman.presentercoml.UserInfoPresenter;
 import com.youhu.shareman.shareman.ui.activity.BrandActivity;
 import com.youhu.shareman.shareman.ui.activity.FeedBackOrderNormalActivity;
 import com.youhu.shareman.shareman.ui.activity.FeedbackActivity;
@@ -59,6 +61,7 @@ import com.youhu.shareman.shareman.util.GlideRoundTransform;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.view.MainActivityView;
+import com.youhu.shareman.shareman.view.UserInfoView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -70,7 +73,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements BaseView {
+public class MainActivity extends BaseActivity {
 
 
     @BindView(R.id.toolbar)
@@ -103,6 +106,8 @@ public class MainActivity extends BaseActivity implements BaseView {
 //    ListView mHotRecoment;
     @BindView(R.id.user_image)
     ImageView mUserImage;
+    @BindView(R.id.user_name)
+    TextView mUserName;
 
 
     //经济实惠
@@ -130,6 +135,7 @@ public class MainActivity extends BaseActivity implements BaseView {
     private String phoneNumber;
     private String token;
     MainActivityPreserter mainActivityPreserter=new MainActivityPreserter();
+    UserInfoPresenter userInfoPresenter=new UserInfoPresenter();
     private List<String> bannerImageUrl;
     private String version;
     private List<BannerModel> bannerList;
@@ -151,18 +157,24 @@ public class MainActivity extends BaseActivity implements BaseView {
         token = SharedPreferencesUtils.getToken(this);
 
         //请求轮播图数据
+        userInfoPresenter.onCreate();
+        userInfoPresenter.attachView(userInfoView);
         mainActivityPreserter.onCreate();
         mainActivityPreserter.attachView(mainActivityView);
         mainActivityPreserter.getMainBanner();
         mainActivityPreserter.getHotRecoment();
 
         //初始化头像
-        Glide.with(getContext()).load(R.drawable.sb_gray).asBitmap().transform(new GlideRoundTransform(getContext(), 0)).into(new BitmapImageViewTarget(mUserImage) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                mUserImage.setImageBitmap(resource);
-            }
-        });
+        if(CheckUtils.isLogin(this)){
+            userInfoPresenter.getUserInfo(phoneNumber,token);
+        }else{
+            Glide.with(getContext()).load(R.drawable.sb_gray).asBitmap().transform(new GlideRoundTransform(getContext(), 0)).into(new BitmapImageViewTarget(mUserImage) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    mUserImage.setImageBitmap(resource);
+                }
+            });
+        }
 
         //初始化抽屉
         initDrawereLayout();
@@ -180,10 +192,35 @@ public class MainActivity extends BaseActivity implements BaseView {
     }
 
 
-    @Override
-    public void showMessage(String message) {
+    //初始化用户数据
+    UserInfoView userInfoView=new UserInfoView() {
+        @Override
+        public void doGetUserInfo(BaseData<UserInfoModel> userInfoData) {
+            //获取用户头像和昵称
+            Glide.with(getContext()).load(AppConfig.IMAGE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 20)).into(mUserImage);
+            mUserName.setText(userInfoData.getData().getNickname());
+        }
 
-    }
+        @Override
+        public void doChangeNickname(NormalModel nickNameData) {
+
+        }
+
+        @Override
+        public void doChangeSex(NormalModel sexData) {
+
+        }
+
+        @Override
+        public void doChangeUserImage(NormalModel userImageData) {
+
+        }
+
+        @Override
+        public void showMessage(String message) {
+
+        }
+    };
 
 
     //请求接口回调
@@ -484,6 +521,14 @@ public class MainActivity extends BaseActivity implements BaseView {
         dialog.show();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(CheckUtils.isLogin(getContext())){
+            //重新获取头像
+            userInfoPresenter.getUserInfo(phoneNumber,token);
+        }
+    }
 
     //双击退出应用
     @Override

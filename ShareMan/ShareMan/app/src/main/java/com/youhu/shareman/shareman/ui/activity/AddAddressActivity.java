@@ -41,7 +41,7 @@ public class AddAddressActivity extends BaseActivity {
     @BindView(R.id.et_mobile_phone_number)
     EditText mMobilePhoneNumber;
     @BindView(R.id.tv_choose_address)
-    TextView mChooseAddress;
+    EditText mChooseAddress;
     @BindView(R.id.et_detail_address)
     EditText mDetailAddress;
     @BindView(R.id.save_address)
@@ -126,7 +126,8 @@ public class AddAddressActivity extends BaseActivity {
                 //提交新的地址
                 String consigneeName=mReceiverName.getText().toString();
                 String consigneeTel=mMobilePhoneNumber.getText().toString();
-                consigneeAddress="浙江省杭州市西湖区";
+//                consigneeAddress="浙江省杭州市西湖区";
+                consigneeAddress=mChooseAddress.getText().toString();
                 String detailAddress=mDetailAddress.getText().toString();
                 if(consigneeName==null||"".equals(consigneeName)){
                     ToastUtils.show(this,"收货人姓名不能为空");

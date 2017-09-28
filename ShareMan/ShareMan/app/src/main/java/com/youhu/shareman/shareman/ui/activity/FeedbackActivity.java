@@ -71,7 +71,8 @@ public class FeedbackActivity extends BaseActivity {
     FeedBackView feedBackView=new FeedBackView() {
         @Override
         public void doSendAdvice(NormalModel normalModel) {
-            ToastUtils.show(getContext(),normalModel.getMessage());
+            ToastUtils.show(getContext(),"提交成功");
+            finish();
         }
 
         @Override

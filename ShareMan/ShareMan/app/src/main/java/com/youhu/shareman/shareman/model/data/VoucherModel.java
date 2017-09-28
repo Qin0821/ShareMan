@@ -13,9 +13,18 @@ public class VoucherModel {
      * startDate : 2017-09-20
      */
 
+    private int id;
     private int amount;
     private String endDate;
     private String startDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getAmount() {
         return amount;
@@ -41,11 +50,11 @@ public class VoucherModel {
         this.startDate = startDate;
     }
 
-
     @Override
     public String toString() {
         return "VoucherModel{" +
-                "amount=" + amount +
+                "id=" + id +
+                ", amount=" + amount +
                 ", endDate='" + endDate + '\'' +
                 ", startDate='" + startDate + '\'' +
                 '}';

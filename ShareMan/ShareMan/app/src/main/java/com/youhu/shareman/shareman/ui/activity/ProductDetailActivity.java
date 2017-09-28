@@ -18,11 +18,14 @@ import com.youhu.shareman.shareman.adapter.ProductDetailAdapter;
 import com.youhu.shareman.shareman.adapter.ViewPagerAdapter;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.fragment.ProductDetailScrollViewFragment;
 import com.youhu.shareman.shareman.ui.widget.ISlideCallback;
 import com.youhu.shareman.shareman.ui.widget.SlideDetailsLayout;
+import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
 import com.youhu.shareman.shareman.view.ProductDetailView;
 
@@ -58,9 +61,13 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
     private View inflate;
     private Dialog dialog;
     ProductDetailPresenter productDetailPresenter=new ProductDetailPresenter();
+    private ProductDetailModel currentProductDetailData;
     private ListView imagelistview;
     private ListView formatlistview;
     private int chooseId;
+    private String phoneNumber;
+    private String token;
+    private String version;
 
     @Override
     protected void initBind() {
@@ -81,14 +88,18 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
+        //账户信息
+        phoneNumber = SharedPreferencesUtils.getPhoneNumber(this);
+        token = SharedPreferencesUtils.getToken(this);
+
         //获取传递过来的version
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        String version =bundle.getString("bannerVersion","");
+        version = bundle.getString("bannerVersion","");
 
         //给Fragment传递version
         Bundle bundle1=new Bundle();
-        bundle1.putString("toVersion",version);
+        bundle1.putString("toVersion", version);
 
 
         productDetailPresenter.onCreate();
@@ -135,8 +146,37 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
     ProductDetailView productDetailView=new ProductDetailView() {
         @Override
         public void getProductDetail(BaseData<ProductDetailModel> productDetailModel) {
+            //当前详情信息
+            if(productDetailModel!=null){
+                currentProductDetailData=productDetailModel.getData();
+            }
             //关于事件分发
             initViewPager(productDetailModel.getData());
+        }
+
+        @Override
+        public void doStartBooking(NormalModel startData) {
+            if("0".equals(startData.getCode())){
+//                productDetailPresenter.getZhima(phoneNumber,token);
+                productDetailPresenter.getZhima("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703");
+                ToastUtils.show(getContext(),"审核中...");
+            }else if("1001".equals(startData.getCode())){
+                ToastUtils.show(getContext(),"未登录");
+            }else if("1002".equals(startData.getCode())){
+                ToastUtils.show(getContext(),"请完善个人信息");
+            }else if("1010".equals(startData.getCode())){
+                ToastUtils.show(getContext(),"订单总数不能超过2个");
+            }
+        }
+
+        @Override
+        public void doGetZhima(BaseData<ZhimaModel> zhimaData) {
+            if("Y".equals(zhimaData.getData().getZmxy_score())&&"0".equals(zhimaData.getData().getHygz_level())||"1".equals(zhimaData.getData().getHygz_level())){
+                ToastUtils.show(getContext(),"预约成功");
+            }else{
+                ToastUtils.show(getContext(),"预约失败");
+            }
+
         }
 
         @Override
@@ -153,7 +193,14 @@ public class ProductDetailActivity extends BaseActivity implements ISlideCallbac
                     ToastUtils.show(getContext(),"请选择颜色、内存和增值服务");
                 }else{
                     //TODO
+                    //获取用户颜色内存
+                    String introduceTitle=currentProductDetailData.getTagBean().get(chooseId).getIntroduce_title();
                     //发送生成订单请求
+                    ToastUtils.show(getContext(),""+phoneNumber+token+version+introduceTitle);
+//                    productDetailPresenter.startBooking(phoneNumber,token,version,introduceTitle);
+                    productDetailPresenter.startBooking("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",version,introduceTitle);
+                    //发送请求芝麻信用
+
                 }
                 break;
         }

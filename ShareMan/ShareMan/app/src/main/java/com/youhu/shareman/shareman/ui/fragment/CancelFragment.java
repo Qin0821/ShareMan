@@ -101,10 +101,11 @@ public class CancelFragment extends ViewPagerBaseFragment {
             @Override
             public void onDeleteClick(int i) {
                 orderId=data.get(i).getOrder_id();
-                shareOrderPresenter.cancelOrder(phoneNumber,token,orderId);
+                shareOrderPresenter.deleteOrder(phoneNumber,token,orderId);
 //                shareOrderPresenter.deleteOrder("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
                 //重新发送请求并刷新数据
                 shareOrderPresenter.getShareOrder(phoneNumber,token,2);
+                viewAdapter.notifyDataSetChanged();
             }
         });
         return view;

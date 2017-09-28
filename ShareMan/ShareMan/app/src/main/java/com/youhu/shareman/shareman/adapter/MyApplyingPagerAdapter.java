@@ -87,14 +87,20 @@ public class MyApplyingPagerAdapter extends PagerAdapter {
         IDAddress.setText(data.get(position).getAddress());
         applyingDate.setText(data.get(position).getCreate_time());
 
-        loadingPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putInt("orderId",data.get(position).getOrder_id());
-                JumpUtil.overlay(context, SignUpAndPaymentActivity.class,bundle);
-            }
-        });
+        if(data.get(position).getStatus()==1){
+            loadingPay.setText("申请中");
+        }else{
+            loadingPay.setText("待支付");
+            loadingPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("orderId",data.get(position).getOrder_id());
+                    JumpUtil.overlay(context, SignUpAndPaymentActivity.class,bundle);
+                }
+            });
+        }
+
 
         orderCancel.setOnClickListener(new View.OnClickListener() {
             @Override

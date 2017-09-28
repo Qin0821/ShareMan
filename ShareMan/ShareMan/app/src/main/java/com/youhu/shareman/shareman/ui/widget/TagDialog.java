@@ -68,9 +68,16 @@ public class TagDialog extends Dialog {
     private void initView() {
         initDialog();
         if(tagBeanList!=null){
-            choosePrice.setText("¥"+tagBeanList.get(0).getReal_price());
-            yiwaiPrice.setText("意外保障 ¥"+tagBeanList.get(0).getInsurance()+"必选");
-            Glide.with(getContext()).load(AppConfig.IMAGE_URL+tagBeanList.get(0).getCover_fir()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(roundImageView1);
+            if(chooseId!=-1){
+                detailListAdapter.setSelectItem(chooseId);
+                choosePrice.setText("¥"+tagBeanList.get(chooseId).getReal_price());
+                yiwaiPrice.setText("意外保障 ¥"+tagBeanList.get(chooseId).getInsurance()+"必选");
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+tagBeanList.get(chooseId).getCover_fir()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(roundImageView1);
+            }else{
+                choosePrice.setText("¥"+tagBeanList.get(0).getReal_price());
+                yiwaiPrice.setText("意外保障 ¥"+tagBeanList.get(0).getInsurance()+"必选");
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+tagBeanList.get(0).getCover_fir()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(roundImageView1);
+            }
         }
     }
 
@@ -149,11 +156,6 @@ public class TagDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 itemOnclickListener.onItemClick(chooseId);
-//                if(chooseId!=-1){
-//                    ToastUtils.show(getContext(),"开始预约----"+chooseId);
-//                }else{
-//                    ToastUtils.show(getContext(),"请选择型号");
-//                }
             }
         });
     }

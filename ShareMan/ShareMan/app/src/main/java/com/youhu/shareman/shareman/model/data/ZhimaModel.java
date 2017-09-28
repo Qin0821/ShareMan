@@ -8,34 +8,34 @@ public class ZhimaModel {
 
 
     /**
-     * totalPrice : 1
-     * count : 2
+     * zmxy_score : Y
+     * hygz_level : 0
      */
 
-    private int totalPrice;
-    private int count;
+    private String zmxy_score;
+    private String hygz_level;
 
-    public int getTotalPrice() {
-        return totalPrice;
+    public String getZmxy_score() {
+        return zmxy_score;
     }
 
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setZmxy_score(String zmxy_score) {
+        this.zmxy_score = zmxy_score;
     }
 
-    public int getCount() {
-        return count;
+    public String getHygz_level() {
+        return hygz_level;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setHygz_level(String hygz_level) {
+        this.hygz_level = hygz_level;
     }
 
     @Override
     public String toString() {
         return "ZhimaModel{" +
-                "totalPrice=" + totalPrice +
-                ", count=" + count +
+                "zmxy_score='" + zmxy_score + '\'' +
+                ", hygz_level='" + hygz_level + '\'' +
                 '}';
     }
 }

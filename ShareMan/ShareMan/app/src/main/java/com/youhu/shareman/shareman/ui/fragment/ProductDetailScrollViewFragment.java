@@ -2,6 +2,8 @@ package com.youhu.shareman.shareman.ui.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -20,7 +23,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.widget.PreSaleDialog;
 import com.youhu.shareman.shareman.ui.widget.ShareDialog;
@@ -32,6 +37,7 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +84,8 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     private View inflate;
     private Dialog dialog;
     private int chooseType=-1;
+    //设置回显
+
     //分享弹窗
     private ShareDialog mShareDialog;
     private static final  String APP_ID="wx27c6bc5e8c8f52f4";
@@ -145,6 +153,16 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         }
 
         @Override
+        public void doStartBooking(NormalModel startData) {
+
+        }
+
+        @Override
+        public void doGetZhima(BaseData<ZhimaModel> zhimaData) {
+
+        }
+
+        @Override
         public void showMessage(String message) {
 
         }
@@ -199,21 +217,33 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mShareDialog.setWechatOnclickListener(new ShareDialog.onWeChatOnclickListener() {
             @Override
             public void onWechatClick() {
-                ToastUtils.show(getContext(),"分享到微信好友！");
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.share_image);
+                WXImageObject imgObj = new WXImageObject(bmp);
+                WXMediaMessage msg = new WXMediaMessage();
+                msg.mediaObject = imgObj;
+                Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 120, 120, true);
 
-                String text="真好玩";
-                WXTextObject textobj=new WXTextObject();
-                textobj.text=text;
-
-                WXMediaMessage msg=new WXMediaMessage();
-                msg.mediaObject=textobj;
-                msg.description=text;
-
+                bmp.recycle();
+                msg.thumbData = bmpToByteArray(thumbBmp, true);
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
                 req.transaction = String.valueOf(System.currentTimeMillis());
                 req.message = msg;
                 req.scene = SendMessageToWX.Req.WXSceneSession;
                 api.sendReq(req);
+
+//                String text="真好玩";
+//                WXTextObject textobj=new WXTextObject();
+//                textobj.text=text;
+//
+//                WXMediaMessage msg=new WXMediaMessage();
+//                msg.mediaObject=textobj;
+//                msg.description=text;
+
+//                SendMessageToWX.Req req = new SendMessageToWX.Req();
+//                req.transaction = String.valueOf(System.currentTimeMillis());
+//                req.message = msg;
+//                req.scene = SendMessageToWX.Req.WXSceneSession;
+//                api.sendReq(req);
                 mShareDialog.dismiss();
             }
         });
@@ -233,7 +263,6 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
                 req.message = msg;
                 req.scene = SendMessageToWX.Req.WXSceneTimeline;
                 api.sendReq(req);
-                ToastUtils.show(getContext(),"分享到朋友圈！");
                 mShareDialog.dismiss();
             }
         });
@@ -321,5 +350,24 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     public void onDetach() {
         super.onDetach();
         listterner = null;
+    }
+
+
+
+    //微信方法提取
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
+        if (needRecycle) {
+            bmp.recycle();
+        }
+
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

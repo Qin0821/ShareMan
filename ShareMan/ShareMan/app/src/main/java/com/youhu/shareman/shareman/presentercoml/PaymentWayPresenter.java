@@ -6,12 +6,9 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.ChooseVoucherModel;
-import com.youhu.shareman.shareman.model.data.VoucherModel;
+import com.youhu.shareman.shareman.model.data.PayWayModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.view.VoucherView;
-
-import java.util.List;
+import com.youhu.shareman.shareman.view.PaymentWayView;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,25 +19,25 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Touch on 2017/9/27.
  */
 
-public class VoucherPresenter implements BasePresenter {
+public class PaymentWayPresenter implements BasePresenter {
 
-    private static String Tag="VoucherPresenter";
+    private static String Tag="PaymentWayPresenter";
     private Context context;
     private DataManager manager;
-    private BaseData<List<VoucherModel>> voucherModel;
-    private BaseData<ChooseVoucherModel> useVoucherModel;
-    private VoucherView voucherView;
+    private BaseData<PayWayModel> payWayModel;
+    private BaseData<String> orderInfoModel;
+    private PaymentWayView paymentWayView;
     private CompositeSubscription compositeSubscription;
 
     @Override
     public void onCreate() {
-        manager=new DataManager(context);
-        compositeSubscription=new CompositeSubscription();
+
     }
 
     @Override
     public void onStart() {
-
+        manager=new DataManager(context);
+        compositeSubscription=new CompositeSubscription();
     }
 
     @Override
@@ -57,22 +54,23 @@ public class VoucherPresenter implements BasePresenter {
 
     @Override
     public void attachView(BaseView view) {
-        voucherView= (VoucherView) view;
+        paymentWayView= (PaymentWayView) view;
     }
 
 
-    public void getVoucher(String phoneNumber,String token){
-        compositeSubscription.add(manager.getVoucher(phoneNumber,token)
+
+    public void getPayInfo(String phoneNumber, String token, int orderId){
+        compositeSubscription.add(manager.getPayInfo(phoneNumber,token,orderId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<VoucherModel>>>() {
+                .subscribe(new Observer<BaseData<PayWayModel>>() {
                     @Override
                     public void onCompleted() {
-                        if(voucherModel!=null){
-                            voucherView.doGetVoucher(voucherModel);
+                        if(payWayModel!=null){
+                            paymentWayView.doGetPayPrice(payWayModel);
                         }
                     }
 
@@ -82,28 +80,28 @@ public class VoucherPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<VoucherModel>> voucherData) {
-                        Log.i(Tag,voucherData.getData().toString());
-                        voucherModel=voucherData;
+                    public void onNext(BaseData<PayWayModel> brandDataBaseData) {
+                        Log.i(Tag,brandDataBaseData.getData().toString());
+                        payWayModel=brandDataBaseData;
                     }
                 })
         );
     }
 
 
-    //使用优惠券
-    public void useVoucher(String phoneNumber, String token, String voucherId, String orderId){
-        compositeSubscription.add(manager.useVoucher(phoneNumber,token,voucherId,orderId)
+    //获取订单信息
+    public void getPayOrderInfo(String phoneNumber, String token,int voucherId, int orderId){
+        compositeSubscription.add(manager.getPayOrderInfo(phoneNumber,token,voucherId,orderId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<ChooseVoucherModel>>() {
+                .subscribe(new Observer<BaseData<String>>() {
                     @Override
                     public void onCompleted() {
-                        if(useVoucherModel!=null){
-                            voucherView.doUseVoucher(useVoucherModel);
+                        if(orderInfoModel!=null){
+                            paymentWayView.doGetOrderInfo(orderInfoModel);
                         }
                     }
 
@@ -113,12 +111,11 @@ public class VoucherPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<ChooseVoucherModel> useVoucherData) {
-                        Log.i(Tag,useVoucherData.getData().toString());
-                        useVoucherModel=useVoucherData;
+                    public void onNext(BaseData<String> orderInfoData) {
+                        Log.i(Tag,orderInfoData.getData());
+                        orderInfoModel=orderInfoData;
                     }
                 })
         );
     }
-
 }

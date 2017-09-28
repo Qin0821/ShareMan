@@ -7,12 +7,14 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.ChooseVoucherModel;
 import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.MessageModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.PayWayModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
@@ -190,12 +192,27 @@ public class DataManager {
     }
 
     //使用优惠券
-    public  Observable<NormalModel> useVoucher(String phoneNumber, String token, String orderId){
-        return mRetrofitService.useVoucher(phoneNumber,token,orderId);
+    public  Observable<BaseData<ChooseVoucherModel>> useVoucher(String phoneNumber, String token, String voucherId, String orderId){
+        return mRetrofitService.useVoucher(phoneNumber,token,voucherId,orderId);
+    }
+
+    //开始预约
+    public  Observable<NormalModel> startBooking(String phoneNumber, String token, String version,String introduceTitle){
+        return mRetrofitService.startBooking(phoneNumber,token,version,introduceTitle);
     }
 
     //芝麻信用
-    public  Observable<BaseData<ZhimaModel>> getZhima(String phoneNumber, String token, String orderId){
-        return mRetrofitService.getZhima(phoneNumber,token,orderId);
+    public  Observable<BaseData<ZhimaModel>> getZhima(String phoneNumber, String token){
+        return mRetrofitService.getZhima(phoneNumber,token);
+    }
+
+    //支付页面信息
+    public  Observable<BaseData<PayWayModel>> getPayInfo(String phoneNumber, String token,int orderId){
+        return mRetrofitService.getPayInfo(phoneNumber,token,orderId);
+    }
+
+    //支付订单信息
+    public  Observable<BaseData<String>> getPayOrderInfo(String phoneNumber, String token,int voucherId,int orderId){
+        return mRetrofitService.getPayOrderInfo(phoneNumber,token,voucherId,orderId);
     }
 }

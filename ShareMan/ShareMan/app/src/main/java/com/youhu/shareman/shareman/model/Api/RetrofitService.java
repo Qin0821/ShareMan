@@ -12,6 +12,7 @@ import com.youhu.shareman.shareman.model.data.LoginCodeModel;
 import com.youhu.shareman.shareman.model.data.MessageModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.PayWayModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
@@ -215,5 +216,20 @@ public interface RetrofitService {
     //芝麻信用
     @FormUrlEncoded
     @POST(AppConfig.ZHI_MA)
-    Observable<BaseData<ZhimaModel>> getZhima(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("orderId") String orderId);
+    Observable<BaseData<ZhimaModel>> getZhima(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+
+    //开始预约
+    @FormUrlEncoded
+    @POST(AppConfig.START_BOOKING)
+    Observable<NormalModel> startBooking(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("version") String version,@Field("introduceTitle") String introduceTitle);
+
+    //支付信息
+    @FormUrlEncoded
+    @POST(AppConfig.PAY_RESULT)
+    Observable<BaseData<PayWayModel>> getPayInfo(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
+
+    //支付的订单
+    @FormUrlEncoded
+    @POST(AppConfig.PAY_ORDERINFO)
+    Observable<BaseData<String>> getPayOrderInfo(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("voucherId") int voucherId,@Field("orderId") int orderId);
 }

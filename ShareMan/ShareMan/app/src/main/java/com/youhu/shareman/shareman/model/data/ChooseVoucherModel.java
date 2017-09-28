@@ -1,10 +1,12 @@
 package com.youhu.shareman.shareman.model.data;
 
+import java.io.Serializable;
+
 /**
  * Created by Touch on 2017/9/27.
  */
 
-public class ChooseVoucherModel {
+public class ChooseVoucherModel implements Serializable {
 
 
     /**

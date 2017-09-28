@@ -20,6 +20,20 @@ public class ShareDialog extends Dialog {
     private onWeChatOnclickListener wechatOnclickListener;//微信按钮被点击了的监听器
     private onFriendSpaceOnclickListener friendSpaceOnclickListener;//朋友圈按钮被点击了的监听器
 
+    /**
+     * 设置微信被点击的接口
+     */
+    public interface onWeChatOnclickListener {
+        public void onWechatClick();
+    }
+
+    /**
+     * 设置朋友圈被点击的接口
+     */
+    public interface onFriendSpaceOnclickListener {
+        public void onFriendSpaceClick();
+    }
+
     public ShareDialog(@NonNull Context context) {
         super(context);
     }
@@ -80,17 +94,5 @@ public class ShareDialog extends Dialog {
     }
 
 
-    /**
-     * 设置微信被点击的接口
-     */
-    public interface onWeChatOnclickListener {
-        public void onWechatClick();
-    }
 
-    /**
-     * 设置朋友圈被点击的接口
-     */
-    public interface onFriendSpaceOnclickListener {
-        public void onFriendSpaceClick();
-    }
 }

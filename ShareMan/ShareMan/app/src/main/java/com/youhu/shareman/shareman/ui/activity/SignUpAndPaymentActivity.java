@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +23,11 @@ import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.base.BaseActivity;
 import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.presentercoml.SignUpAndPaymentPresenter;
-import com.youhu.shareman.shareman.view.SignUpAndPaymentView;
 import com.youhu.shareman.shareman.ui.widget.LinePathView;
 import com.youhu.shareman.shareman.util.JumpUtil;
 import com.youhu.shareman.shareman.util.SharedPreferencesUtils;
 import com.youhu.shareman.shareman.util.ToastUtils;
+import com.youhu.shareman.shareman.view.SignUpAndPaymentView;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,8 +88,8 @@ public class SignUpAndPaymentActivity extends BaseActivity {
         Intent intent=getIntent();
         bundle=intent.getExtras();
         orderId=bundle.getInt("orderId");
-//        postData="phoneNumber="+phoneNumber+"&token="+token+"&orderId="+orderId;
-        postData="phoneNumber=15701236749&token=4f4f5ccb9f7ad689ba2552c2c0d25703&orderId="+orderId;
+        postData="phoneNumber="+phoneNumber+"&token="+token+"&orderId="+orderId;
+//        postData="phoneNumber=15701236749&token=4f4f5ccb9f7ad689ba2552c2c0d25703&orderId="+orderId;
 
         //默认接受协议
         mChooseSignContract.setImageResource(R.drawable.btn_choose_blue);
@@ -97,7 +98,8 @@ public class SignUpAndPaymentActivity extends BaseActivity {
         //获取协议界面
         signUpAndPaymentPresenter.onCreate();
         signUpAndPaymentPresenter.attachView(signUpAndPaymentView);
-        signUpAndPaymentPresenter.getOrderAgreement("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
+        signUpAndPaymentPresenter.getOrderAgreement(phoneNumber,token,orderId);
+//        signUpAndPaymentPresenter.getOrderAgreement("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",orderId);
 
         //初始化WebView
         initWebView();
@@ -198,7 +200,6 @@ public class SignUpAndPaymentActivity extends BaseActivity {
             @Override
             public void run() {
                 mWebView.postUrl("http://123.207.70.168/shareman/order/getAgreement", postData.getBytes());
-
             }
         });
     }
@@ -232,13 +233,18 @@ public class SignUpAndPaymentActivity extends BaseActivity {
             public void onClick(View view) {
                 //上传签名，并且改变按钮状态，关闭签名界面
                 if (mLine.getTouched()) {
+                    Log.i("--------",",,,,,,,,");
                     try {
                         mLine.save("/sdcard/qm.png", true, 10);
                         dialog.dismiss();
                         File file=new File(path);
-//                        signUpAndPaymentPresenter.uploanSign(phoneNumber,token,String.valueOf(orderId),file);
-                        signUpAndPaymentPresenter.uploadSign("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",String.valueOf(orderId),file);
-                        JumpUtil.overlay(getContext(),PaymentWayActivity.class);
+                        Log.i("--------",",,,,,,,,");
+                        signUpAndPaymentPresenter.uploadSign(phoneNumber,token,String.valueOf(orderId),file);
+//                        signUpAndPaymentPresenter.uploadSign("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",String.valueOf(orderId),file);
+                        //获取支付订单ID并传给下一页
+                        Bundle bundle=new Bundle();
+                        bundle.putInt("payOrderId",orderId);
+                        JumpUtil.overlay(getContext(),PaymentWayActivity.class,bundle);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

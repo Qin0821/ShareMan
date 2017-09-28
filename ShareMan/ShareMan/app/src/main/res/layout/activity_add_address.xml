@@ -96,13 +96,13 @@
                 android:text="选择地址"
                 android:textSize="12sp"
                 android:textColor="@color/apptext"/>
-            <TextView
+            <EditText
                 android:id="@+id/tv_choose_address"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="浙江省  杭州市  西湖区"
+                android:hint="请输入省市区"
                 android:textColor="@color/appgray"
                 android:textSize="16dp"/>
             <View

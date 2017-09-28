@@ -13,4 +13,6 @@ import java.util.List;
 public interface BrandView extends BaseView{
     //专区数据返回
     void getBrandData(BaseData<List<BrandModel>> baseData);
+    //主页分类数据返回
+    void getMainBrandData(BaseData<List<BrandModel>> mainBrandData);
 }

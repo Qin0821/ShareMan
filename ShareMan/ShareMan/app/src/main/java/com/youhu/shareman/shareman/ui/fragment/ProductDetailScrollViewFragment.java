@@ -1,6 +1,9 @@
 package com.youhu.shareman.shareman.ui.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -19,7 +23,9 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.youhu.shareman.shareman.R;
 import com.youhu.shareman.shareman.model.constant.AppConfig;
 import com.youhu.shareman.shareman.model.data.BaseData;
+import com.youhu.shareman.shareman.model.data.NormalModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 import com.youhu.shareman.shareman.presentercoml.ProductDetailPresenter;
 import com.youhu.shareman.shareman.ui.widget.PreSaleDialog;
 import com.youhu.shareman.shareman.ui.widget.ShareDialog;
@@ -31,6 +37,7 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +83,9 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
     //自定义底部弹窗
     private View inflate;
     private Dialog dialog;
+    private int chooseType=-1;
+    //设置回显
+
     //分享弹窗
     private ShareDialog mShareDialog;
     private static final  String APP_ID="wx27c6bc5e8c8f52f4";
@@ -110,7 +120,7 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         productDetailPresenter.attachView(productDetailView);
         productDetailPresenter.getProductDetail(version);
 
-
+        listterner.process(chooseType);
         //分享
         regToWx();
     }
@@ -125,16 +135,31 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
             //轮播图
             if(productDetailData!=null){
                 for(int i=0;i<productDetailData.getProductImages().size();i++){
-                    imageUrl.add(AppConfig.BASE_URL+productDetailData.getProductImages().get(i));
+                    imageUrl.add(AppConfig.IMAGE_URL+productDetailData.getProductImages().get(i));
                 }
             }
 
             initBanner(imageUrl);
 
             mProductName.setText(version);
+            //总价值
             mProductPrice.setText("价值"+productDetailData.getOriginal_price());
+            //共享价
             mProductSharePrice.setText("¥"+productDetailData.getReal_price());
+            //折旧费
             mProductDepression.setText("折旧费"+productDetailData.getDepreciation_count()+"元/天");
+
+
+        }
+
+        @Override
+        public void doStartBooking(NormalModel startData) {
+
+        }
+
+        @Override
+        public void doGetZhima(BaseData<ZhimaModel> zhimaData) {
+
         }
 
         @Override
@@ -192,21 +217,33 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mShareDialog.setWechatOnclickListener(new ShareDialog.onWeChatOnclickListener() {
             @Override
             public void onWechatClick() {
-                ToastUtils.show(getContext(),"分享到微信好友！");
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.share_image);
+                WXImageObject imgObj = new WXImageObject(bmp);
+                WXMediaMessage msg = new WXMediaMessage();
+                msg.mediaObject = imgObj;
+                Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 120, 120, true);
 
-                String text="真好玩";
-                WXTextObject textobj=new WXTextObject();
-                textobj.text=text;
-
-                WXMediaMessage msg=new WXMediaMessage();
-                msg.mediaObject=textobj;
-                msg.description=text;
-
+                bmp.recycle();
+                msg.thumbData = bmpToByteArray(thumbBmp, true);
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
                 req.transaction = String.valueOf(System.currentTimeMillis());
                 req.message = msg;
                 req.scene = SendMessageToWX.Req.WXSceneSession;
                 api.sendReq(req);
+
+//                String text="真好玩";
+//                WXTextObject textobj=new WXTextObject();
+//                textobj.text=text;
+//
+//                WXMediaMessage msg=new WXMediaMessage();
+//                msg.mediaObject=textobj;
+//                msg.description=text;
+
+//                SendMessageToWX.Req req = new SendMessageToWX.Req();
+//                req.transaction = String.valueOf(System.currentTimeMillis());
+//                req.message = msg;
+//                req.scene = SendMessageToWX.Req.WXSceneSession;
+//                api.sendReq(req);
                 mShareDialog.dismiss();
             }
         });
@@ -226,7 +263,6 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
                 req.message = msg;
                 req.scene = SendMessageToWX.Req.WXSceneTimeline;
                 api.sendReq(req);
-                ToastUtils.show(getContext(),"分享到朋友圈！");
                 mShareDialog.dismiss();
             }
         });
@@ -234,10 +270,28 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mShareDialog.show();
     }
 
-    //设置选择图片弹出框
+    //设置选择规格弹出框
     public void dialogShow(){
         tagDialog=new TagDialog(getContext());
         tagDialog.setTagBeanList(productDetailData.getTagBean());
+        tagDialog.setItemOnclickListener(new TagDialog.onItemOnclickListener() {
+            @Override
+            public void onItemClick(int chooseId) {
+                if(chooseId==-1){
+                    ToastUtils.show(getContext(),"请选择型号");
+                }else{
+                    tagDialog.dismiss();
+                    //总价值
+                    mProductPrice.setText("价值"+productDetailData.getTagBean().get(chooseId).getOriginal_price());
+                    //共享价
+                    mProductSharePrice.setText("¥"+productDetailData.getTagBean().get(chooseId).getReal_price());
+                    //折旧费
+                    mProductDepression.setText("折旧费"+productDetailData.getTagBean().get(chooseId).getDepreciation_count()+"元/天");
+                    chooseType=chooseId;
+                }
+                listterner.process(chooseType);
+            }
+        });
         tagDialog.show();
     }
 
@@ -258,14 +312,6 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         mBanner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner动画效果
         mBanner.setBannerAnimation(Transformer.ZoomOut);
-        //bannerde图片的点击事件
-//        mBanner.setOnBannerListener(new OnBannerListener() {
-//            @Override
-//            public void OnBannerClick(int position) {
-//                ToastUtils.show(getContext(), "我被点击了");
-//            }
-//        });
-        //banner设置方法全部调用完毕时最后调用
         mBanner.start();
     }
 
@@ -275,5 +321,53 @@ public class ProductDetailScrollViewFragment extends ScrollViewBaseFragment {
         api= WXAPIFactory.createWXAPI(getContext(),APP_ID,true);
         //将应用的appid注册到微信
         api.registerApp(APP_ID);
+    }
+
+
+    //定义用来与外部activity交互，获取到宿主activity
+    private FragmentInteraction listterner;
+
+    //定义了所有activity必须实现的接口方法
+    public interface FragmentInteraction {
+        void process(int choose);
+    }
+
+    // 当FRagmen被加载到activity的时候会被回调
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if(activity instanceof FragmentInteraction) {
+            //获取到宿主activity并赋值
+            listterner = (FragmentInteraction)activity;
+        } else{
+            throw new IllegalArgumentException("activity must implements FragmentInteraction");
+        }
+    }
+
+    //把传递进来的activity对象释放掉
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listterner = null;
+    }
+
+
+
+    //微信方法提取
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
+        if (needRecycle) {
+            bmp.recycle();
+        }
+
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

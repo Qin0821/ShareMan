@@ -164,25 +164,25 @@ public class InfomationActivity extends BaseActivity {
                 mImageInfomationA.setVisibility(View.INVISIBLE);
             }else{
                 mImageInfomationA.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_a()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationA);
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+informationModel.getData().getId_card_a()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationA);
             }
             if(informationModel.getData().getStudent_id_card()==null){
                 mImageInfomationB.setVisibility(View.INVISIBLE);
             }else{
                 mImageInfomationB.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_b()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationB);
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+informationModel.getData().getId_card_b()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationB);
             }
             if(informationModel.getData().getStudent_id_card()==null){
                 mImageInfomationBanshen.setVisibility(View.INVISIBLE);
             }else{
                 mImageInfomationBanshen.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_on_hand()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationBanshen);
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+informationModel.getData().getId_card_on_hand()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationBanshen);
             }
             if(informationModel.getData().getStudent_id_card()==null){
                 mImageInfomationStudent.setVisibility(View.INVISIBLE);
             }else{
                 mImageInfomationStudent.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(AppConfig.BASE_URL+informationModel.getData().getId_card_no()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationStudent);
+                Glide.with(getContext()).load(AppConfig.IMAGE_URL+informationModel.getData().getStudent_id_card()).transform(new GlideRoundTransform(getContext(), 5)).error(R.drawable.error).into(mImageInfomationStudent);
             }
 
         }
@@ -210,6 +210,7 @@ public class InfomationActivity extends BaseActivity {
         @Override
         public void doUploadStudent(NormalModel uploadStudentData) {
             ToastUtils.show(getContext(),"上传成功");
+            finish();
         }
 
         @Override
@@ -267,11 +268,7 @@ public class InfomationActivity extends BaseActivity {
                     }
 
                     informationPresenter.uploadInformation(phoneNumber,token,name,idCardNo,servicePassword,company,address);
-//                    informationPresenter.uploadIdCardA("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileA);
-//                    informationPresenter.uploadIdCardB("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileB);
-//                    informationPresenter.uploadIdCardBanshen("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileC);
-//                    informationPresenter.uploadStudent("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFileD);
-//                    informationPresenter.uploadInformation("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",name,idCardNo,servicePassword,company,address);
+
                 }
                 break;
             case R.id.back:

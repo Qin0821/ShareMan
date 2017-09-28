@@ -5,14 +5,19 @@ import com.youhu.shareman.shareman.model.data.AddressMangerModel;
 import com.youhu.shareman.shareman.model.data.BannerModel;
 import com.youhu.shareman.shareman.model.data.BaseData;
 import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.ChooseVoucherModel;
 import com.youhu.shareman.shareman.model.data.HotRecomentModel;
 import com.youhu.shareman.shareman.model.data.InformationModel;
 import com.youhu.shareman.shareman.model.data.LoginCodeModel;
+import com.youhu.shareman.shareman.model.data.MessageModel;
 import com.youhu.shareman.shareman.model.data.NewNumberLoginCodeModel;
 import com.youhu.shareman.shareman.model.data.NormalModel;
+import com.youhu.shareman.shareman.model.data.PayWayModel;
 import com.youhu.shareman.shareman.model.data.ProductDetailModel;
 import com.youhu.shareman.shareman.model.data.ShareOrderModel;
 import com.youhu.shareman.shareman.model.data.UserInfoModel;
+import com.youhu.shareman.shareman.model.data.VoucherModel;
+import com.youhu.shareman.shareman.model.data.ZhimaModel;
 
 import java.util.List;
 
@@ -184,8 +189,47 @@ public interface RetrofitService {
     @GET(AppConfig.MAIN_HOT_RECOMENT)
     Observable<BaseData<List<HotRecomentModel>>> getHotRecoment();
 
+    //主页分类
+    @FormUrlEncoded
+    @POST(AppConfig.MAIN_PHONE_TYPE)
+    Observable<BaseData<List<BrandModel>>> getMainType(@Field("type") int type);
+
+    //主页消息
+    @GET(AppConfig.MAIN_MESSAGE)
+    Observable<BaseData<List<MessageModel>>> getMainMessage();
+
     //商品详情预览
     @FormUrlEncoded
     @POST(AppConfig.PRODUCT_DETAIL)
     Observable<BaseData<ProductDetailModel>> getProductDetail(@Field("version") String version);
+
+    //优惠券
+    @FormUrlEncoded
+    @POST(AppConfig.VOUCHER)
+    Observable<BaseData<List<VoucherModel>>> getVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+
+    //使用优惠券
+    @FormUrlEncoded
+    @POST(AppConfig.USE_VOUCHER)
+    Observable<BaseData<ChooseVoucherModel>> useVoucher(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("voucherId") String voucherId,@Field("orderId") String orderId);
+
+    //芝麻信用
+    @FormUrlEncoded
+    @POST(AppConfig.ZHI_MA)
+    Observable<BaseData<ZhimaModel>> getZhima(@Field("phoneNumber") String phoneNumber, @Field("token") String token);
+
+    //开始预约
+    @FormUrlEncoded
+    @POST(AppConfig.START_BOOKING)
+    Observable<NormalModel> startBooking(@Field("phoneNumber") String phoneNumber, @Field("token") String token,@Field("version") String version,@Field("introduceTitle") String introduceTitle);
+
+    //支付信息
+    @FormUrlEncoded
+    @POST(AppConfig.PAY_RESULT)
+    Observable<BaseData<PayWayModel>> getPayInfo(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("orderId") int orderId);
+
+    //支付的订单
+    @FormUrlEncoded
+    @POST(AppConfig.PAY_ORDERINFO)
+    Observable<BaseData<String>> getPayOrderInfo(@Field("phoneNumber") String phoneNumber, @Field("token") String token, @Field("voucherId") int voucherId,@Field("orderId") int orderId);
 }

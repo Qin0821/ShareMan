@@ -8,7 +8,12 @@ public class AppConfig {
     /**
      * BASE URL
      */
-    public static final String BASE_URL = "http://123.207.70.168/";
+    public static final String BASE_URL = "https://www.hxx0571.com/";
+
+    /**
+     * IMAGE URL
+     */
+    public static final String IMAGE_URL = "https://www.hxx0571.com/image/";
 
     /**
      * 获取验证码
@@ -146,9 +151,48 @@ public class AppConfig {
     public static final String MAIN_HOT_RECOMENT = "shareman/category/findHot";
 
     /**
+     * 主页分类
+     */
+    public static final String MAIN_PHONE_TYPE = "shareman/category/findCategory";
+
+    /**
+     * 主页系统消息
+     */
+    public static final String MAIN_MESSAGE = "shareman/sysMsg/findMessage";
+
+    /**
      * 商品详情图预览
      */
     public static final String PRODUCT_DETAIL = "shareman/product/findProductByVersion";
 
+    /**
+     * 优惠券
+     */
+    public static final String VOUCHER = "shareman/voucher/findVoucher";
+
+    /**
+     * 使用优惠券
+     */
+    public static final String USE_VOUCHER = "shareman/voucher/selectVoucher";
+
+    /**
+     * 开始预约
+     */
+    public static final String START_BOOKING = "shareman/order/confirmOrder";
+
+    /**
+     * 获取芝麻信用
+     */
+    public static final String ZHI_MA = "shareman/pay/getZhimaScoreResult";
+
+    /**
+     * 拉取支付信息
+     */
+    public static final String PAY_RESULT = "shareman/pay/selectPayWay";
+
+    /**
+     * 获取支付订单
+     */
+    public static final String PAY_ORDERINFO = "shareman/pay/getPayOrder";
 
 }

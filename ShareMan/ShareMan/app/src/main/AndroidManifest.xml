@@ -68,6 +68,19 @@
         <activity android:name=".ui.activity.FeedBackOrderNormalActivity"/>
         <activity android:name=".ui.activity.ShareOrderActivity"/>
         <activity android:name=".ui.activity.EditAddressActivity"/>
+        <!-- 支付宝 alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
 
         <activity android:name=".ui.activity.CropActivity"/>
         <!--<activity android:name=".wxapi.WXEntryActivity"-->

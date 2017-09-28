@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.youhu.shareman.shareman.R;
-import com.youhu.shareman.shareman.data.ProductDetailInfo;
+import com.youhu.shareman.shareman.model.constant.AppConfig;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class ProductDetailAdapter extends BaseAdapter {
 
     private Context context;
-    private List<ProductDetailInfo> datas;
+    private List<String> datas;
 
 
     public Context getContext() {
@@ -30,11 +31,11 @@ public class ProductDetailAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public List<ProductDetailInfo> getDatas() {
+    public List<String> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<ProductDetailInfo> datas) {
+    public void setDatas(List<String> datas) {
         this.datas = datas;
     }
 
@@ -64,7 +65,7 @@ public class ProductDetailAdapter extends BaseAdapter {
             myViewHolder = (MyViewHolder) view.getTag();
         }
         //设置数据
-        myViewHolder.mImageId.setImageResource(datas.get(i).getImageId());
+        Glide.with(getContext()).load(AppConfig.IMAGE_URL+datas.get(i).toString()).error(R.drawable.error).into(myViewHolder.mImageId);
 
         return view;
     }

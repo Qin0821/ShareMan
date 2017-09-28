@@ -53,7 +53,8 @@
                     android:layout_height="186dp"
                     android:background="@drawable/top_bg"/>
                 <ImageView
-                    android:scaleType="centerCrop"
+                    android:paddingTop="4dp"
+                    android:scaleType="fitXY"
                     android:id="@+id/user_image"
                     android:layout_centerInParent="true"
                     android:layout_width="70dp"

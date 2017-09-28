@@ -6,11 +6,9 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.PayWayModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.view.BrandView;
-
-import java.util.List;
+import com.youhu.shareman.shareman.view.PaymentWayView;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,17 +16,17 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by Touch on 2017/9/15.
+ * Created by Touch on 2017/9/27.
  */
 
-public class BrandPresenter implements BasePresenter {
+public class PaymentWayPresenter implements BasePresenter {
 
-    private static String Tag="BrandPresenter";
+    private static String Tag="PaymentWayPresenter";
     private Context context;
     private DataManager manager;
-    private BaseData<List<BrandModel>> brandModel;
-    private BaseData<List<BrandModel>> mainTypeModel;
-    private BrandView brandView;
+    private BaseData<PayWayModel> payWayModel;
+    private BaseData<String> orderInfoModel;
+    private PaymentWayView paymentWayView;
     private CompositeSubscription compositeSubscription;
 
     @Override
@@ -56,21 +54,23 @@ public class BrandPresenter implements BasePresenter {
 
     @Override
     public void attachView(BaseView view) {
-        brandView= (BrandView) view;
+        paymentWayView= (PaymentWayView) view;
     }
 
-    public void doBrandData(String brandId){
-        compositeSubscription.add(manager.getBrandDatas(brandId)
+
+
+    public void getPayInfo(String phoneNumber, String token, int orderId){
+        compositeSubscription.add(manager.getPayInfo(phoneNumber,token,orderId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
+                .subscribe(new Observer<BaseData<PayWayModel>>() {
                     @Override
                     public void onCompleted() {
-                        if(brandModel!=null){
-                            brandView.getBrandData(brandModel);
+                        if(payWayModel!=null){
+                            paymentWayView.doGetPayPrice(payWayModel);
                         }
                     }
 
@@ -80,27 +80,28 @@ public class BrandPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<BrandModel>> brandDataBaseData) {
+                    public void onNext(BaseData<PayWayModel> brandDataBaseData) {
                         Log.i(Tag,brandDataBaseData.getData().toString());
-                        brandModel=brandDataBaseData;
+                        payWayModel=brandDataBaseData;
                     }
                 })
         );
     }
 
 
-    public void getMainType(int type){
-        compositeSubscription.add(manager.getMainType(type)
+    //获取订单信息
+    public void getPayOrderInfo(String phoneNumber, String token,int voucherId, int orderId){
+        compositeSubscription.add(manager.getPayOrderInfo(phoneNumber,token,voucherId,orderId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
+                .subscribe(new Observer<BaseData<String>>() {
                     @Override
                     public void onCompleted() {
-                        if(mainTypeModel!=null){
-                            brandView.getMainBrandData(mainTypeModel);
+                        if(orderInfoModel!=null){
+                            paymentWayView.doGetOrderInfo(orderInfoModel);
                         }
                     }
 
@@ -110,12 +111,11 @@ public class BrandPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<BrandModel>> mainBrandData) {
-                        Log.i(Tag,mainBrandData.getData().toString());
-                        mainTypeModel=mainBrandData;
+                    public void onNext(BaseData<String> orderInfoData) {
+                        Log.i(Tag,orderInfoData.getData());
+                        orderInfoModel=orderInfoData;
                     }
                 })
         );
     }
-
 }

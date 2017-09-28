@@ -6,9 +6,10 @@ import android.util.Log;
 import com.youhu.shareman.shareman.base.BaseView;
 import com.youhu.shareman.shareman.model.constant.DataManager;
 import com.youhu.shareman.shareman.model.data.BaseData;
-import com.youhu.shareman.shareman.model.data.BrandModel;
+import com.youhu.shareman.shareman.model.data.ChooseVoucherModel;
+import com.youhu.shareman.shareman.model.data.VoucherModel;
 import com.youhu.shareman.shareman.presenter.BasePresenter;
-import com.youhu.shareman.shareman.view.BrandView;
+import com.youhu.shareman.shareman.view.VoucherView;
 
 import java.util.List;
 
@@ -18,28 +19,28 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by Touch on 2017/9/15.
+ * Created by Touch on 2017/9/27.
  */
 
-public class BrandPresenter implements BasePresenter {
+public class VoucherPresenter implements BasePresenter {
 
-    private static String Tag="BrandPresenter";
+    private static String Tag="VoucherPresenter";
     private Context context;
     private DataManager manager;
-    private BaseData<List<BrandModel>> brandModel;
-    private BaseData<List<BrandModel>> mainTypeModel;
-    private BrandView brandView;
+    private BaseData<List<VoucherModel>> voucherModel;
+    private BaseData<ChooseVoucherModel> useVoucherModel;
+    private VoucherView voucherView;
     private CompositeSubscription compositeSubscription;
 
     @Override
     public void onCreate() {
-
+        manager=new DataManager(context);
+        compositeSubscription=new CompositeSubscription();
     }
 
     @Override
     public void onStart() {
-        manager=new DataManager(context);
-        compositeSubscription=new CompositeSubscription();
+
     }
 
     @Override
@@ -56,21 +57,22 @@ public class BrandPresenter implements BasePresenter {
 
     @Override
     public void attachView(BaseView view) {
-        brandView= (BrandView) view;
+        voucherView= (VoucherView) view;
     }
 
-    public void doBrandData(String brandId){
-        compositeSubscription.add(manager.getBrandDatas(brandId)
+
+    public void getVoucher(String phoneNumber,String token){
+        compositeSubscription.add(manager.getVoucher(phoneNumber,token)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
+                .subscribe(new Observer<BaseData<List<VoucherModel>>>() {
                     @Override
                     public void onCompleted() {
-                        if(brandModel!=null){
-                            brandView.getBrandData(brandModel);
+                        if(voucherModel!=null){
+                            voucherView.doGetVoucher(voucherModel);
                         }
                     }
 
@@ -80,27 +82,28 @@ public class BrandPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<BrandModel>> brandDataBaseData) {
-                        Log.i(Tag,brandDataBaseData.getData().toString());
-                        brandModel=brandDataBaseData;
+                    public void onNext(BaseData<List<VoucherModel>> voucherData) {
+                        Log.i(Tag,voucherData.getData().toString());
+                        voucherModel=voucherData;
                     }
                 })
         );
     }
 
 
-    public void getMainType(int type){
-        compositeSubscription.add(manager.getMainType(type)
+    //使用优惠券
+    public void useVoucher(String phoneNumber, String token, String voucherId, String orderId){
+        compositeSubscription.add(manager.useVoucher(phoneNumber,token,voucherId,orderId)
                 //事件消费在主线程
                 .observeOn(AndroidSchedulers.mainThread())
                 //事件消费在子线程
                 .subscribeOn(Schedulers.io())
                 //指定一个观察者
-                .subscribe(new Observer<BaseData<List<BrandModel>>>() {
+                .subscribe(new Observer<BaseData<ChooseVoucherModel>>() {
                     @Override
                     public void onCompleted() {
-                        if(mainTypeModel!=null){
-                            brandView.getMainBrandData(mainTypeModel);
+                        if(useVoucherModel!=null){
+                            voucherView.doUseVoucher(useVoucherModel);
                         }
                     }
 
@@ -110,9 +113,9 @@ public class BrandPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onNext(BaseData<List<BrandModel>> mainBrandData) {
-                        Log.i(Tag,mainBrandData.getData().toString());
-                        mainTypeModel=mainBrandData;
+                    public void onNext(BaseData<ChooseVoucherModel> useVoucherData) {
+                        Log.i(Tag,useVoucherData.getData().toString());
+                        useVoucherModel=useVoucherData;
                     }
                 })
         );

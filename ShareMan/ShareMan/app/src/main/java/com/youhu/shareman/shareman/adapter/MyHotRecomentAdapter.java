@@ -67,7 +67,7 @@ public class MyHotRecomentAdapter extends BaseAdapter {
         }
         //设置数据
         Glide.with(getContext())
-                .load(AppConfig.BASE_URL+datas.get(i).getCategory_url())
+                .load(AppConfig.IMAGE_URL+datas.get(i).getCategory_url())
                 .transform(new GlideRoundTransform(getContext(), 5))
                 .into(myViewHolder.mImage);
 //        myViewHolder.mImage.setImageResource(datas.get(i).getImageUrl());

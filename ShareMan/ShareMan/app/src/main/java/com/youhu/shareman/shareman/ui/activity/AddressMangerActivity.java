@@ -80,6 +80,8 @@ public class AddressMangerActivity extends BaseActivity {
                 int postDetailId=datas.get(i).getId();
                 addressMangerPresenter.doDeletePostDetail(phoneNumber,token,postDetailId);
 //                addressMangerPresenter.doDeletePostDetail("15701236749","fcfcf1962e40afc99ea1e84a01e6c001",postDetailId);
+                //删除后重新请求数据
+                addressMangerPresenter.doPostDetail(phoneNumber,token);
                 myAddressListAdapter.notifyDataSetChanged();
             }
         });

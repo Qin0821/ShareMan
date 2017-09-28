@@ -26,9 +26,10 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_pay_price"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="7dp"
-            android:text="¥ 2000"
+            android:text=""
             android:textColor="@color/priceColor"
             android:layout_below="@id/text5"
             android:layout_width="wrap_content"
@@ -43,9 +44,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/tv_voucher"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"
-                android:text="优惠券折扣100元"
+                android:text=""
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

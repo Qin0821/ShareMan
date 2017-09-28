@@ -6,22 +6,25 @@ package com.youhu.shareman.shareman.model.data;
 
 public class ShareOrderModel {
 
+
     /**
-     * address : 福林山云栈洞
+     * address : 杭州市气死你区气死你路气死你家园7栋741号
+     * cancel_time : 2017-09-22 18:40:25
      * color_name : 太空银
      * create_time : 2017-09-22 18:40:25
-     * id_card_no : 身份证号
+     * id_card_no : 7474741747474174
      * imei : 1113332211321
      * memory : 16
-     * name : 碧螺春
+     * name : 王柏松
      * order_id : 1
      * real_price : 3000
-     * sign_date_a : 2017-09-22 18:41:17
+     * sign_date_a : 2017-09-22 18:40:25
+     * status : 0
      * version : OPPO R11
      */
 
-    private String cancel_time;
     private String address;
+    private String cancel_time;
     private String color_name;
     private String create_time;
     private String id_card_no;
@@ -31,15 +34,8 @@ public class ShareOrderModel {
     private int order_id;
     private int real_price;
     private String sign_date_a;
+    private int status;
     private String version;
-
-    public String getCancel_time() {
-        return cancel_time;
-    }
-
-    public void setCancel_time(String cancel_time) {
-        this.cancel_time = cancel_time;
-    }
 
     public String getAddress() {
         return address;
@@ -47,6 +43,14 @@ public class ShareOrderModel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCancel_time() {
+        return cancel_time;
+    }
+
+    public void setCancel_time(String cancel_time) {
+        this.cancel_time = cancel_time;
     }
 
     public String getColor_name() {
@@ -121,6 +125,14 @@ public class ShareOrderModel {
         this.sign_date_a = sign_date_a;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getVersion() {
         return version;
     }
@@ -132,8 +144,8 @@ public class ShareOrderModel {
     @Override
     public String toString() {
         return "ShareOrderModel{" +
-                "cancel_time='" + cancel_time + '\'' +
-                ", address='" + address + '\'' +
+                "address='" + address + '\'' +
+                ", cancel_time='" + cancel_time + '\'' +
                 ", color_name='" + color_name + '\'' +
                 ", create_time='" + create_time + '\'' +
                 ", id_card_no='" + id_card_no + '\'' +
@@ -143,6 +155,7 @@ public class ShareOrderModel {
                 ", order_id=" + order_id +
                 ", real_price=" + real_price +
                 ", sign_date_a='" + sign_date_a + '\'' +
+                ", status=" + status +
                 ", version='" + version + '\'' +
                 '}';
     }

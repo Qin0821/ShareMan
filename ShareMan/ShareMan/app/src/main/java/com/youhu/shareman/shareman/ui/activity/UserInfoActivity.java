@@ -124,8 +124,6 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     //在获取焦点后刷新请求
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -166,7 +164,7 @@ public class UserInfoActivity extends BaseActivity {
         public void doGetUserInfo(BaseData<UserInfoModel> userInfoData) {
             //设置界面数据
             //头像
-            Glide.with(getContext()).load(AppConfig.BASE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 15)).error(R.drawable.sb_yellow_small).into(mUserImage);
+            Glide.with(getContext()).load(AppConfig.IMAGE_URL+userInfoData.getData().getPortrait()).transform(new GlideRoundTransform(getContext(), 15)).error(R.drawable.sb_yellow_small).into(mUserImage);
             //昵称
             mUserNickname.setText(userInfoData.getData().getNickname());
             //性别
@@ -225,6 +223,8 @@ public class UserInfoActivity extends BaseActivity {
 //                    userInfoPresenter.doChangeNick("phoneNumber","fcfcf1962e40afc99ea1e84a01e6c001",nickname);
                     userInfoPresenter.doChangeNick(phoneNumber,token,nickname);
                     selfDialog.dismiss();
+                    //修改后刷新数据
+                    userInfoPresenter.getUserInfo(phoneNumber,token);
                 }
             }
         });
@@ -245,9 +245,10 @@ public class UserInfoActivity extends BaseActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
 //                    File temp = new File(mTempPhotoPath);
                     userInfoPresenter.doChangeUserImage(phoneNumber,token,myCaptureFile);
+                    //重新获取头像
+                    userInfoPresenter.getUserInfo(phoneNumber,token);
 //                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",myCaptureFile);
 //                    startCropActivity(Uri.fromFile(temp));
                     break;
@@ -255,6 +256,8 @@ public class UserInfoActivity extends BaseActivity {
                     mGetPhotoPath=data.getData();
                     File file=new File(String.valueOf(mGetPhotoPath));
                     userInfoPresenter.doChangeUserImage(phoneNumber,token,file);
+                    //重新获取头像
+                    userInfoPresenter.getUserInfo(phoneNumber,token);
 //                    userInfoPresenter.doChangeUserImage("15701236749","4f4f5ccb9f7ad689ba2552c2c0d25703",file);
 //                    startCropActivity(data.getData());
                     break;
